@@ -1,0 +1,14 @@
+strip-unit($value)
+  unit($value, '')
+
+responsive-size($properties, $min-vw, $max-vw, $min-value, $max-value)
+  for $property in $properties
+    {$property}: $min-value
+
+  @media screen and (min-width: $min-vw)
+    for $property in $properties
+      {$property}: s('calc(%s + %s * (100vw - %s) / %s)', $min-value, strip-unit($max-value - $min-value), $min-vw, strip-unit($max-vw - $min-vw))
+
+  @media screen and (min-width: $max-vw)
+    for $property in $properties
+      {$property}: $max-value
