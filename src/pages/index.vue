@@ -1,8 +1,8 @@
 <template>
-  <q-page class="_wrapper">
+  <q-page class="_index-wrapper">
     <div class="pa-md"><info-total /></div>
     <navigation-tabs />
-    <div class="_keypad"><keypad /></div>
+    <div class="_sub-page-wrapper"><keypad /></div>
   </q-page>
 </template>
 
@@ -18,9 +18,15 @@ export default {
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
-// ._wrapper
+._index-wrapper
+  display flex
+  flex-direction column
 
-// ._keypad
-
+._sub-page-wrapper
+  flex 1
+  display flex
+  flex-direction column
+.keypad
+  flex 1
 
 </style>

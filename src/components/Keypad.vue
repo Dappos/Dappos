@@ -1,5 +1,5 @@
 <template>
-<div class="keypad">
+<div class="keypad" :style="style">
   <div class="_1">1</div>
   <div class="_2">2</div>
   <div class="_3">3</div>
@@ -19,7 +19,13 @@
 export default {
   components: {},
   props: [],
-  data () { return {} },
+  mounted () {
+    let h = this.$el.clientHeight
+    this.style = `height: ${h}px`
+    this.$el.setAttribute('style',`height: ${h}px`)
+    this.$el.style.width=`height: ${h}`
+  },
+  data () { return { style: '' } },
   computed:
   {
     get () { return this.$store.getters },
@@ -38,10 +44,18 @@ export default {
 
 .keypad
   display grid
+  pa lg
+  grid-gap 4em
   width 100%
-  height 100%
-  grid-template-rows 1fr 1fr 1fr 1frs
+  grid-template-rows 1fr 1fr 1fr 1fr
   grid-template-columns 1fr 1fr 1fr
+  div
+    font-size 3em
+    display flex
+    justify-content center
+    align-items center
+    align-text center
+    border-bottom thin lightgrey solid
 // ._1
 // ._2
 // ._3
