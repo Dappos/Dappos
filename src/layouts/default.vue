@@ -1,22 +1,22 @@
 <template>
-  <q-layout view="lhh Lpr lff">
-    <q-layout-header>
+  <q-layout view="lhh Lpr lff" class="_layout">
+    <q-layout-header class="_header">
       <q-toolbar
-        :glossy="$q.theme === 'mat'"
-        :inverted="$q.theme === 'ios'"
+        :inverted="true"
         color="primary"
         class="_toolbar"
       >
-        <q-btn
+        <button
           @click="leftDrawerOpen = !leftDrawerOpen"
           flat dense
           aria-label="Menu"
+          class="reset-button"
         >
           <div class="_menu-btn">
             <div><img src="~assets/dappos-icon.png" alt="menu"></div>
             <div class="q-ml-sm"><q-icon name="ion-arrow-down" /></div>
           </div>
-        </q-btn>
+        </button>
         <info-cart />
       </q-toolbar>
     </q-layout-header>
@@ -53,7 +53,13 @@ export default {
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
+._layout
+  background-color $bg-light
+._header
+  border none
 ._toolbar
+  background-color $bg-light
+  border-bottom none
   justify-content space-between
 
 ._menu-btn
@@ -62,4 +68,5 @@ export default {
   img
     width 2em
     height auto
+
 </style>

@@ -7,9 +7,12 @@ export default [
       {
         path: '',
         component: () => import('pages/index'),
-        // children: [
-        //   {path: 'keypad', component: () => import('pages/keypad'),}
-        // ]
+        children: [
+          {path: '', component: () => import('components/Keypad')},
+          {path: 'keypad', component: () => import('components/Keypad')},
+          {path: 'menulist', component: () => import('components/MenuList')},
+          {path: 'cart', component: () => import('components/Cart')}
+        ]
       }
     ]
   },

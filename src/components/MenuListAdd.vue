@@ -1,9 +1,7 @@
 <template>
-<div class="info-cart">
-  <router-link to="/cart" class="_link">
-    <div class="_cart">Cart</div>
-    <div class="_count">{{ state.cart.items.length }}</div>
-  </router-link>
+<div class="menu-list-add">
+  <q-icon class="_plus" name="ion-add" />
+  <div class="_text">Add item</div>
 </div>
 </template>
 
@@ -28,23 +26,16 @@ export default {
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
-// .info-cart
-._link
-  reset-a()
+.menu-list-add
   display flex
+  justify-content center
   align-items center
-  color $gray-dark
-  width 100%
-  height 100%
-._cart
+  font-size 1.3em
+  color $primary
+  border-bottom 1px solid $bg-light
+._plus
   mr sm
-  font-weight 500
-._count
-  font-weight 500
-  px sm
-  py xxs
-  // pb xs
-  border 2px solid $gray-dark
-  border-radius $radius
+  pb xxs
+  font-size 1.2em
 
 </style>

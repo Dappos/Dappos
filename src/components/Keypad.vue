@@ -1,29 +1,28 @@
 <template>
 <div class="keypad" :style="style">
-  <div class="_1">1</div>
-  <div class="_2">2</div>
-  <div class="_3">3</div>
-  <div class="_4">4</div>
-  <div class="_5">5</div>
-  <div class="_6">6</div>
-  <div class="_7">7</div>
-  <div class="_8">8</div>
-  <div class="_9">9</div>
-  <div class="_C">C</div>
-  <div class="_0">0</div>
-  <div class="_add">add</div>
+  <keypad-input class="_keypad-input" />
+  <keypad-keys class="_keypad-keys" />
 </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import KeypadKeys from './KeypadKeys'
+import KeypadInput from './KeypadInput'
+
 export default {
-  components: {},
+  components: { KeypadKeys, KeypadInput },
   props: [],
   mounted () {
     let h = this.$el.clientHeight
-    this.style = `height: ${h}px`
-    this.$el.setAttribute('style',`height: ${h}px`)
-    this.$el.style.width=`height: ${h}`
+    console.log('height.clientHeight → ', this.$el.clientHeight, this)
+    Vue.nextTick(_ => {
+      console.log('height.clientHeight → ', this.$el.clientHeight, this)
+    })
+    // console.log('height.offsetHeight → ', this.$el.offsetHeight, this)
+    // this.style = `height: ${h}px`
+    // this.$el.setAttribute('style',`height: ${h}px`)
+    // this.$el.style.width=`height: ${h}`
   },
   data () { return { style: '' } },
   computed:
@@ -43,30 +42,21 @@ export default {
 @import '../css/themes/common.variables'
 
 .keypad
-  display grid
-  pa lg
-  grid-gap 4em
   width 100%
-  grid-template-rows 1fr 1fr 1fr 1fr
-  grid-template-columns 1fr 1fr 1fr
-  div
-    font-size 3em
-    display flex
-    justify-content center
-    align-items center
-    align-text center
-    border-bottom thin lightgrey solid
-// ._1
-// ._2
-// ._3
-// ._4
-// ._5
-// ._6
-// ._7
-// ._8
-// ._9
-// ._0
-// ._C
-// ._add
+  display flex
+  flex-direction column
+  ._keypad-input
+    border-top-left-radius $radius
+    border-top-right-radius $radius
+    overflow hidden
+    width 100%
+  ._keypad-keys
+    border-bottom-left-radius $radius
+    border-bottom-right-radius $radius
+    overflow hidden
+    width 100%
+    height 100%
+    flex 1
+    border-top 1px solid $bg-light
 
 </style>

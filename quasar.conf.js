@@ -6,6 +6,7 @@ module.exports = function (ctx) {
     plugins: [
       'vuex-router-sync',
       'vueComponents',
+      'vuePlugins',
       'i18n',
       'axios',
       'windowRegistrations',

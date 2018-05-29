@@ -1,7 +1,7 @@
 <template>
 <div class="info-total">
   <div class="_text">Charge</div>
-  <div class="_price">¥5,000</div>
+  <div class="_price">{{ get['cart/totalAmount'] | money(get['settings/currency/config']) }}</div>
 </div>
 </template>
 
@@ -30,12 +30,19 @@ export default {
   pa md
   font-size 1.4em
   width 100%
-  background-color black
+  background-color $primary
   color white
   font-weight 500
   display flex
   justify-content center
+  border-radius $radius
 ._price
   ml sm
+  input
+    background none
+    border none
+    outline none
+    color white
+    text-align right
 
 </style>

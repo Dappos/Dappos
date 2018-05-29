@@ -1,15 +1,24 @@
 <template>
-<div class="info-cart">
-  <router-link to="/cart" class="_link">
-    <div class="_cart">Cart</div>
-    <div class="_count">{{ state.cart.items.length }}</div>
-  </router-link>
+<div class="cart">
+  <div class="_wrapper">
+    <div class="_top">
+      <div class="_nav"></div>
+      <div class="_title"><h2>Cart</h2></div>
+    </div>
+    <cart-item
+      v-for="(item, index) in get['cart/itemsOverview']"
+      :item="item"
+      :key="'c-' + index"
+    />
+  </div>
 </div>
 </template>
 
 <script>
+import CartItem from './CartItem'
+
 export default {
-  components: {},
+  components: { CartItem },
   props: [],
   data () { return {} },
   computed:
@@ -24,27 +33,13 @@ export default {
   }
 }
 </script>
-
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
-// .info-cart
-._link
-  reset-a()
-  display flex
-  align-items center
-  color $gray-dark
-  width 100%
-  height 100%
-._cart
-  mr sm
-  font-weight 500
-._count
-  font-weight 500
-  px sm
-  py xxs
-  // pb xs
-  border 2px solid $gray-dark
-  border-radius $radius
+.cart
+  background-color white
+._top
+  border-bottom 1px solid $bg-light
+  pa lg
 
 </style>
