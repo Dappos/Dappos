@@ -1,24 +1,21 @@
 <template>
 <div class="cart">
-  <div class="_wrapper">
-    <div class="_top">
-      <div class="_nav"></div>
-      <div class="_title"><h2>Cart</h2></div>
-    </div>
-    <cart-item
-      v-for="(item, index) in get['cart/itemsOverview']"
-      :item="item"
-      :key="'c-' + index"
-    />
+  <item-row
+    v-for="(item, index) in state.cart.items"
+    :item="item"
+    :key="'c-' + index"
+  />
+  <div class="_clear">
+    <button @click="dispatch('cart/clearAll')">Clear all</button>
   </div>
 </div>
 </template>
 
 <script>
-import CartItem from './CartItem'
+import ItemRow from './Cart_ItemRow'
 
 export default {
-  components: { CartItem },
+  components: { ItemRow },
   props: [],
   data () { return {} },
   computed:
@@ -36,10 +33,16 @@ export default {
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
-.cart
-  background-color white
-._top
-  border-bottom 1px solid $bg-light
-  pa lg
+// .cart
+._clear
+  px lg
+  width 100%
+  button
+    reset-button()
+    width 100%
+    border-bottom 1px solid $bg-light
+    font-size 1.2em
+    color $gray-light
+    py md
 
 </style>

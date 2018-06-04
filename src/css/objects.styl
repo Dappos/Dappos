@@ -1,19 +1,21 @@
 
 o-btn()
-  font-size 1.15rem
-  py 1.15rem
-  px 1.3rem
-  color white
-  font-weight 600
-  min-width 16.5rem
+  ma 0
   border none
-  border-radius .3rem
+  pa md
+  font-size 1.4em
+  background-color $primary
+  color white
+  font-weight 500
+  border-radius $radius
   white-space nowrap
   text-decoration none
   text-align center
+  display flex
+  justify-content center
   shadow-2()
 
-.o-btn--p
+.o-btn
   o-btn()
   background-color $primary
 .o-btn--s
@@ -28,3 +30,11 @@ o-btn()
   color $secondary
   display flex
   align-items center
+
+.animation-flip-x
+  animation flip-x 3s linear infinite
+
+@keyframes flip-x {
+  0%, 49.999% { transform: scaleX(1) }
+  50%, 100% { transform: scaleX(-1) }
+}

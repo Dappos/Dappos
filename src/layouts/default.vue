@@ -1,20 +1,25 @@
 <template>
   <q-layout view="lhh Lpr lff" class="_layout">
-    <q-layout-header class="_header">
+    <q-layout-header :class="['_header', {'_elevate': state.menu.opened || state.menu.animating}]">
       <q-toolbar
         :inverted="true"
         color="primary"
         class="_toolbar"
       >
         <button
-          @click="leftDrawerOpen = !leftDrawerOpen"
+          @click="dispatch('toggleMenu')"
           flat dense
           aria-label="Menu"
-          class="reset-button"
+          :class="['reset-button']"
         >
           <div class="_menu-btn">
             <div><img src="~assets/dappos-icon.png" alt="menu"></div>
-            <div class="q-ml-sm"><q-icon name="ion-arrow-down" /></div>
+            <div class="q-ml-sm">
+              <q-icon
+                :class="['_arrow', {rotated: state.menu.opened}]"
+                name="ion-arrow-down"
+              />
+            </div>
           </div>
         </button>
         <info-cart />
@@ -46,6 +51,16 @@ export default {
   },
   methods: {
     openURL
+  },
+  computed:
+  {
+    get () { return this.$store.getters },
+    state () { return this.$store.state },
+  },
+  methods:
+  {
+    commit (action, payload) { return this.$store.commit(action, payload) },
+    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>
@@ -58,7 +73,7 @@ export default {
 ._header
   border none
 ._toolbar
-  background-color $bg-light
+  background-color transparent
   border-bottom none
   justify-content space-between
 
@@ -68,5 +83,11 @@ export default {
   img
     width 2em
     height auto
+._elevate
+  z-index 10000
+._arrow
+  transition all .4s linear
+.rotated
+  transform rotate(180deg)
 
 </style>

@@ -12,36 +12,39 @@ xxxl = ($space-base * 5)
 
 // Mixins
 
-pa(val)
+// ... = rest params (to support !important)
+// See http://stylus-lang.com/docs/vargs.html
+
+pa(val...)
   padding val
-pt(val)
+pt(val...)
   padding-top val
-pr(val)
+pr(val...)
   padding-right val
-pb(val)
+pb(val...)
   padding-bottom val
-pl(val)
+pl(val...)
   padding-left val
-px(val)
+px(val...)
   pr(val)
   pl(val)
-py(val)
+py(val...)
   pt(val)
   pb(val)
-ma(val)
+ma(val...)
   margin val
-mt(val)
+mt(val...)
   margin-top val
-mr(val)
+mr(val...)
   margin-right val
-mb(val)
+mb(val...)
   margin-bottom val
-ml(val)
+ml(val...)
   margin-left val
-mx(val)
+mx(val...)
   mr(val)
   ml(val)
-my(val)
+my(val...)
   mt(val)
   mb(val)
 

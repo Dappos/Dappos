@@ -1,6 +1,6 @@
 
 export default function () {
   return {
-    stateValue: null
+    menu: {opened: false, animating: false}
   }
 }

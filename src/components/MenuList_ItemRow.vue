@@ -1,26 +1,48 @@
 <template>
-<button class="menu-list-item" @click="dispatch('cart/addItem', item)">
+<button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
     <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ item.prices[state.settings.currency.currency] | money(get['settings/currency/config']) }}</div>
+    <div class="_price">{{ price | money(get['settings/currency/config']) }}</div>
   </div>
+  <div
+    class="_fly-icon js-fly-target hidden"
+  >👍</div>
 </button>
 </template>
 
 <script>
+import { uid } from 'quasar'
+
 export default {
   components: {},
   props: ['item'],
-  data () { return {} },
+  data () { return {anime: null, id: uid()} },
   computed:
   {
     get () { return this.$store.getters },
     state () { return this.$store.state },
+    price () {
+      return (!this.item.price)
+        ? this.item.prices[this.state.settings.currency.currency]
+        : this.item.price
+    },
   },
   methods:
   {
     commit (action, payload) { return this.$store.commit(action, payload) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    flyToCart () {
+      const el = this.$el.children[1]
+      const elCart = document.querySelector('.js-info-cart')
+      this.dispatch('animate/fly', {
+        el: el,
+        id: this.id,
+        target: elCart,
+        hidden: true
+      }).then(_ => {
+        this.dispatch('animate/pop', {el: elCart})
+      })
+    },
   }
 }
 </script>
@@ -29,9 +51,11 @@ export default {
 @import '../css/themes/common.variables'
 
 .menu-list-item
+  position relative
   pa 0
   ma 0
   background none
+  background-color white
   border none
   outline none
   width 100%
@@ -52,6 +76,10 @@ export default {
   font-size 1.3em
 ._price
   font-size 1.2em
-
+._fly-icon
+  position absolute
+  top 0
+  left 10%
+  z-index 100000
 
 </style>

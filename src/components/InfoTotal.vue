@@ -1,8 +1,8 @@
 <template>
-<div class="info-total">
+<button @click="pay" class="info-total o-btn">
   <div class="_text">Charge</div>
   <div class="_price">{{ get['cart/totalAmount'] | money(get['settings/currency/config']) }}</div>
-</div>
+</button>
 </template>
 
 <script>
@@ -19,6 +19,10 @@ export default {
   {
     commit (action, payload) { return this.$store.commit(action, payload) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    pay () {
+      if (!this.get['cart/totalAmount']) return
+      this.state.cart.payment.state = true
+    },
   }
 }
 </script>
@@ -27,15 +31,7 @@ export default {
 @import '../css/themes/common.variables'
 
 .info-total
-  pa md
-  font-size 1.4em
   width 100%
-  background-color $primary
-  color white
-  font-weight 500
-  display flex
-  justify-content center
-  border-radius $radius
 ._price
   ml sm
   input

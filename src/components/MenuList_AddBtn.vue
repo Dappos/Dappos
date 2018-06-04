@@ -1,8 +1,8 @@
 <template>
-<div class="menu-list-add">
+<button class="menu-list-add" @click="state.user.menulist.adding.state = true">
   <q-icon class="_plus" name="ion-add" />
   <div class="_text">Add item</div>
-</div>
+</button>
 </template>
 
 <script>
@@ -27,12 +27,14 @@ export default {
 @import '../css/themes/common.variables'
 
 .menu-list-add
+  reset-button()
+  width 100%
   display flex
   justify-content center
   align-items center
   font-size 1.3em
   color $primary
-  border-bottom 1px solid $bg-light
+
 ._plus
   mr sm
   pb xxs

@@ -1,6 +1,5 @@
 <template>
 <div class="keypad-keys">
-  <div class="_bg"></div>
   <div class="_keys">
     <button class="_1" @click="dispatch('keypad/tap', 1)">1</button>
     <button class="_2" @click="dispatch('keypad/tap', 2)">2</button>
@@ -13,7 +12,7 @@
     <button class="_9" @click="dispatch('keypad/tap', 9)">9</button>
     <button class="_C" @click="dispatch('keypad/clear')">C</button>
     <button class="_0" @click="dispatch('keypad/tap', 0)">0</button>
-    <button class="_add" @click="dispatch('keypad/add')">
+    <button class="_add" @click="add()">
       <q-icon name="ion-add" size="1.3em" color="primary" />
     </button>
   </div>
@@ -36,6 +35,23 @@ export default {
   {
     commit (action, payload) { return this.$store.commit(action, payload) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    add () {
+      if (!this.state.keypad.input) return
+      this.dispatch('keypad/add')
+      this.flyToTotal()
+    },
+    flyToTotal () {
+      const el = document.querySelector('.js-keypad-fly')
+      const elCart = document.querySelector('.js-info-cart')
+      this.dispatch('animate/fly', {
+        el: el,
+        id: 'js-keypad-fly',
+        target: elCart,
+        hidden: true
+      }).then(_ => {
+        this.dispatch('animate/pop', {el: elCart})
+      })
+    },
   }
 }
 </script>
@@ -44,16 +60,7 @@ export default {
 @import '../css/themes/common.variables'
 
 .keypad-keys
-  position relative
-  ._bg
-    position absolute
-    z-index 1
-    top 0
-    left 0
-    bottom 0
-    right 0
   ._keys
-    position relative
     z-index 2
     height inherit
     width 100%
@@ -72,13 +79,11 @@ export default {
       border none
       outline none
       z-index 3
-      position relative
       &:active
         box-shadow inset 2px 2px $bg-light
         padding-top 2px
         padding-left 2px
         z-index 1
-
 // ._1
 // ._2
 // ._3

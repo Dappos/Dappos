@@ -1,5 +1,6 @@
 <template>
   <q-page class="_index-wrapper">
+    <modals />
     <div class="_info-total-wrapper"><info-total /></div>
     <div class="_navigation-tabs-wrapper"><navigation-tabs /></div>
     <div class="_sub-page-wrapper">
@@ -12,8 +13,29 @@
 </style>
 
 <script>
+import { dom } from 'quasar'
+const { style, height } = dom
+
 export default {
-  name: 'index'
+  name: 'index',
+  mounted () {
+      // let elH = style(this.$el, 'min-height')
+      // console.log('elH → ', elH)
+      // let elH2 = height(this.$el)
+      // console.log('elH2 → ', elH2)
+      // console.log('this.$el.offsetHeight → ', this.$el.offsetHeight)
+      // console.log('this style → ', this.$el.style.minHeight)
+  },
+  computed:
+  {
+    get () { return this.$store.getters },
+    state () { return this.$store.state },
+  },
+  methods:
+  {
+    commit (action, payload) { return this.$store.commit(action, payload) },
+    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+  }
 }
 </script>
 

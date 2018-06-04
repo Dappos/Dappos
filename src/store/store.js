@@ -6,6 +6,8 @@ import cart from './modules/cart'
 import user from './modules/user'
 import settings from './modules/settings'
 import keypad from './modules/keypad'
+import animate from './modules/animate'
+import web3 from './modules/web3'
 
 export default function () {
   return {
@@ -17,7 +19,9 @@ export default function () {
       cart,
       user,
       settings,
-      keypad
+      keypad,
+      animate,
+      web3,
     }
   }
 }

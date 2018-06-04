@@ -1,14 +1,11 @@
-import menulist from './menulist'
-
 let initialState = function () {
   return {
-    user: null,
+    stateValue: null
   }
 }
 
 export default {
   namespaced: true,
-  modules: { menulist },
   state: initialState(),
   mutations:
   {
@@ -38,8 +35,9 @@ export default {
   },
   getters:
   {
-    isLoggedIn: (state, getters, rootState, rootGetters) => {
-      return true
-    },
+    convert: (state, getters, rootState, rootGetters) =>
+    ({amount, from, to}) => {
+      return amount
+    }
   }
 }

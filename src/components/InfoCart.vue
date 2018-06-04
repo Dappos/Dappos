@@ -1,9 +1,16 @@
 <template>
 <div class="info-cart">
-  <router-link to="/cart" class="_link">
+  <button
+    @click="state.cart.opened.state = !state.cart.opened.state"
+    class="_link reset-button"
+  >
     <div class="_cart">Cart</div>
-    <div class="_count">{{ state.cart.items.length }}</div>
-  </router-link>
+    <div class="_count js-info-cart">{{ get['cart/totalCount'] }}</div>
+  </button>
+  <!-- <router-link to="/cart" class="_link">
+    <div class="_cart">Cart</div>
+    <div class="_count">{{ get['cart/totalCount'] }}</div>
+  </router-link> -->
 </div>
 </template>
 

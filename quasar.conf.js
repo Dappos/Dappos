@@ -59,9 +59,11 @@ module.exports = function (ctx) {
         'QTab',
         'QTabPane',
         'QRouteTab',
+        'QModal',
+        'QSpinnerOval',
       ],
       directives: [
-        'Ripple'
+        'Ripple', 'TouchSwipe'
       ],
       // Quasar plugins
       plugins: [

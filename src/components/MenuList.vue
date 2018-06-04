@@ -1,25 +1,35 @@
 <template>
 <div class="menu-list">
   <div class="_list">
-    <menu-list-item
-      v-for="(item, key) in state.user.menuList"
-      :item="item"
+    <!-- <options-reveal
+      v-for="(item, key) in state.user.menulist.items"
       :key="key"
-      class="_menu-list-item"
-    />
+      :options="[{
+        name: 'Delete',
+        action () { return dispatch('user/menulist/deleteItem', key) },
+        style: 'background-color: red;',
+      }]"
+    > -->
+      <item-row
+        v-for="(item, key) in state.user.menulist.items"
+        :key="key"
+        :item="item"
+        class="_menu-list-row"
+      />
+    <!-- </options-reveal> -->
   </div>
   <div class="_add">
-    <menu-list-add class="_menu-list-item" />
+    <add-btn class="_menu-list-row" />
   </div>
 </div>
 </template>
 
 <script>
-import MenuListItem from './MenuListItem'
-import MenuListAdd from './MenuListAdd'
+import ItemRow from './MenuList_ItemRow'
+import AddBtn from './MenuList_AddBtn'
 
 export default {
-  components: { MenuListItem, MenuListAdd },
+  components: { ItemRow, AddBtn },
   props: [],
   data () { return {} },
   computed:
@@ -47,12 +57,12 @@ export default {
   border-radius $radius
   line-height 3
   ._list
-    overflow hidden
     width 100%
   ._add
-    overflow hidden
     width 100%
     height 100%
     flex 1
+    > *
+      border-bottom 1px solid $bg-light
 
 </style>
