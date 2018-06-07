@@ -11,7 +11,6 @@ let initialState = function () {
   }
 
   return {
-    stateValue: null,
     web3: myWeb3,
     address: null,
     isMainnet: null
@@ -37,7 +36,7 @@ export default {
   {
     async getAddress ({state, getters, rootState, rootGetters, commit, dispatch},
     {id} = {}) {
-      var accounts = await state.web3.eth.getAccounts()
+      const accounts = await state.web3.eth.getAccounts()
       state.address = accounts[0]
       state.isMainnet = await isMainNetwork(state.web3)
     }

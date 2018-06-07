@@ -9,6 +9,7 @@ export default {
   name: 'App',
   mounted () {
     this.$store.dispatch('web3/getAddress')
+    this.$store.dispatch('ethEvents/observeAccount')
   }
 }
 </script>

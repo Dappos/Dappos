@@ -13,6 +13,7 @@
   "dependencies": {
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
+    "eth-dagger": "0.0.1-beta.3",
     "ethereum-qr-code": "^0.3.0",
     "v-money-plus": "^0.1.0",
     "vue-i18n": "^7.3.3",

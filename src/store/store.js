@@ -8,6 +8,7 @@ import settings from './modules/settings'
 import keypad from './modules/keypad'
 import animate from './modules/animate'
 import web3 from './modules/web3'
+import ethEvents from './modules/ethEvents'
 
 export default function () {
   return {
@@ -22,6 +23,7 @@ export default function () {
       keypad,
       animate,
       web3,
+      ethEvents,
     }
   }
 }
