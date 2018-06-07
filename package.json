@@ -19,7 +19,8 @@
     "firebaseui": "^3.0.0",
     "v-money-plus": "^0.1.0",
     "vue-i18n": "^7.3.3",
-    "vuex-router-sync": "^5.0.0"
+    "vuex-router-sync": "^5.0.0",
+    "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "quasar-cli": "^0.16.0"

@@ -1,6 +1,20 @@
+import Web3 from 'web3'
+
 let initialState = function () {
+  let myWeb3 = new Web3()
+  if (typeof web3 !== 'undefined') {
+    myWeb3 = new Web3(web3.currentProvider)
+  } else {
+    // MetaMask is not enabled
+    // Should show an alert
+    myWeb3 = new Web3("ws://localhost:7545")
+  }
+
   return {
-    stateValue: null
+    stateValue: null,
+    web3: myWeb3,
+    address: null,
+    isMainnet: null
   }
 }
 
@@ -21,16 +35,11 @@ export default {
   },
   actions:
   {
-    doIt ({state, getters, rootState, rootGetters, commit, dispatch},
+    async getAddress ({state, getters, rootState, rootGetters, commit, dispatch},
     {id} = {}) {
-      // getters.someOtherGetter // -> 'foo/someOtherGetter'
-      // rootGetters.someOtherGetter // -> 'someOtherGetter'
-
-      dispatch('someOtherAction') // -> 'foo/someOtherAction'
-      dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
-
-      commit('someMutation') // -> 'foo/someMutation'
-      commit('someMutation', null, { root: true }) // -> 'someMutation'
+      var accounts = await state.web3.eth.getAccounts()
+      state.address = accounts[0]
+      state.isMainnet = await isMainNetwork(state.web3)
     }
   },
   getters:
@@ -40,4 +49,9 @@ export default {
       return amount
     }
   }
+}
+
+async function isMainNetwork(web3) {
+  const networkID = await web3.eth.net.getId()
+  return networkID === 1
 }
