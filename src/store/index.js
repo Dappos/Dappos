@@ -7,6 +7,6 @@ import initStore from './store'
 Vue.use(Vuex)
 
 const store = new Vuex.Store(initStore())
-store.initialStateCopy = copyObj(store.state)
+// store.initialStateCopy = copyObj(store.state)
 
 export default store

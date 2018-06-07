@@ -1,7 +1,7 @@
 import firebase from 'firebase'
-import menulist from './menulist'
+import menulist from './userMenulist'
 
-let initialState = function () {
+function initialState () {
   return {
     user: null,
   }

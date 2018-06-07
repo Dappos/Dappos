@@ -1,6 +1,6 @@
 import currency from './settingsCurrency'
 
-let initialState = function () {
+function initialState () {
   return {
     walletAddress: '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe',
     gas: 42000,

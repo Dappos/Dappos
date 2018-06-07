@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 
-let initialState = function () {
+function initialState () {
   let myWeb3 = new Web3()
   if (typeof web3 !== 'undefined') {
     myWeb3 = new Web3(web3.currentProvider)

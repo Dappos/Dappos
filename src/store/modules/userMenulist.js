@@ -1,17 +1,19 @@
 import Vue from 'vue'
+import copyObj from '../../helpers/copyObj'
 
 function defaultItem () {
   return {name: '', id: '', prices: {jpy: 0, usd: 0}}
 }
-let testItems = {
-  'ice-coffee': {name: 'Ice Coffee', id: 'ice-coffee', prices: {jpy: 400, usd: 4}},
-  'hot-coffee': {name: 'Hot Coffee', id: 'hot-coffee', prices: {jpy: 400, usd: 4}},
-  'latte': {name: 'Latte', id: 'latte', prices: {jpy: 500, usd: 5}}
-}
-
-let initialState = function () {
+function testItems () {
   return {
-    items: testItems,
+    'ice-coffee': {name: 'Ice Coffee', id: 'ice-coffee', prices: {jpy: 400, usd: 4}},
+    'hot-coffee': {name: 'Hot Coffee', id: 'hot-coffee', prices: {jpy: 400, usd: 4}},
+    'latte': {name: 'Latte', id: 'latte', prices: {jpy: 500, usd: 5}}
+  }
+}
+function initialState () {
+  return {
+    items: testItems(),
     adding: {state: false, item: defaultItem()},
     editing: {state: false, item: null},
     editAll: {state: false},

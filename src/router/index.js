@@ -22,7 +22,7 @@ const Router = new VueRouter({
 })
 // Router rules
 Router.beforeEach((to, from, next) => {
-  store.commit('animate/resetAnimations')
+  store.commit('animate/resetStateData')
   if (to.name && to.name.includes('signin')) {
     if (!window.store.getters['user/isSignedIn']) {
       // window.store.dispatch('auth/initOneTapSignin')

@@ -1,4 +1,4 @@
-let initialState = function () {
+function initialState () {
   return {
     stateValue: null
   }

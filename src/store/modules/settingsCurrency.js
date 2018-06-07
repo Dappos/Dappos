@@ -16,7 +16,7 @@ const defaults = {
     masked: false
   }
 }
-let initialState = function () {
+function initialState () {
   return {
     defaults,
     currency: 'jpy',

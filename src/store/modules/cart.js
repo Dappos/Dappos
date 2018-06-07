@@ -3,7 +3,7 @@ import { uid } from 'quasar'
 import copyObj from '../../helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
 
-let initialState = function () {
+function initialState () {
   return {
     totalAmount: 0,
     totalCount: 0,

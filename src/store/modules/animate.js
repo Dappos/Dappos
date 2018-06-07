@@ -3,7 +3,7 @@ import { hasClass, addClass, removeClass } from '../../helpers/DOMClassHelpers'
 import { dom } from 'quasar'
 const { offset } = dom
 
-let initialState = function () {
+function initialState () {
   return {
     pop: {},
     fly: {},
@@ -23,10 +23,6 @@ export default {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
       })
-    },
-    resetAnimations (state) {
-      state.pop = {}
-      state.fly = {}
     },
   },
   actions:

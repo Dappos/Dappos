@@ -1,8 +1,5 @@
 
 export default {
-  page: (state, getters) => {
-    return state.route.name
-  },
   appMinimised: (state, getters) => {
     return (state.windowSize.width >= 576)
     //  &&

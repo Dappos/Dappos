@@ -1,4 +1,4 @@
-let initialState = function () {
+function initialState () {
   return {
     input: 0,
   }
