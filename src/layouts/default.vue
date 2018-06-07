@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lhh Lpr lff" class="_layout">
-    <q-layout-header :class="['_header', {'_elevate': state.menu.opened || state.menu.animating}]">
+  <q-layout view="lhh Lpr lff" class="_layout js-page-offset">
+    <q-layout-header :class="['_header', {'_elevate': elevateHeader}]">
       <q-toolbar
         :inverted="true"
         color="primary"
@@ -14,7 +14,7 @@
         >
           <div class="_menu-btn">
             <div><img src="~assets/dappos-icon.png" alt="menu"></div>
-            <div class="q-ml-sm">
+              <div class="q-ml-sm">
               <q-icon
                 :class="['_arrow', {rotated: state.menu.opened}]"
                 name="ion-arrow-down"
@@ -26,42 +26,40 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
-      v-model="leftDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-    >
-      <layout-side-menu />
-    </q-layout-drawer>
-
     <q-page-container>
-      <router-view />
+      <modals />
+      <q-window-resize-observable @resize="onResize" />
+      <router-view class="_page-wrapper" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { openURL } from 'quasar'
-
 export default {
   name: 'LayoutDefault',
   data () {
-    return {
-      leftDrawerOpen: this.$q.platform.is.desktop
-    }
+    return { appHeight: `calc(100vh - 50px)` }
   },
+  mounted () {},
   methods: {
-    openURL
+    commit (action, payload) { return this.$store.commit(action, payload) },
+    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    onResize (size) {
+      this.state.windowSize = size
+    },
   },
   computed:
   {
     get () { return this.$store.getters },
     state () { return this.$store.state },
+    style () {
+      return `height: ${this.appHeight}; min-height: auto !important`
+    },
+    elevateHeader () {
+      return (!this.state.cart.opened.state &&
+        (this.state.menu.opened || this.state.menu.animating))
+    },
   },
-  methods:
-  {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
-  }
 }
 </script>
 
@@ -70,6 +68,14 @@ export default {
 
 ._layout
   background-color $bg-light
+  margin 0 auto
+  max-width 600px
+  media-sm max-width 464px
+  min-height auto !important
+._page-wrapper
+  @media screen and (min-height: 750px)
+    media-sm min-height auto !important
+    media-sm height 700px !important
 ._header
   border none
 ._toolbar

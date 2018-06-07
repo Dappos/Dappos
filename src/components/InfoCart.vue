@@ -1,7 +1,7 @@
 <template>
 <div class="info-cart">
   <button
-    @click="state.cart.opened.state = !state.cart.opened.state"
+    @click="toggleCart"
     class="_link reset-button"
   >
     <div class="_cart">Cart</div>
@@ -28,6 +28,10 @@ export default {
   {
     commit (action, payload) { return this.$store.commit(action, payload) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    toggleCart () {
+      this.dispatch('cart/toggleCart')
+      this.dispatch('toggleMenu', false)
+    },
   }
 }
 </script>
@@ -48,10 +52,13 @@ export default {
   font-weight 500
 ._count
   font-weight 500
-  px sm
-  py xxs
-  // pb xs
+  height 1.7rem
+  width 1.7rem
   border 2px solid $gray-dark
   border-radius $radius
+  display flex
+  text-align center
+  align-items center
+  justify-content center
 
 </style>

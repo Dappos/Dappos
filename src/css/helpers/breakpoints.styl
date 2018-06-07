@@ -29,15 +29,15 @@ $breakpoint-lg-max = $breakpoint-lg
 $breakpoint-xl-min = $sizes[xl]
 $breakpoint-xl-max = 9999px
 
-media-sm(property, value)
+media-sm(property, value...)
   @media screen and (min-width: $sizes.sm)
     {property} value
-media-md(property, value)
+media-md(property, value...)
   @media screen and (min-width: $sizes.md)
     {property} value
-media-lg(property, value)
+media-lg(property, value...)
   @media screen and (min-width: $sizes.lg)
     {property} value
-media-xl(property, value)
+media-xl(property, value...)
   @media screen and (min-width: $sizes.xl)
     {property} value

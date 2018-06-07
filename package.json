@@ -8,13 +8,16 @@
   "private": true,
   "scripts": {
     "dev": "quasar dev -m spa -t ios",
-    "build": "quasar build -m spa -t ios"
+    "build": "quasar build -m spa -t ios",
+    "deploy": "firebase use dappos-web && firebase deploy"
   },
   "dependencies": {
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "eth-dagger": "0.0.1-beta.3",
     "ethereum-qr-code": "^0.3.0",
+    "firebase": "^5.0.4",
+    "firebaseui": "^3.0.0",
     "v-money-plus": "^0.1.0",
     "vue-i18n": "^7.3.3",
     "vuex-router-sync": "^5.0.0",

@@ -60,7 +60,9 @@ export default {
 @import '../css/themes/common.variables'
 
 .keypad-keys
+  display flex
   ._keys
+    flex 1
     z-index 2
     height inherit
     width 100%

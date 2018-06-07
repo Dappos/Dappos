@@ -38,10 +38,12 @@ export default {
   ._note
     color $gray-dark
     font-size 2em
+    px sm
   ._input
     flex 1
     // height 100%
     input
+      px sm
       width 100%
       border none
       font-size 2.5em

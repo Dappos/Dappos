@@ -62,6 +62,14 @@ export default {
         : item.price
       commit('addItem', item)
     },
+    toggleCart ({state, getters, rootState, rootGetters, commit, dispatch},
+    toggleState) {
+      if (toggleState === undefined) {
+        state.opened.state = !state.opened.state
+        return
+      }
+      state.opened.state = toggleState
+    },
     openMore ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
       state.editing.state = true

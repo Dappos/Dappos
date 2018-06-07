@@ -23,7 +23,11 @@ export default {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
       })
-    }
+    },
+    resetAnimations (state) {
+      state.pop = {}
+      state.fly = {}
+    },
   },
   actions:
   {
@@ -46,8 +50,9 @@ export default {
     fly ({state, getters, rootState, rootGetters, commit, dispatch},
     {el, target, id = 'main', hidden = false} = {}) {
       return new Promise((resolve, reject) => {
-        // console.log('el → ', el)
         if (hidden) removeClass(el, 'hidden')
+        console.log('el → ', el)
+        console.log('target → ', target)
         const offsetEl = offset(el)
         const offsetTarget = offset(target)
         const Yend = offsetTarget.top - offsetEl.top

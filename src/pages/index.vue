@@ -1,10 +1,9 @@
 <template>
   <q-page class="_index-wrapper">
-    <modals />
     <div class="_info-total-wrapper"><info-total /></div>
     <div class="_navigation-tabs-wrapper"><navigation-tabs /></div>
-    <div class="_sub-page-wrapper">
-      <router-view />
+    <div class="_router-view-wrapper">
+      <router-view class="_router-view" />
     </div>
   </q-page>
 </template>
@@ -19,12 +18,21 @@ const { style, height } = dom
 export default {
   name: 'index',
   mounted () {
-      // let elH = style(this.$el, 'min-height')
-      // console.log('elH → ', elH)
-      // let elH2 = height(this.$el)
-      // console.log('elH2 → ', elH2)
-      // console.log('this.$el.offsetHeight → ', this.$el.offsetHeight)
-      // console.log('this style → ', this.$el.style.minHeight)
+    // let elH = style(this.$el, 'min-height')
+    // console.log('elH → ', elH)
+    // let elH2 = height(this.$el)
+    // console.log('elH2 → ', elH2)
+    // console.log('this.$el.offsetHeight → ', this.$el.offsetHeight)
+    // console.log('this style → ', this.$el.style.minHeight)
+    // let self = this
+    // this.$nextTick(_ => {
+    //   let elH = style(self.$el, 'min-height')
+    //   console.log('elH → ', elH)
+    //   let elH2 = height(self.$el)
+    //   console.log('elH2 → ', elH2)
+    //   console.log('self.$el.offsetHeight → ', self.$el.offsetHeight)
+    //   console.log('this style → ', self.$el.style.minHeight)
+    // })
   },
   computed:
   {
@@ -43,7 +51,6 @@ export default {
 @import '../css/themes/common.variables'
 
 ._index-wrapper
-  height calc(100vh - 50px) // important!
   display flex
   flex-direction column
   pa sm
@@ -51,11 +58,10 @@ export default {
   px sm
 ._navigation-tabs-wrapper
   py sm
-._sub-page-wrapper
+._router-view-wrapper
   flex 1
   display flex
-  flex-direction column
-.keypad
+._router-view
   flex 1
 
 </style>

@@ -58,6 +58,8 @@ export default {
   line-height 3
   ._list
     width 100%
+    > *:first-child
+      border-radius $radius
   ._add
     width 100%
     height 100%

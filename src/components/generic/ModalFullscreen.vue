@@ -3,7 +3,8 @@
   v-model="toggle.state"
   maximized
   :position="position"
-  class="modal-fullscreen"
+  :class="['modal-fullscreen',
+    {'app-minimised': get.appMinimised}]"
 >
   <div class="_wrapper">
     <div class="_top">
