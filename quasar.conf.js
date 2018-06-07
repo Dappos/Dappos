@@ -7,6 +7,7 @@ module.exports = function (ctx) {
       'vuex-router-sync',
       'vueComponents',
       'vuePlugins',
+      'firebase',
       'i18n',
       'axios',
       'windowRegistrations',
@@ -61,6 +62,7 @@ module.exports = function (ctx) {
         'QRouteTab',
         'QModal',
         'QSpinnerOval',
+        'QWindowResizeObservable',
       ],
       directives: [
         'Ripple', 'TouchSwipe'

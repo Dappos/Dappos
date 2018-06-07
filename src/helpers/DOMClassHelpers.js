@@ -18,6 +18,7 @@ function removeClass (element, cls) {
   if (element.className.includes(' ' + cls + ' ')) {
     element.className = element.className.replace(' ' + cls + ' ', ' ').trim()
   }
+  element.className = element.className.trim()
   return element
 }
 

@@ -5,10 +5,12 @@
     v-model="state.menu.opened"
     @hide="state.menu.animating = false"
     @show="state.menu.animating = false"
-    position="top" maximized
+    position="top"
+    maximized
     :class="['app-menu-modal', {
-      '_opened': state.menu.opened,
-      '_closed': !state.menu.opened
+      '--opened': state.menu.opened,
+      '--closed': !state.menu.opened,
+      'app-minimised': get.appMinimised
     }]"
   >
     <app-menu />
@@ -23,6 +25,7 @@
   <q-modal
     v-model="state.cart.editing.state"
     position="bottom"
+    :class="{'app-minimised': get.appMinimised}"
   >
     <cart-editing-item
       v-if="state.cart.editing.state"
@@ -86,9 +89,36 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 @import '../css/themes/common.variables'
 
-// .modals
+.modal
+  overflow hidden
+
+.modal.maximized .modal-content
+    width 100% !important
+    height 100% !important
+    max-width 100% !important
+    max-height 100% !important
+    border-radius 0 !important
+
+.app-menu-modal.q-modal-top-enter, .app-menu-modal.q-modal-top-leave-active
+  opacity 1
+  .modal-content
+    transform translateY(-100%)
+
+.app-menu-modal.modal.--closed
+  background rgba(0,0,0,0) !important
+.app-menu-modal.modal.--opened
+  background rgba(0,0,0,0.3) !important
+
+.app-menu-modal.modal
+  transition all .3s ease-in-out, background .4s linear
+.app-menu-modal .modal-content
+  transition all .3s ease-in-out
+
+.app-minimised
+  height 750px !important
+  width 464px !important
 
 </style>

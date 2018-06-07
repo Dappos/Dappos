@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from '../store'
 import routes from './routes'
 
 Vue.use(VueRouter)
@@ -19,6 +19,19 @@ const Router = new VueRouter({
   base: process.env.VUE_ROUTER_BASE,
   scrollBehavior: () => ({ y: 0 }),
   routes
+})
+// Router rules
+Router.beforeEach((to, from, next) => {
+  store.commit('animate/resetAnimations')
+  if (to.name && to.name.includes('signin')) {
+    if (!window.store.getters['user/isSignedIn']) {
+      // window.store.dispatch('auth/initOneTapSignin')
+      next('/')
+    }
+    next()
+  } else {
+    next()
+  }
 })
 
 export default Router

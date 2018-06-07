@@ -14,6 +14,11 @@ export default [
           // {path: 'cart', component: () => import('components/Cart')},
           // {path: 'edit-items', component: () => import('components/ModalEditMenuList')}
         ]
+      },
+      {
+        path: 'signin',
+        name: 'signin',
+        component: () => import('pages/firebaseUI')
       }
     ]
   },

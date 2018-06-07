@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <router-view />
+    <router-view class="_app-wrapper" />
   </div>
 </template>
 
@@ -10,5 +10,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+
+#q-app
+  min-height 100vh
+  display flex
+  flex-direction column
+  justify-content center
+  background-color #f6f5f5
+._app-wrapper
+  box-shadow 0 0 100px -10px rgba(0,0,0,0.2)
+
 </style>

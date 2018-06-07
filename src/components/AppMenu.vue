@@ -59,28 +59,33 @@ export default {
         {
           name: 'History',
           url: '/history',
-          hide: !this.get['user/isLoggedIn']
+          hide: this.get['user/isSignedOut']
         },
         {
           name: 'Edit items',
           url: null,
           func: _ => { return this.dispatch('user/menulist/toggleEditAll', true) },
-          hide: !this.get['user/isLoggedIn']
+          hide: this.get['user/isSignedOut']
         },
         {
           name: 'Account settings',
           url: '/settings',
-          hide: !this.get['user/isLoggedIn']
+          hide: this.get['user/isSignedOut']
         },
         {
-          name: 'Signup',
-          url: '/signup',
-          hide: this.get['user/isLoggedIn']
+          name: 'Signout',
+          func: _ => { return this.dispatch('user/signOut') },
+          hide: this.get['user/isSignedOut']
         },
+        // {
+        //   name: 'Signup',
+        //   url: '/signup',
+        //   hide: this.get['user/isSignedIn']
+        // },
         {
-          name: 'Login',
-          url: '/login',
-          hide: this.get['user/isLoggedIn']
+          name: 'Signin',
+          url: '/signin',
+          hide: this.get['user/isSignedIn']
         },
         {
           name: '',
