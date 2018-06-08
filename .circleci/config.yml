@@ -18,6 +18,10 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: npm install
+      - run:
+          name: Cloud Functions npm install
+          command: npm install
+          working_directory: functions
       - save_cache:
           paths:
             - node_modules
