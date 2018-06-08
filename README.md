@@ -1,4 +1,7 @@
 # Dappos
+========
+
+![](https://circleci.com/gh/Dappos/Dappos.svg?style=shield&circle-token=a4bb78ec3c830868731db9a3f8a8028ba024530a)
 
 Dappos is a Ethereum based Dapp POS register.
 
