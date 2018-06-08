@@ -1,10 +1,12 @@
 <template>
 <q-modal
   v-model="toggle.state"
-  maximized
-  :position="position"
+  @hide="hideFunction"
+  @show="showFunction"
   :class="['modal-fullscreen',
     {'app-minimised': get.appMinimised}]"
+  :position="position"
+  maximized
 >
   <div class="_wrapper">
     <div class="_top">
@@ -23,7 +25,7 @@
 <script>
 export default {
   components: {},
-  props: ['toggle', 'title', 'position'],
+  props: ['toggle', 'title', 'position', 'hideFunc', 'showFunc'],
   data () { return {} },
   computed:
   {
@@ -34,6 +36,14 @@ export default {
   {
     commit (action, payload) { return this.$store.commit(action, payload) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    hideFunction () {
+      if (!this.hideFunc || typeof this.hideFunc !== 'function') return
+      return this.hideFunc()
+    },
+    showFunction () {
+      if (!this.showFunc || typeof this.showFunc !== 'function') return
+      return this.showFunc()
+    },
   }
 }
 </script>

@@ -17,6 +17,11 @@ function initialState () {
   }
 }
 
+async function isMainNetwork(web3) {
+  const networkID = await web3.eth.net.getId()
+  return networkID === 1
+}
+
 export default {
   namespaced: true,
   state: initialState(),
@@ -43,14 +48,9 @@ export default {
   },
   getters:
   {
-    convert: (state, getters, rootState, rootGetters) =>
-    ({amount, from, to}) => {
-      return amount
-    }
+    // convert: (state, getters, rootState, rootGetters) =>
+    // ({amount, from, to}) => {
+    //   return amount
+    // }
   }
-}
-
-async function isMainNetwork(web3) {
-  const networkID = await web3.eth.net.getId()
-  return networkID === 1
 }
