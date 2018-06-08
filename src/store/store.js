@@ -9,6 +9,7 @@ import keypad from './modules/keypad'
 import animate from './modules/animate'
 import web3 from './modules/web3'
 import ethEvents from './modules/ethEvents'
+import conversion from './modules/conversion'
 
 export default function () {
   return {
@@ -24,6 +25,7 @@ export default function () {
       animate,
       web3,
       ethEvents,
+      conversion,
     }
   }
 }

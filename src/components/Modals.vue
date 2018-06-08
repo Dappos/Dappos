@@ -63,7 +63,8 @@
   <!-- PAYMENT -->
   <modal-minimised
     :toggle="state.cart.payment"
-    :show="_ => { return dispatch('cart/generateQr') }"
+    :showFunc="_ => { return dispatch('cart/generateQr') }"
+    :hideFunc="_ => { return commit('cart/resetQR') }"
   >
     <payment />
   </modal-minimised>

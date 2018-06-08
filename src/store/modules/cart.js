@@ -6,6 +6,7 @@ import EthereumQRPlugin from 'ethereum-qr-code'
 function initialState () {
   return {
     totalAmount: 0,
+    totalAmountWei: 0,
     totalCount: 0,
     items: {},
     opened: {state: false},
@@ -15,10 +16,18 @@ function initialState () {
     },
     payment: {
       state: false,
-      stage: 3
+      stage: 1
     }
   }
 }
+function limitNumberTo15 (nr) {
+  const len = nr.toString().length
+  if (len <= 15) return nr
+  const excessLen = len - 15
+  let floorLog = 10 ** excessLen
+  return Math.floor(nr / floorLog) * floorLog
+}
+
 
 export default {
   namespaced: true,
@@ -52,6 +61,10 @@ export default {
         item.count = 0
       })
     },
+    resetQR (state) {
+      state.totalAmountWei = 0
+      document.getElementById('js-qr').innerHTML = ''
+    }
   },
   actions:
   {
@@ -86,11 +99,20 @@ export default {
     clearAll ({state, getters, rootState, rootGetters, commit, dispatch}) {
       commit('clearAll')
     },
-    generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
+    async generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
+      const currency = rootState.settings.currency.currency
+      const amount = getters.totalAmount
+      let value = await dispatch('conversion/convert', {
+        amount,
+        from: currency,
+        to: 'wei'
+      }, {root: true})
+      value = limitNumberTo15(value)
+      state.totalAmountWei = value
       const sendDetails = {
+        value,
         to: rootState.settings.walletAddress,
-        value: getters.totalAmountWei,
         gas: rootState.settings.gas,
       }
       const domConfig = {
@@ -112,14 +134,9 @@ export default {
     totalCount: (state, getters, rootState, rootGetters) => {
       return Object.values(state.items).reduce((carry, item) => { return carry + item.count }, 0)
     },
-    totalAmountWei: (state, getters, rootState, rootGetters) => {
-      return rootGetters['web3/convert']({
-        amount: getters.totalAmount,
-        from: 'jpy',
-        to: 'wei'
-      })
+    totalAmountEth: (state, getters, rootState, rootGetters) => {
+      return state.totalAmountWei / rootState.conversion.ethTo['wei']
     },
-
     // itemsOverview: (state, getters, rootState, rootGetters) => {
     //   let items = state.items.reduce((carry, item) => {
     //     let id = (!item.id) ? uid() : item.id

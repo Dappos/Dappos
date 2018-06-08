@@ -4,10 +4,10 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
+      'firebase',
       'vuex-router-sync',
       'vueComponents',
       'vuePlugins',
-      'firebase',
       'i18n',
       'axios',
       'windowRegistrations',
@@ -63,6 +63,7 @@ module.exports = function (ctx) {
         'QModal',
         'QSpinnerOval',
         'QWindowResizeObservable',
+        'QSelect',
       ],
       directives: [
         'Ripple', 'TouchSwipe'

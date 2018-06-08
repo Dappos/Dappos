@@ -1,28 +1,15 @@
-const defaults = {
-  jpy: {
-    decimal: '.',
-    thousands: ',',
-    prefix: '¥',
-    suffix: '',
-    precision: 0,
-    masked: false
-  },
-  usd: {
-    decimal: '.',
-    thousands: ',',
-    prefix: '$',
-    suffix: '',
-    precision: 2,
-    masked: false
-  }
-}
+import defaults from '../../config/currencyDefaults'
+
 function initialState () {
   return {
     defaults,
     currency: 'jpy',
     config: {
       // only set these if you want to overwrite defaults.
-    }
+    },
+    coinmarketcapCurrencies: [
+      'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PKR', 'PLN', 'RUB', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'ZAR'
+    ],
   }
 }
 
@@ -43,16 +30,10 @@ export default {
   },
   actions:
   {
-    doIt ({state, getters, rootState, rootGetters, commit, dispatch},
-    {id} = {}) {
-      // getters.someOtherGetter // -> 'foo/someOtherGetter'
-      // rootGetters.someOtherGetter // -> 'someOtherGetter'
-
-      dispatch('someOtherAction') // -> 'foo/someOtherAction'
-      dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
-
-      commit('someMutation') // -> 'foo/someMutation'
-      commit('someMutation', null, { root: true }) // -> 'someMutation'
+    setCurrency ({state, getters, rootState, rootGetters, commit, dispatch},
+    {currency} = {}) {
+      if (!getters.availableCurrencies[currency]) return
+      state.currency = currency.toLowerCase()
     }
   },
   getters:
@@ -62,6 +43,17 @@ export default {
         state.defaults[state.currency],
         state.config
       )
+    },
+    availableCurrencies: (state, getters, rootState, rootGetters) => {
+      return Object.keys(state.defaults)
+        .reduce((carry, key) => {
+          const info = {
+            label: `${state.defaults[key].prefix} ${key.toUpperCase()}`,
+            value: key
+          }
+          carry[key] = info
+          return carry
+        }, {})
     },
     getIt: (state, getters, rootState, rootGetters) =>
     (id) => {

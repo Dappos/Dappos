@@ -3,6 +3,7 @@
   v-model="toggle.state"
   minimized
   class="modal-minimised"
+  @hide="hideFunction"
   @show="showFunction"
 >
   <slot />
@@ -12,7 +13,7 @@
 <script>
 export default {
   components: {},
-  props: ['toggle', 'show'],
+  props: ['toggle', 'hideFunc', 'showFunc'],
   data () { return {} },
   computed:
   {
@@ -23,11 +24,15 @@ export default {
   {
     commit (action, payload) { return this.$store.commit(action, payload) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
-    showFunction () {
-      if (Object.prototype.toString.call(this.show) === '[object Function]') {
-        this.show()
-      }
+    hideFunction () {
+      if (!this.hideFunc || typeof this.hideFunc !== 'function') return
       document.activeElement.blur()
+      return this.hideFunc()
+    },
+    showFunction () {
+      if (!this.showFunc || typeof this.showFunc !== 'function') return
+      document.activeElement.blur()
+      return this.showFunc()
     },
   }
 }
