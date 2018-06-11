@@ -10,8 +10,8 @@
     float-label="Price"
     v-model="item.prices[state.settings.currency.currency]"
     type="number"
-    :prefix="get['settings/currency/config'].prefix"
-    :decimals="get['settings/currency/config'].precision"
+    :prefix="get('settings/currency/config').prefix"
+    :decimals="get('settings/currency/config').precision"
     numeric-keyboard-toggle
   />
   <button @click="addItem" class="o-btn _save">Save</button>
@@ -23,22 +23,19 @@
 </template>
 
 <script>
+import storeAccess from '../mixins/storeAccess'
+
 export default {
   components: {},
   props: ['item'],
-  mounted () {
-    // console.log('this.item → ', this.item)
-  },
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
     addItem () {
       if (!this.item.prices[this.state.settings.currency.currency]) return
       this.dispatch('user/menulist/addItem')

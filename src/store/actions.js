@@ -45,5 +45,8 @@ export default {
       state.menu.animating = true
     }
   },
-
+  apiError ({state, getters},
+  {error, method}) {
+    console.error('error → ', error, ' on method → ', method)
+  },
 }

@@ -5,7 +5,6 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'firebase',
-      'vuex-router-sync',
       'vueComponents',
       'vuePlugins',
       'i18n',
@@ -76,6 +75,7 @@ module.exports = function (ctx) {
     },
     // animations: 'all' --- includes all animations
     animations: [
+      'flipOutX'
     ],
     pwa: {
       // workboxPluginMode: 'InjectManifest',

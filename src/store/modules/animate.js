@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
 import anime from 'animejs'
 import { hasClass, addClass, removeClass } from '../../helpers/DOMClassHelpers'
 import { dom } from 'quasar'
@@ -24,6 +26,7 @@ export default {
         Vue.set(state, key, payload[key])
       })
     },
+    ...defaultMutations(initialState())
   },
   actions:
   {

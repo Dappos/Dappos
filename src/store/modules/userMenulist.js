@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
 import copyObj from '../../helpers/copyObj'
 
 function defaultItem () {
@@ -49,6 +50,7 @@ export default {
     deleteItem (state, id) {
       Vue.delete(state.items, id)
     },
+    ...defaultMutations(initialState())
   },
   actions:
   {
@@ -63,7 +65,7 @@ export default {
     id) {
       commit('deleteItem', id)
     },
-    toggleEditAll ({state, getters, rootState, rootGetters, commit, dispatch},
+    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
       toggleState = (toggleState === undefined) ? !state.editAll.state : toggleState
       state.editAll.state = toggleState

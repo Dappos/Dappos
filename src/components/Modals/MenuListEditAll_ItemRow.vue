@@ -4,26 +4,28 @@
     <!-- <div class="_count">{{ item.count }}x</div> -->
     <div class="_name">{{ item.name }}</div>
     <div class="_price">
-      {{ price | money(get['settings/currency/config']) }}
+      {{ price | money(get('settings/currency/config')) }}
     </div>
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/editItem', item.id)" />
     </div>
 
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get['settings/currency/config']) }} -->
+    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currency/config')) }} -->
   </div>
 </div>
 </template>
 
 <script>
+import storeAccess from '../mixins/storeAccess'
+
 export default {
   components: {},
   props: ['item'],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
     price () {
       return (!this.item.price)
         ? this.item.prices[this.state.settings.currency.currency]
@@ -32,8 +34,6 @@ export default {
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>

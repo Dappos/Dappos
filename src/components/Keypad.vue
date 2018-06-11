@@ -1,5 +1,5 @@
 <template>
-<div class="keypad" :style="style">
+<div class="keypad">
   <keypad-input class="_keypad-input" />
   <keypad-keys class="_keypad-keys" />
   <q-icon class="_fly-icon js-keypad-fly hidden" name="ion-add" color="primary" />
@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import storeAccess from './mixins/storeAccess'
 import Vue from 'vue'
 import KeypadKeys from './Keypad_Keys'
 import KeypadInput from './Keypad_Input'
@@ -14,27 +15,14 @@ import KeypadInput from './Keypad_Input'
 export default {
   components: { KeypadKeys, KeypadInput },
   props: [],
-  mounted () {
-    // let h = this.$el.clientHeight
-    // console.log('height.clientHeight → ', this.$el.clientHeight, this)
-    // Vue.nextTick(_ => {
-    //   console.log('height.clientHeight → ', this.$el.clientHeight, this)
-    // })
-    // console.log('height.offsetHeight → ', this.$el.offsetHeight, this)
-    // this.style = `height: ${h}px`
-    // this.$el.setAttribute('style',`height: ${h}px`)
-    // this.$el.style.width=`height: ${h}`
-  },
-  data () { return { style: '' } },
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
+  data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>

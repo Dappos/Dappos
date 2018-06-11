@@ -4,6 +4,13 @@
  * @author     Adam Dorling
  * @contact    https://codepen.io/naito
  */
+function isObject (payload) {
+  return Object.prototype.toString.call(payload) === '[object Object]'
+}
+function isArray (payload) {
+  return Object.prototype.toString.call(payload) === '[object Array]'
+}
+
 export default function copyObj (obj) {
   let newObj
   if (typeof obj != 'object') {
@@ -12,13 +19,11 @@ export default function copyObj (obj) {
   if (!obj) {
     return obj
   }
-  if ('[object Object]' !== Object.prototype.toString.call(obj) ||
-    '[object Array]' !== Object.prototype.toString.call(obj)
-  ) {
+  if (!isObject(obj) || !isArray(obj)) {
     return JSON.parse(JSON.stringify(obj))
   }
   // Object is an Array
-  if ('[object Array]' === Object.prototype.toString.call(obj)) {
+  if (isArray(obj)) {
     newObj = []
     for (let i = 0, len = obj.length; i < len; i++) {
       newObj[i] = copyObj(obj[i])

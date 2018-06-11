@@ -2,8 +2,8 @@
 <div class="payment">
   <div class="_wrapper-top">
     <div class="_title">Payment Request</div>
-    <div class="_price">{{ get['cart/totalAmount'] | money(get['settings/currency/config']) }}</div>
-    <div class="_eth">Ξ {{ get['cart/totalAmountEth'] }}</div>
+    <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currency/config')) }}</div>
+    <div class="_eth">Ξ {{ get('cart/totalAmountEth') }}</div>
   </div>
   <div class="_wrapper-bottom">
     <div v-if="state.cart.payment.stage === 1" class="_inner-wrapper">
@@ -30,25 +30,25 @@
 </template>
 
 <script>
+import storeAccess from '../mixins/storeAccess'
+
 export default {
   components: {},
   props: [],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '../../css/themes/common.variables'
 
 .payment
   font-size 1.2em

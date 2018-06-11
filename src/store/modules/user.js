@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
 import firebase from 'firebase'
 import menulist from './userMenulist'
 
@@ -21,21 +23,11 @@ export default {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
       })
-    }
+    },
+    ...defaultMutations(initialState())
   },
   actions:
   {
-    doIt ({state, getters, rootState, rootGetters, commit, dispatch},
-    {id} = {}) {
-      // getters.someOtherGetter // -> 'foo/someOtherGetter'
-      // rootGetters.someOtherGetter // -> 'someOtherGetter'
-
-      dispatch('someOtherAction') // -> 'foo/someOtherAction'
-      dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
-
-      commit('someMutation') // -> 'foo/someMutation'
-      commit('someMutation', null, { root: true }) // -> 'someMutation'
-    },
     userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch},
     {user}) {
       console.log('userOnAuthListener → ', user)
@@ -54,10 +46,6 @@ export default {
       firebase.auth().signOut()
       dispatch('resetStore', null, {root: true})
     },
-    authError ({state, getters, rootState, rootGetters, commit, dispatch},
-    {error, method}) {
-
-    },
   },
   getters:
   {
@@ -66,6 +54,9 @@ export default {
     },
     isSignedOut: (state, getters, rootState, rootGetters) => {
       return (!state.user) ? true : false
+    },
+    id: (state) => {
+      return (state.user) ? state.user.uid : 0
     },
   }
 }

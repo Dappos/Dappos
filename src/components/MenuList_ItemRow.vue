@@ -2,7 +2,7 @@
 <button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
     <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ price | money(get['settings/currency/config']) }}</div>
+    <div class="_price">{{ price | money(get('settings/currency/config')) }}</div>
   </div>
   <div
     class="_fly-icon js-fly-target hidden"
@@ -11,16 +11,17 @@
 </template>
 
 <script>
+import storeAccess from './mixins/storeAccess'
 import { uid } from 'quasar'
 
 export default {
   components: {},
   props: ['item'],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {anime: null, id: uid()} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
     price () {
       return (!this.item.price)
         ? this.item.prices[this.state.settings.currency.currency]
@@ -29,8 +30,6 @@ export default {
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
     flyToCart () {
       const el = this.$el.children[1]
       const elCart = document.querySelector('.js-info-cart')

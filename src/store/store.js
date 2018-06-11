@@ -10,6 +10,8 @@ import animate from './modules/animate'
 import web3 from './modules/web3'
 import ethEvents from './modules/ethEvents'
 import conversion from './modules/conversion'
+import history from './modules/history'
+import _template from './modules/_template'
 
 export default function () {
   return {
@@ -26,6 +28,8 @@ export default function () {
       web3,
       ethEvents,
       conversion,
+      history,
+      _template
     }
   }
 }

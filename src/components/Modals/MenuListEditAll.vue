@@ -22,22 +22,21 @@
 </template>
 
 <script>
+import storeAccess from '../mixins/storeAccess'
 import ItemRow from './MenuListEditAll_ItemRow'
 import AddBtn from '../MenuList_AddBtn'
 
 export default {
   components: { ItemRow, AddBtn },
   props: [],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>

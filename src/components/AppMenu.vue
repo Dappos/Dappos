@@ -10,13 +10,12 @@
         <router-link
           v-if="row.url && !row.func"
           :to="row.url"
-          @click.native="dispatch('toggleMenu')"
         >
           {{ row.name }}
         </router-link>
         <button
           v-if="!row.url && row.func"
-          @click="row.func(), dispatch('toggleMenu')"
+          @click="row.func()"
         >
           {{ row.name }}
         </button>
@@ -27,16 +26,18 @@
 </template>
 
 <script>
+import storeAccess from './mixins/storeAccess'
+
 export default {
   components: {},
   props: [],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () {
     return {}
   },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
     menuItems () {
       const items = [
         {
@@ -53,39 +54,32 @@ export default {
           url: '/'
         },
         {
-          name: 'Currency',
-          url: '/currency'
-        },
-        {
           name: 'History',
-          url: '/history',
-          hide: this.get['user/isSignedOut']
+          func: _ => { return this.dispatch('history/toggleModal', true) },
         },
         {
           name: 'Edit items',
-          url: null,
-          func: _ => { return this.dispatch('user/menulist/toggleEditAll', true) },
-          hide: this.get['user/isSignedOut']
+          func: _ => { return this.dispatch('user/menulist/toggleModal', true) },
+          hide: this.get('user/isSignedOut')
         },
         {
-          name: 'Account settings',
-          url: '/settings',
-          hide: this.get['user/isSignedOut']
+          name: this.get('user/isSignedIn') ? 'Account settings' : 'Currency',
+          func: _ => { return this.dispatch('settings/toggleModal', true) },
         },
         {
           name: 'Signout',
           func: _ => { return this.dispatch('user/signOut') },
-          hide: this.get['user/isSignedOut']
+          hide: this.get('user/isSignedOut')
         },
         // {
         //   name: 'Signup',
         //   url: '/signup',
-        //   hide: this.get['user/isSignedIn']
+        //   hide: this.get('user/isSignedIn')
         // },
         {
           name: 'Signin',
           url: '/signin',
-          hide: this.get['user/isSignedIn']
+          hide: this.get('user/isSignedIn')
         },
         {
           name: '',
@@ -102,8 +96,6 @@ export default {
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>

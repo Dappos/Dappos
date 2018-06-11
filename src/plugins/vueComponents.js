@@ -8,6 +8,7 @@ import Modals from '../components/Modals'
 import MenuListAddEditItem from '../components/Modals/MenuListAddEditItem'
 import MenuListEditAll from '../components/Modals/MenuListEditAll'
 import CartEditingItem from '../components/Modals/CartEditingItem'
+import Payment from '../components/Modals/Payment'
 // other
 import AppMenu from '../components/AppMenu'
 import LayoutSideMenu from '../components/LayoutSideMenu'
@@ -16,7 +17,8 @@ import InfoTotal from '../components/InfoTotal'
 import NavigationTabs from '../components/NavigationTabs'
 import Keypad from '../components/Keypad'
 import Cart from '../components/Cart'
-import Payment from '../components/Payment'
+import txnHistory from '../components/History'
+import Settings from '../components/Settings'
 
 export default ({ app, router, Vue }) => {
   // register the components here
@@ -28,6 +30,7 @@ export default ({ app, router, Vue }) => {
   Vue.component('menu-list-add-edit-item', MenuListAddEditItem)
   Vue.component('menu-list-edit-all', MenuListEditAll)
   Vue.component('cart-editing-item', CartEditingItem)
+  Vue.component('payment', Payment)
 
   Vue.component('app-menu', AppMenu)
   Vue.component('layout-side-menu', LayoutSideMenu)
@@ -36,5 +39,6 @@ export default ({ app, router, Vue }) => {
   Vue.component('navigation-tabs', NavigationTabs)
   Vue.component('keypad', Keypad)
   Vue.component('cart', Cart)
-  Vue.component('payment', Payment)
+  Vue.component('history', txnHistory)
+  Vue.component('settings', Settings)
 }

@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
 import axios from 'axios'
 
 function initialState () {
@@ -27,7 +29,8 @@ export default {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
       })
-    }
+    },
+    ...defaultMutations(initialState())
   },
   actions:
   {

@@ -1,4 +1,5 @@
-import initialState from './state.js'
+import initialState from './state'
+import { defaultMutations } from 'vuex-easy-access'
 
 export default {
   resetStateData (state) {
@@ -7,12 +8,9 @@ export default {
     Object.assign(state, newState)
   },
   updateState (state, payload) {
-    let key = payload.field
-    let val = payload.value
-    if (!key && !val) {
-      key = Object.keys(payload)[0]
-      val = payload[key]
-    }
-    state[key] = val
+    Object.keys(payload).forEach(key => {
+      Vue.set(state, key, payload[key])
+    })
   },
+  ...defaultMutations(initialState())
 }

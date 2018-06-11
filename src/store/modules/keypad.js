@@ -1,3 +1,6 @@
+import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
+
 function initialState () {
   return {
     input: 0,
@@ -17,7 +20,8 @@ export default {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
       })
-    }
+    },
+    ...defaultMutations(initialState())
   },
   actions:
   {

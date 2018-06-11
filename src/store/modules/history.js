@@ -1,20 +1,12 @@
 import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
-import web3 from '../../config/web3'
 
 function initialState () {
   return {
-    address: null,
-    isMainnet: null
+    modal: {state: false},
+    testVal: null,
   }
 }
-
-async function isMainNetwork(web3) {
-  if (!web3) return
-  const networkID = await web3.eth.net.getId()
-  return networkID === 1
-}
-
 export default {
   namespaced: true,
   state: initialState(),
@@ -29,18 +21,22 @@ export default {
         Vue.set(state, key, payload[key])
       })
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations()
   },
   actions:
   {
-    async getAddress ({state, getters, rootState, rootGetters, commit, dispatch},
-    {id} = {}) {
-      const accounts = await web3.eth.getAccounts()
-      state.address = accounts[0]
-      state.isMainnet = await isMainNetwork(web3)
-    }
+    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
+    toggleState) {
+      toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
+      state.modal.state = toggleState
+    },
   },
   getters:
   {
+    getIt: (state, getters, rootState, rootGetters) =>
+    (id) => {
+      getters.someOtherGetter // -> 'foo/someOtherGetter'
+      rootGetters.someOtherGetter // -> 'someOtherGetter'
+    }
   }
 }

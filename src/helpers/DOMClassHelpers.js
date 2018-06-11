@@ -4,21 +4,50 @@
  * @author     Luca Ban
  * @contact    https://lucaban.com
  */
-function hasClass (element, cls) {
-  return (' ' + element.className + ' ').includes(' ' + cls + ' ')
+
+/**
+  * @param {string} string
+  * @returns a padded string
+  */
+function pad (string) {
+  return ' ' + string + ' '
 }
+
+/**
+ * Checks if an elemnt has a class
+ *
+ * @param {Element} element
+ * @param {string} cls
+ * @returns {Boolean} Boolean
+ */
+function hasClass (element, cls) {
+  return (pad(element.className)).includes(pad(cls))
+}
+
+/**
+ * Adds a class to an element
+ *
+ * @param {Element} element
+ * @param {string} cls
+ * @returns {Element} the element
+ */
 function addClass (element, cls) {
-  if (!(' ' + element.className + ' ').includes(' ' + cls + ' ')) {
+  if (!hasClass(element, cls)) {
     element.className += ' ' + cls
   }
   return element
 }
+
+/**
+ * Removes a class of an element
+ *
+ * @param {Element} element
+ * @param {string} cls
+ * @returns {Element} the element
+ */
 function removeClass (element, cls) {
-  element.className = ' ' + element.className + ' '
-  if (element.className.includes(' ' + cls + ' ')) {
-    element.className = element.className.replace(' ' + cls + ' ', ' ').trim()
-  }
-  element.className = element.className.trim()
+  if (!hasClass(element, cls)) return element
+  element.className = pad(element.className).replace(pad(cls), ' ').trim()
   return element
 }
 

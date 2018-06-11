@@ -5,29 +5,29 @@
     class="_link reset-button"
   >
     <div class="_cart">Cart</div>
-    <div class="_count js-info-cart">{{ get['cart/totalCount'] }}</div>
+    <div class="_count js-info-cart">{{ get('cart/totalCount') }}</div>
   </button>
   <!-- <router-link to="/cart" class="_link">
     <div class="_cart">Cart</div>
-    <div class="_count">{{ get['cart/totalCount'] }}</div>
+    <div class="_count">{{ get('cart/totalCount') }}</div>
   </router-link> -->
 </div>
 </template>
 
 <script>
+import storeAccess from './mixins/storeAccess'
+
 export default {
   components: {},
   props: [],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
     toggleCart () {
       this.dispatch('cart/toggleCart')
       this.dispatch('toggleMenu', false)
