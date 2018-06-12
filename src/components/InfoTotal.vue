@@ -1,7 +1,11 @@
 <template>
 <button @click="pay" class="info-total o-btn">
   <div class="_text">Charge</div>
-  <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currency/config')) }}</div>
+  <div class="_price">
+    <span>
+      {{ state.cart.totalAmountAnimation.frameVal | money(get('settings/currency/config')) }}
+    </span>
+  </div>
 </button>
 </template>
 
@@ -9,13 +13,38 @@
 import storeAccess from './mixins/storeAccess'
 
 export default {
-  components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () {
+    return {
+      startVal: 0,
+      endVal: 0,
+      decimals: 0,
+      duration: 2.5,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: ''
+      }
+    }
+  },
+  mounted () {
+    this.dispatch('cart/initializeTotalAmountAnimation')
+  },
   computed:
   {
+    watchCountup: {
+      get () {
+        return (!this.state.cart.totalAmountAnimation)
+          ? 0
+          : this.state.cart.totalAmountAnimation.frameVal
+      },
+      set () {}
+    },
   },
   methods:
   {
