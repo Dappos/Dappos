@@ -89,7 +89,8 @@ export default {
   {
     userSettingsDoc: (state, getters, rootState, rootGetters) => {
       if (!rootGetters['user/isSignedIn']) { return }
-      return window.db.collection('users').doc(rootGetters['user/id']).collection('data').doc('settings')
+      console.log('this in userSettingsDoc → ', this)
+      return this.firestore.collection('users').doc(rootGetters['user/id']).collection('data').doc('settings')
     }
   }
 }

@@ -1,5 +1,8 @@
 <template>
-  <q-layout view="lhh Lpr lff" class="_layout js-page-offset">
+  <q-layout
+    view="lhh Lpr lff"
+    :class="`_layout js-page-offset page--${state.route.name}`"
+  >
     <q-layout-header :class="['_header', {'_elevate': elevateHeader}]">
       <q-toolbar
         :inverted="true"
@@ -28,34 +31,28 @@
 
     <q-page-container>
       <modals />
-      <q-window-resize-observable @resize="onResize" />
+      <!-- <q-window-resize-observable @resize="onResize" /> -->
       <router-view class="_page-wrapper" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
+import storeAccess from '../components/mixins/storeAccess'
+import router from '../router'
+
 export default {
   name: 'LayoutDefault',
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () {
-    return { appHeight: `calc(100vh - 50px)` }
+    return {}
   },
-  mounted () {},
   methods:
   {
-    get (path) { return this.$store.get(path) },
-    set (path, val) { return this.$store.set(path, val) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
-    onResize (size) {
-      this.state.windowSize = size
-    },
   },
   computed:
   {
-    state () { return this.$store.state },
-    style () {
-      return `height: ${this.appHeight}; min-height: auto !important`
-    },
     elevateHeader () {
       return (!this.state.cart.opened.state &&
         (this.state.menu.opened || this.state.menu.animating))
@@ -96,5 +93,9 @@ export default {
   transition all .4s linear
 .rotated
   transform rotate(180deg)
+
+.page--signin
+  background url('~assets/auth-background.jpg') no-repeat center center fixed
+  background-size cover
 
 </style>

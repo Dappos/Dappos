@@ -9,7 +9,7 @@ export default [
         component: () => import('pages/index'),
         children: [
           {path: '', component: () => import('components/Keypad')},
-          {path: 'keypad', component: () => import('components/Keypad')},
+          {path: 'keypad', name: 'home', component: () => import('components/Keypad')},
           {path: 'menulist', component: () => import('components/MenuList')},
           // {path: 'cart', component: () => import('components/Cart')},
           // {path: 'edit-items', component: () => import('components/ModalEditMenuList')}
@@ -18,7 +18,7 @@ export default [
       {
         path: 'signin',
         name: 'signin',
-        component: () => import('pages/firebaseUI')
+        component: () => import('pages/signin')
       }
     ]
   },
