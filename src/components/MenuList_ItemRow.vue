@@ -1,31 +1,46 @@
 <template>
 <button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
-    <div class="_name">{{ item.name }}</div>
+    <div class="_name">
+      <q-icon v-if="!item.icon" name="ion-list" class="mr-md"/>
+      <span v-else class="mr-sm">{{ item.icon }}</span>
+      <span>{{ item.name }}</span>
+    </div>
     <div class="_price">{{ price | money(get('settings/currency/config')) }}</div>
   </div>
   <div
     class="_fly-icon js-fly-target hidden"
-  >👍</div>
+  >{{ (item.icon) ? item.icon : randomEmoji }}</div>
 </button>
 </template>
 
 <script>
 import storeAccess from './mixins/storeAccess'
 import { uid } from 'quasar'
+const Chance = require('chance')
+const chance = new Chance()
 
 export default {
   components: {},
   props: ['item'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {anime: null, id: uid()} },
+  data () {
+    return {
+      id: uid(),
+      emojiInt: 0,
+      standardEmojis: ['📦', '🎈', '⭐️', '👍', '🏀']
+    }
+  },
   computed:
   {
     price () {
       return (!this.item.price)
         ? this.item.prices[this.state.settings.currency.currency]
         : this.item.price
+    },
+    randomEmoji () {
+      return this.standardEmojis[this.emojiInt]
     },
   },
   methods:
@@ -40,7 +55,11 @@ export default {
         hidden: true
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})
+        this.scrambleInt()
       })
+    },
+    scrambleInt () {
+      this.emojiInt = chance.integer({ min: -0, max: this.standardEmojis.length - 1 })
     },
   }
 }

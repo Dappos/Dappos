@@ -53,6 +53,7 @@ module.exports = function (ctx) {
         'QListHeader',
         'QItem',
         'QItemMain',
+        'QItemTile',
         'QItemSide',
         'QInput',
         'QTabs',
@@ -63,9 +64,10 @@ module.exports = function (ctx) {
         'QSpinnerOval',
         'QWindowResizeObservable',
         'QSelect',
+        'QBtnDropdown',
       ],
       directives: [
-        'Ripple', 'TouchSwipe'
+        'Ripple', 'TouchSwipe', 'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [

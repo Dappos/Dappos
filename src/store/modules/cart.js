@@ -32,7 +32,6 @@ function limitNumberTo15 (nr) {
 
 export default {
   namespaced: true,
-  // modules: {  },
   state: initialState(),
   mutations:
   {
@@ -94,16 +93,13 @@ export default {
     },
     toggleCart ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
-      if (toggleState === undefined) {
-        state.opened.state = !state.opened.state
-        return
-      }
-      state.opened.state = toggleState
+      toggleState = (toggleState === undefined) ? !state.opened.state : toggleState
+      commit('SET_OPENED.STATE', toggleState)
     },
     openMore ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
-      state.editing.state = true
-      state.editing.item = item
+      commit('SET_EDITING.STATE', true)
+      commit('SET_EDITING.ITEM', item)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
@@ -126,7 +122,7 @@ export default {
         to: 'wei'
       }, {root: true})
       value = limitNumberTo15(value)
-      state.totalAmountWei = value
+      commit('SET_TOTALAMOUNTWEI', value)
       const sendDetails = {
         value,
         to: rootState.settings.walletAddress,

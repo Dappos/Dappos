@@ -21,14 +21,14 @@ export default {
         Vue.set(state, key, payload[key])
       })
     },
-    ...defaultMutations()
+    ...defaultMutations(initialState())
   },
   actions:
   {
     toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
-      state.modal.state = toggleState
+      commit('SET_MODAL.STATE', toggleState)
     },
   },
   getters:

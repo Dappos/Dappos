@@ -38,6 +38,7 @@
   <modal-fullscreen
     :toggle="state.user.menulist.adding"
     title="Add item"
+    :hideFunc="_ => { commit('user/menulist/resetNewItem') }"
   >
     <menu-list-add-edit-item :item="state.user.menulist.adding.item"/>
   </modal-fullscreen>

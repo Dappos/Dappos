@@ -30,14 +30,12 @@ export default {
   },
   actions:
   {
-    setCurrency ({state, getters, rootState, rootGetters, commit, dispatch},
-    {currency} = {}) {
-      if (!getters.availableCurrencies[currency]) return
-      state.currency = currency.toLowerCase()
-    }
   },
   getters:
   {
+    currency: (state, getters) => {
+      return getters.availableCurrencies[state.currency].label
+    },
     config: (state, getters, rootState, rootGetters) => {
       return Object.assign(
         defaults[state.currency],

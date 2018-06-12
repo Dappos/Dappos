@@ -31,7 +31,7 @@ export default {
     userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch},
     {user}) {
       console.log('userOnAuthListener → ', user)
-      state.user = Object.assign({}, user)
+      commit('SET_USER', Object.assign({}, user))
     },
     signInSuccess ({state, getters, rootState, rootGetters, commit, dispatch},
     {user}) {

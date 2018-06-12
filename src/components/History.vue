@@ -1,18 +1,23 @@
 <template>
-<div class="_component-name">
+<div class="history">
+  <div class="_wrapper">
 
+  </div>
 </div>
 </template>
 
 <script>
 import storeAccess from './mixins/storeAccess'
+const testHistory = {
+
+}
 
 export default {
   components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () { return testHistory },
   computed:
   {
   },
@@ -25,6 +30,6 @@ export default {
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
-// ._component-name
+// .history
 
 </style>

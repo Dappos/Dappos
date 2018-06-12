@@ -36,8 +36,8 @@ export default {
     async getAddress ({state, getters, rootState, rootGetters, commit, dispatch},
     {id} = {}) {
       const accounts = await web3.eth.getAccounts()
-      state.address = accounts[0]
-      state.isMainnet = await isMainNetwork(web3)
+      commit('SET_ADDRESS', accounts[0])
+      commit('SET_ISMAINNET', await isMainNetwork(web3))
     }
   },
   getters:

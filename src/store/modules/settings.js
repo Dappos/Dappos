@@ -43,7 +43,7 @@ export default {
     toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
-      state.modal.state = toggleState
+      commit('SET_MODAL.STATE', toggleState)
     },
     openDBChannel ({state, getters, rootState, rootGetters, commit, dispatch}) {
       getters.userSettingsDoc.onSnapshot(doc => {
@@ -58,28 +58,29 @@ export default {
         notify({message, preset: 'error'})
       })
     },
-    patch ({dispatch, getters, state, rootState, rootGetters}) {
+    patch ({dispatch, getters, state, rootState, rootGetters, commit}) {
       if (!rootGetters['user/isSignedIn']) { return }
       // dispatch('startPatching')
       if (state.settingsPatchQueueing) { clearTimeout(state.settingsPatchQueueing) }
       function startPatchQueue () {
-        state.settingsPatchQueueing = setTimeout(_ => {
+        const newPatchQueue = setTimeout(_ => {
           if (state.sendingSettingsPatchesToServer) {
             return startPatchQueue()
           }
           // Hard copy the syncStack
-          let settings = copyObj(state)
+          const settings = copyObj(state)
           console.log('settings → ', settings)
           // Set sending status for next patchQueue invokes during it's being sent.
-          state.sendingSettingsPatchesToServer = true
+          commit('SET_SENDINGSETTINGSPATCHESTOSERVER', true)
           getters.userSettingsDoc.set(settings, {merge: true})
           .then(_ => {
             // dispatch('stopPatching')
             console.log('patched User settings!')
-            state.sendingSettingsPatchesToServer = false
+            commit('SET_SENDINGSETTINGSPATCHESTOSERVER', false)
           })
           .catch(error => dispatch('apiError', {error, note: 'Error during Settings patch'}, {root: true}))
         }, 750)
+        commit('SET_SETTINGSPATCHQUEUEING', newPatchQueue)
       }
       startPatchQueue()
     },
