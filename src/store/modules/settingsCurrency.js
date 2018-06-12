@@ -1,15 +1,14 @@
+import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
 import defaults from '../../config/currencyDefaults'
+// let coinmarketcapCurrencies = ['AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PKR', 'PLN', 'RUB', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'ZAR']
 
 function initialState () {
   return {
-    defaults,
     currency: 'jpy',
     config: {
       // only set these if you want to overwrite defaults.
     },
-    coinmarketcapCurrencies: [
-      'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PKR', 'PLN', 'RUB', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'ZAR'
-    ],
   }
 }
 
@@ -26,39 +25,33 @@ export default {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
       })
-    }
+    },
+    ...defaultMutations(initialState())
   },
   actions:
   {
-    setCurrency ({state, getters, rootState, rootGetters, commit, dispatch},
-    {currency} = {}) {
-      if (!getters.availableCurrencies[currency]) return
-      state.currency = currency.toLowerCase()
-    }
   },
   getters:
   {
+    currency: (state, getters) => {
+      return getters.availableCurrencies[state.currency].label
+    },
     config: (state, getters, rootState, rootGetters) => {
       return Object.assign(
-        state.defaults[state.currency],
+        defaults[state.currency],
         state.config
       )
     },
     availableCurrencies: (state, getters, rootState, rootGetters) => {
-      return Object.keys(state.defaults)
+      return Object.keys(defaults)
         .reduce((carry, key) => {
           const info = {
-            label: `${state.defaults[key].prefix} ${key.toUpperCase()}`,
+            label: `${defaults[key].prefix} ${key.toUpperCase()}`,
             value: key
           }
           carry[key] = info
           return carry
         }, {})
     },
-    getIt: (state, getters, rootState, rootGetters) =>
-    (id) => {
-      getters.someOtherGetter // -> 'foo/someOtherGetter'
-      rootGetters.someOtherGetter // -> 'someOtherGetter'
-    }
   }
 }

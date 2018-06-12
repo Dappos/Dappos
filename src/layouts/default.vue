@@ -13,7 +13,7 @@
           :class="['reset-button']"
         >
           <div class="_menu-btn">
-            <div><img src="~assets/dappos-icon.png" alt="menu"></div>
+            <div><img src="~assets/dappos-icon.svg" alt="menu"></div>
               <div class="q-ml-sm">
               <q-icon
                 :class="['_arrow', {rotated: state.menu.opened}]"
@@ -41,8 +41,10 @@ export default {
     return { appHeight: `calc(100vh - 50px)` }
   },
   mounted () {},
-  methods: {
-    commit (action, payload) { return this.$store.commit(action, payload) },
+  methods:
+  {
+    get (path) { return this.$store.get(path) },
+    set (path, val) { return this.$store.set(path, val) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
     onResize (size) {
       this.state.windowSize = size
@@ -50,7 +52,6 @@ export default {
   },
   computed:
   {
-    get () { return this.$store.getters },
     state () { return this.$store.state },
     style () {
       return `height: ${this.appHeight}; min-height: auto !important`
@@ -90,7 +91,7 @@ export default {
     width 2em
     height auto
 ._elevate
-  z-index 10000
+  z-index 5900
 ._arrow
   transition all .4s linear
 .rotated

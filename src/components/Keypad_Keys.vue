@@ -20,21 +20,22 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import storeAccess from './mixins/storeAccess'
 
 export default {
   components: {},
   props: [],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
+  mounted () {
+    console.log('this → ', this)
+  },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
     add () {
       if (!this.state.keypad.input) return
       this.dispatch('keypad/add')

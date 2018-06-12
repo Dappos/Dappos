@@ -36,12 +36,12 @@ export default {
   },
   computed:
   {
-    get () { return this.$store.getters },
     state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
+    get (path) { return this.$store.get(path) },
+    set (path, val) { return this.$store.set(path, val) },
     dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }

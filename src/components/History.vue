@@ -1,31 +1,23 @@
 <template>
-<div class="navigation-tabs">
+<div class="history">
+  <div class="_wrapper">
 
-  <q-tabs color="bg-light" text-color="gray-dark">
-    <q-route-tab
-      to="/keypad"
-      icon="ion-calculator"
-      default
-      slot="title"
-    />
-    <q-route-tab
-      to="/menulist"
-      icon="ion-list"
-      slot="title"
-    />
-  </q-tabs>
+  </div>
 </div>
 </template>
 
 <script>
 import storeAccess from './mixins/storeAccess'
+const testHistory = {
+
+}
 
 export default {
   components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () { return testHistory },
   computed:
   {
   },
@@ -38,6 +30,6 @@ export default {
 <style lang="stylus" scoped>
 @import '../css/themes/common.variables'
 
-// .navigation-tabs
+// .history
 
 </style>

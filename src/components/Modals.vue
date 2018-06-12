@@ -26,6 +26,7 @@
     v-model="state.cart.editing.state"
     position="bottom"
     :class="{'app-minimised': get.appMinimised}"
+    @hide="deleteIf0"
   >
     <cart-editing-item
       v-if="state.cart.editing.state"
@@ -37,6 +38,7 @@
   <modal-fullscreen
     :toggle="state.user.menulist.adding"
     title="Add item"
+    :hideFunc="_ => { commit('user/menulist/resetNewItem') }"
   >
     <menu-list-add-edit-item :item="state.user.menulist.adding.item"/>
   </modal-fullscreen>
@@ -60,6 +62,22 @@
     />
   </modal-fullscreen>
 
+  <!-- [HISTORY] -->
+  <modal-fullscreen
+    :toggle="state.history.modal"
+    title="History"
+  >
+    <history />
+  </modal-fullscreen>
+
+  <!-- [SETTINGS] -->
+  <modal-fullscreen
+    :toggle="state.settings.modal"
+    :title="get('user/isSignedIn') ? 'Settings' : 'Currency'"
+  >
+    <settings />
+  </modal-fullscreen>
+
   <!-- PAYMENT -->
   <modal-minimised
     :toggle="state.cart.payment"
@@ -73,19 +91,23 @@
 </template>
 
 <script>
+import storeAccess from './mixins/storeAccess'
+
 export default {
   components: {},
   props: [],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
+    deleteIf0 () {
+      const item = this.state.cart.editing.item
+      if (!item.count) this.commit('cart/deleteItem', item)
+    },
   }
 }
 </script>
@@ -114,6 +136,7 @@ export default {
   background rgba(0,0,0,0.3) !important
 
 .app-menu-modal.modal
+  z-index 5800
   transition all .3s ease-in-out, background .4s linear
 .app-menu-modal .modal-content
   transition all .3s ease-in-out

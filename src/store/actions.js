@@ -18,7 +18,7 @@ export default {
     store.unsyncRouter = sync(store, Router)
     console.log('reset store complete!')
   },
-  toggleMenu ({state, getters},
+  toggleMenu ({state, getters, commit},
   toggleState) {
     let top = 0
     let left = 0
@@ -37,13 +37,15 @@ export default {
     })
     const prevState = state.menu.opened
     if (toggleState === undefined) {
-      state.menu.opened = !state.menu.opened
-    } else {
-      state.menu.opened = toggleState
+      toggleState = !state.menu.opened
     }
+    commit('SET_MENU.OPENED', toggleState)
     if (prevState !== state.menu.opened) {
       state.menu.animating = true
     }
   },
-
+  apiError ({state, getters},
+  {error, method}) {
+    console.error('error → ', error, ' on method → ', method)
+  },
 }

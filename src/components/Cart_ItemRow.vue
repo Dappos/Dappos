@@ -3,30 +3,30 @@
   <div class="_wrapper">
     <div class="_count">{{ item.count }}x</div>
     <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ item.price | money(get['settings/currency/config']) }}</div>
+    <div class="_price">{{ item.price | money(get('settings/currency/config')) }}</div>
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('cart/openMore', item)" />
     </div>
 
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get['settings/currency/config']) }} -->
+    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currency/config')) }} -->
   </div>
 </div>
 </template>
 
 <script>
+import storeAccess from './mixins/storeAccess'
+
 export default {
   components: {},
   props: ['item'],
+  mixins: [ storeAccess ],
+  // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
   computed:
   {
-    get () { return this.$store.getters },
-    state () { return this.$store.state },
   },
   methods:
   {
-    commit (action, payload) { return this.$store.commit(action, payload) },
-    dispatch (action, payload) { return this.$store.dispatch(action, payload) },
   }
 }
 </script>

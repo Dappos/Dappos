@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { defaultMutations } from 'vuex-easy-access'
 import { uid } from 'quasar'
 import copyObj from '../../helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
@@ -31,7 +32,6 @@ function limitNumberTo15 (nr) {
 
 export default {
   namespaced: true,
-  // modules: {  },
   state: initialState(),
   mutations:
   {
@@ -51,20 +51,32 @@ export default {
       }
       state.items[item.id].count++
     },
-    removeItem (state, item) {
+    decrementItem (state, item) {
       if (!state.items[item.id]) return
       if (!state.items[item.id].count) return
       state.items[item.id].count--
     },
+    deleteItem (state, item) {
+      Vue.delete(state.items, item.id)
+    },
     clearAll (state) {
       Object.values(state.items).forEach(item => {
-        item.count = 0
+        // item.count = 0
+        Vue.delete(state.items, item.id)
+      })
+    },
+    clearEmpty (state) {
+      Object.values(state.items).forEach(item => {
+        if (!item.count) {
+          Vue.delete(state.items, item.id)
+        }
       })
     },
     resetQR (state) {
       state.totalAmountWei = 0
       document.getElementById('js-qr').innerHTML = ''
-    }
+    },
+    ...defaultMutations(initialState())
   },
   actions:
   {
@@ -73,20 +85,21 @@ export default {
       item.price = (item.price === undefined)
         ? item.prices[rootState.settings.currency.currency]
         : item.price
+      if (!item.id) {
+        item.id = uid()
+        item.nonListed = true
+      }
       commit('addItem', item)
     },
     toggleCart ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
-      if (toggleState === undefined) {
-        state.opened.state = !state.opened.state
-        return
-      }
-      state.opened.state = toggleState
+      toggleState = (toggleState === undefined) ? !state.opened.state : toggleState
+      commit('SET_OPENED.STATE', toggleState)
     },
     openMore ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
-      state.editing.state = true
-      state.editing.item = item
+      commit('SET_EDITING.STATE', true)
+      commit('SET_EDITING.ITEM', item)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
@@ -94,7 +107,7 @@ export default {
     },
     decrement ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
-      commit('removeItem', item)
+      commit('decrementItem', item)
     },
     clearAll ({state, getters, rootState, rootGetters, commit, dispatch}) {
       commit('clearAll')
@@ -109,7 +122,7 @@ export default {
         to: 'wei'
       }, {root: true})
       value = limitNumberTo15(value)
-      state.totalAmountWei = value
+      commit('SET_TOTALAMOUNTWEI', value)
       const sendDetails = {
         value,
         to: rootState.settings.walletAddress,
