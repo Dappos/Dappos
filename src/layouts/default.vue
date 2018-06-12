@@ -13,7 +13,7 @@
           :class="['reset-button']"
         >
           <div class="_menu-btn">
-            <div><img src="~assets/dappos-icon.png" alt="menu"></div>
+            <div><img src="~assets/dappos-icon.svg" alt="menu"></div>
               <div class="q-ml-sm">
               <q-icon
                 :class="['_arrow', {rotated: state.menu.opened}]"
