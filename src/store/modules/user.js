@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
-import firebase from 'firebase'
+import Firebase from 'firebase/app'
+import 'firebase/auth'
 import menulist from './userMenulist'
 
 function initialState () {
@@ -43,8 +44,10 @@ export default {
     },
     signOut ({state, getters, rootState, rootGetters, commit, dispatch}) {
       console.log('signOut')
-      firebase.auth().signOut()
-      dispatch('resetStore', null, {root: true})
+      Firebase.auth().signOut()
+      .then(_ => {
+        dispatch('resetStore', null, {root: true})
+      })
     },
   },
   getters:

@@ -3,6 +3,7 @@
 import ModalFullscreen from '../components/generic/ModalFullscreen'
 import ModalMinimised from '../components/generic/ModalMinimised'
 import QuasarOptionsReveal from '../components/generic/QuasarOptionsReveal'
+import FirebaseUi from '../components/FirebaseUi'
 // modals
 import Modals from '../components/Modals'
 import MenuListAddEditItem from '../components/Modals/MenuListAddEditItem'
@@ -25,6 +26,7 @@ export default ({ app, router, Vue }) => {
   Vue.component('modal-fullscreen', ModalFullscreen)
   Vue.component('modal-minimised', ModalMinimised)
   Vue.component('options-reveal', QuasarOptionsReveal)
+  Vue.component('firebase-ui', FirebaseUi)
 
   Vue.component('modals', Modals)
   Vue.component('menu-list-add-edit-item', MenuListAddEditItem)

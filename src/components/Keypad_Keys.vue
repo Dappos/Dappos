@@ -28,9 +28,7 @@ export default {
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return {} },
-  mounted () {
-    console.log('this → ', this)
-  },
+  mounted () {},
   computed:
   {
   },

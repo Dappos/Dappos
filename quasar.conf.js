@@ -4,12 +4,14 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
+      'auth',
       'firebase',
       'vueComponents',
       'vuePlugins',
       'i18n',
       'axios',
       'windowRegistrations',
+      'boot'
     ],
     css: [
       'index.styl'

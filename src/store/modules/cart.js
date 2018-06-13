@@ -3,10 +3,12 @@ import { defaultMutations } from 'vuex-easy-access'
 import { uid } from 'quasar'
 import copyObj from '../../helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
+import CountUp from 'countup.js'
 
 function initialState () {
   return {
     totalAmount: 0,
+    totalAmountAnimation: {frameVal: 0},
     totalAmountWei: 0,
     totalCount: 0,
     items: {},
@@ -18,7 +20,7 @@ function initialState () {
     payment: {
       state: false,
       stage: 1
-    }
+    },
   }
 }
 function limitNumberTo15 (nr) {
@@ -28,7 +30,6 @@ function limitNumberTo15 (nr) {
   let floorLog = 10 ** excessLen
   return Math.floor(nr / floorLog) * floorLog
 }
-
 
 export default {
   namespaced: true,
@@ -80,6 +81,15 @@ export default {
   },
   actions:
   {
+    initializeTotalAmountAnimation ({state}) {
+      const el = document.createElement('div')
+      state.totalAmountAnimation = new CountUp(el, 0, 0)
+      if (!state.totalAmountAnimation.error) {
+        state.totalAmountAnimation.start()
+      } else {
+        console.error(state.totalAmountAnimation.error)
+      }
+    },
     addItem ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
       item.price = (item.price === undefined)
@@ -90,6 +100,7 @@ export default {
         item.nonListed = true
       }
       commit('addItem', item)
+      state.totalAmountAnimation.update(getters.totalAmount)
     },
     toggleCart ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
@@ -104,13 +115,16 @@ export default {
     increment ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
       dispatch('addItem', item)
+      state.totalAmountAnimation.update(getters.totalAmount)
     },
     decrement ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
       commit('decrementItem', item)
+      state.totalAmountAnimation.update(getters.totalAmount)
     },
     clearAll ({state, getters, rootState, rootGetters, commit, dispatch}) {
       commit('clearAll')
+      state.totalAmountAnimation.update(getters.totalAmount)
     },
     async generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
