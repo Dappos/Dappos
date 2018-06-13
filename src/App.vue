@@ -1,6 +1,8 @@
 <template>
   <div id="q-app">
     <router-view class="_app-wrapper" />
+    <q-window-resize-observable @resize="onResize" />
+    <modals />
   </div>
 </template>
 
@@ -10,6 +12,12 @@ export default {
   mounted () {
     this.$store.dispatch('web3/getAddress')
     this.$store.dispatch('ethEvents/observeAccount')
+  },
+  methods:
+  {
+    onResize (size) {
+      this.$store.set('windowSize', size)
+    },
   }
 }
 </script>

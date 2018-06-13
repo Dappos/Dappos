@@ -30,8 +30,6 @@
     </q-layout-header>
 
     <q-page-container>
-      <modals />
-      <!-- <q-window-resize-observable @resize="onResize" /> -->
       <router-view class="_page-wrapper" />
     </q-page-container>
   </q-layout>
