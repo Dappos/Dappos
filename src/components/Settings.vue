@@ -21,6 +21,12 @@
         </q-btn-dropdown>
       </div>
     </div>
+    <div class="_row">
+      <div class="_title">Ethereum Wallet Address</div>
+      <div class="_content _wallet">
+        <q-input v-model="state.settings.walletAddress" />
+      </div>
+    </div>
   </div>
 </div>
 </template>
@@ -55,8 +61,15 @@ export default {
 ._row
   mb lg
   display flex
+  flex-wrap wrap
   align-items baseline
 ._title
   mr lg
+._content
+  flex 1
+._wallet
+  width 100%
+  flex auto
+  mt md
 
 </style>
