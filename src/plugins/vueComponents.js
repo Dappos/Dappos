@@ -3,7 +3,7 @@
 import ModalFullscreen from '../components/generic/ModalFullscreen'
 import ModalMinimised from '../components/generic/ModalMinimised'
 import QuasarOptionsReveal from '../components/generic/QuasarOptionsReveal'
-import FirebaseUi from '../components/firebaseUi'
+import FirebaseUi from '../components/FirebaseUI'
 // modals
 import Modals from '../components/Modals'
 import MenuListAddEditItem from '../components/Modals/MenuListAddEditItem'

@@ -2,7 +2,6 @@
 <q-page class="page-signin">
   <firebase-ui />
 </q-page>
-</div>
 </template>
 
 <script>

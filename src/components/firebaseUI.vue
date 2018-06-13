@@ -2,7 +2,6 @@
 <div class="firebase-ui-wrapper">
   <div id="firebaseui-auth-container"></div>
 </div>
-</div>
 </template>
 
 <script>
