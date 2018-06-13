@@ -47,7 +47,6 @@ export default {
       Firebase.auth().signOut()
       .then(_ => {
         dispatch('resetStore', null, {root: true})
-        commit('SET_USER', {})
       })
     },
   },

@@ -9,8 +9,6 @@ export default {
   resetStore ({commit, state, dispatch}) {
     store.unsyncRouter()
     // store.replaceState(copyObj(store.initialStateCopy))
-    // I think this bugs because of the web3 object saved in state.
-    // Let's reset the modules by hand:
     Object.keys(store._modulesNamespaceMap).forEach(ns => {
       let mutation = ns + 'resetStateData'
       commit(mutation)

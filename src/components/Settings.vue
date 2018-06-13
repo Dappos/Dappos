@@ -41,6 +41,7 @@ export default {
   {
     chooseCurrency (choice) {
       this.set('settings/currency/currency', choice)
+      this.dispatch('settings/patch')
     },
   }
 }

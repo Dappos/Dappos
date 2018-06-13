@@ -31,10 +31,10 @@ export default {
       })
     },
     replaceSettings (state, payload) {
-      console.log('payload → ', payload)
-      // Object.keys(payload).forEach(key => {
-      //   Vue.set(state, key, payload[key])
-      // })
+      // console.log('payload → ', payload)
+      Object.keys(payload).forEach(key => {
+        Vue.set(state, key, payload[key])
+      })
     },
     ...defaultMutations(initialState())
   },
@@ -51,7 +51,7 @@ export default {
         let source = doc.metadata.hasPendingWrites ? 'Local' : 'Server'
         console.log('Retrieved userSettings from ', source, ' data: ', doc && doc.data())
         if (source === 'Server') {
-          commit('replaceSettings', doc.data().settings)
+          commit('replaceSettings', doc.data())
         }
       }, error => {
         let message = rootGetters.text.api.connectionError
@@ -69,6 +69,9 @@ export default {
           }
           // Hard copy the syncStack
           const settings = copyObj(state)
+          delete settings.settingsPatchQueueing
+          delete settings.sendingSettingsPatchesToServer
+          delete settings.modal
           console.log('settings → ', settings)
           // Set sending status for next patchQueue invokes during it's being sent.
           commit('SET_SENDINGSETTINGSPATCHESTOSERVER', true)
@@ -88,9 +91,10 @@ export default {
   getters:
   {
     userSettingsDoc: (state, getters, rootState, rootGetters) => {
-      if (!rootGetters['user/isSignedIn']) { return }
-      console.log('this in userSettingsDoc → ', this)
-      return this.firestore.collection('users').doc(rootGetters['user/id']).collection('data').doc('settings')
+      if (!rootGetters['user/isSignedIn'] || !rootGetters.db) return
+      return rootGetters.db
+        .collection('users').doc(rootGetters['user/id'])
+        .collection('data').doc('settings')
     }
   }
 }
