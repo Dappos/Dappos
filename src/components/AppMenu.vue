@@ -10,6 +10,7 @@
         <router-link
           v-if="row.url && !row.func"
           :to="row.url"
+          @click.native="set('menu.opened', false)"
         >
           {{ row.name }}
         </router-link>
