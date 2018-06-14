@@ -10,7 +10,7 @@
     :class="['app-menu-modal', {
       '--opened': state.menu.opened,
       '--closed': !state.menu.opened,
-      'app-minimised': get.appMinimised
+      'app-minimised': get('appMinimised')
     }]"
   >
     <app-menu />
@@ -25,7 +25,7 @@
   <q-modal
     v-model="state.cart.editing.state"
     position="bottom"
-    :class="{'app-minimised': get.appMinimised}"
+    :class="{'app-minimised': get('appMinimised')}"
     @hide="deleteIf0"
   >
     <cart-editing-item

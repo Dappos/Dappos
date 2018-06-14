@@ -7,11 +7,13 @@
       icon="ion-calculator"
       default
       slot="title"
+      class="_tab"
     />
     <q-route-tab
       to="/menulist"
       icon="ion-list"
       slot="title"
+      class="_tab"
     />
   </q-tabs>
 </div>
@@ -39,5 +41,7 @@ export default {
 @import '../css/themes/common.variables'
 
 // .navigation-tabs
+._tab
+  font-size 3em
 
 </style>
