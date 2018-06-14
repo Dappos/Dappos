@@ -9,7 +9,7 @@
           <q-list link>
             <q-item
               v-for="(curr, key) in get('settings/currency/availableCurrencies')"
-              @click.native="set('settings/currency/currency', choice)"
+              @click.native="set('settings/currency/currency', key)"
               :key="`curr-dd-${key}`"
               v-close-overlay
             >
@@ -24,7 +24,12 @@
     <div class="_row">
       <div class="_title">Ethereum Wallet Address</div>
       <div class="_content _wallet">
-        <q-input v-model="state.settings.walletAddress" />
+        <q-input
+          :value="state.settings.walletAddress"
+          @change="newVal => { set('settings/walletAddress', newVal) }"
+        />
+        <!-- todo: change with v-modal.lazy when it becomes available -->
+        <!-- v-model.lazy="state.settings.walletAddress" -->
       </div>
     </div>
   </div>

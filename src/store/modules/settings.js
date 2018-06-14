@@ -43,6 +43,10 @@ export default {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
       commit('SET_MODAL.STATE', toggleState)
     },
+    'setWalletAddress' ({commit, dispatch}, newVal) {
+      commit('SET_WALLETADDRESS', newVal)
+      dispatch('firestore/patch', 'userSettingsDoc', {root: true})
+    },
   },
   getters:
   {
