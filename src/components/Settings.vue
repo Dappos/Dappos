@@ -9,7 +9,7 @@
           <q-list link>
             <q-item
               v-for="(curr, key) in get('settings/currency/availableCurrencies')"
-              @click.native="chooseCurrency(key)"
+              @click.native="set('settings/currency/currency', choice)"
               :key="`curr-dd-${key}`"
               v-close-overlay
             >
@@ -45,10 +45,6 @@ export default {
   },
   methods:
   {
-    chooseCurrency (choice) {
-      this.set('settings/currency/currency', choice)
-      this.dispatch('settings/patch')
-    },
   }
 }
 </script>

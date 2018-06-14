@@ -11,6 +11,7 @@ import web3 from './modules/web3'
 import ethEvents from './modules/ethEvents'
 import conversion from './modules/conversion'
 import history from './modules/history'
+import firestore from './modules/firestore'
 import _template from './modules/_template'
 
 export default function () {
@@ -29,6 +30,7 @@ export default function () {
       ethEvents,
       conversion,
       history,
+      firestore,
       _template
     }
   }

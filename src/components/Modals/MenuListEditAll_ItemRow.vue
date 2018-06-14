@@ -2,12 +2,16 @@
 <div class="cart-item">
   <div class="_wrapper">
     <!-- <div class="_count">{{ item.count }}x</div> -->
-    <div class="_name">{{ item.name }}</div>
+    <div class="_name">
+      <q-icon v-if="!item.icon" name="ion-list" class="mr-md"/>
+      <span v-else class="mr-sm">{{ item.icon }}</span>
+      <span>{{ item.name }}</span>
+    </div>
     <div class="_price">
       {{ price | money(get('settings/currency/config')) }}
     </div>
     <div class="_nav">
-      <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/editItem', item.id)" />
+      <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/openEditModal', item.id)" />
     </div>
 
     <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currency/config')) }} -->
@@ -69,6 +73,7 @@ export default {
   grid-area price
   color $gray-light
   font-size .8em
+  pl xl
 ._nav
   grid-area nav
 ._more

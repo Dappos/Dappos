@@ -30,6 +30,10 @@ export default {
   },
   actions:
   {
+    'setCurrency': ({commit, dispatch}, choice) => {
+      commit('SET_CURRENCY', choice)
+      dispatch('firestore/patch', 'userSettingsDoc', {root: true})
+    },
   },
   getters:
   {

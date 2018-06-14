@@ -12,7 +12,7 @@ export default ({ app, router, Vue, store }) => {
     if (user) {
       // Signed in. Let Vuex know.
       store.dispatch('user/userOnAuthListener', {user})
-      store.dispatch('settings/openDBChannel')
+      store.dispatch('firestore/openDBChannels')
       router.replace({ name: 'home' })
       new Vue(app)
     } else {

@@ -1,6 +1,6 @@
 <template>
 <div class="menu-list-add-edit-item">
-  <form @submit.prevent="addItem">
+  <form @submit.prevent="save">
     <div class="_row flex"
     >
       <button @click.prevent="togglePicker" v-if="!item.icon" class="_icon-btn">
@@ -64,7 +64,7 @@ export default {
   },
   methods:
   {
-    addItem () {
+    save () {
       if (!this.item.prices[this.state.settings.currency.currency]) return
       if (this.item.new) return this.dispatch('user/menulist/addItem')
       return this.dispatch('user/menulist/doneEdit', this.item.id)
@@ -96,6 +96,7 @@ export default {
   reset-button()
   display flex
   mr md
+  ml xs
 ._name
   flex 1
 ._emoji-picker

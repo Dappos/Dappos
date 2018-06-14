@@ -33,6 +33,9 @@ export default {
       let newState = initialState()
       Object.assign(state, newState)
     },
+    replaceMenulist (state, payload) {
+      state.items = payload
+    },
     updateState (state, payload) {
       Object.keys(payload).forEach(key => {
         Vue.set(state, key, payload[key])
@@ -49,12 +52,13 @@ export default {
     resetNewItem (state) {
       state.adding.item = defaultItem()
     },
-    editItem (state, id) {
+    openEditModal (state, id) {
       if (!id) return
       state.editing.item = state.items[id]
       state.editing.state = true
     },
     doneEdit (state, id) {
+      state.editing.state = false
       return
     },
     deleteItem (state, id) {
@@ -66,18 +70,21 @@ export default {
   {
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}) {
       commit('addItem')
+      dispatch('firestore/patch', 'userMenulistDoc', {root: true})
     },
-    editItem ({state, getters, rootState, rootGetters, commit, dispatch},
+    openEditModal ({state, getters, rootState, rootGetters, commit, dispatch},
     id) {
-      commit('editItem', id)
+      commit('openEditModal', id)
     },
     doneEdit ({state, getters, rootState, rootGetters, commit, dispatch},
     id) {
       commit('doneEdit', id)
+      dispatch('firestore/patch', 'userMenulistDoc', {root: true})
     },
     deleteItem ({state, getters, rootState, rootGetters, commit, dispatch},
     id) {
       commit('deleteItem', id)
+      dispatch('firestore/patch', 'userMenulistDoc', {root: true})
     },
     toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
     toggleState) {
