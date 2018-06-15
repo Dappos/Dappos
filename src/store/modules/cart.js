@@ -81,9 +81,15 @@ export default {
   },
   actions:
   {
-    initializeTotalAmountAnimation ({state}) {
-      const el = document.createElement('div')
-      state.totalAmountAnimation = new CountUp(el, 0, 0)
+    initializeTotalAmountAnimation ({state, rootGetters}) {
+      const config = [
+        document.createElement('div'), // el
+        0, // initial start count
+        0, // initial end count
+        rootGetters['settings/currency/config'].precision, // decimal amount
+        0.4 // duration
+      ]
+      state.totalAmountAnimation = new CountUp(...config)
       if (!state.totalAmountAnimation.error) {
         state.totalAmountAnimation.start()
       } else {
