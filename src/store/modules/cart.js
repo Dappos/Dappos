@@ -4,13 +4,12 @@ import { uid } from 'quasar'
 import copyObj from '../../helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
 import CountUp from 'countup.js'
+import roundNumberDown from '../../helpers/roundNumberDown'
 
 function initialState () {
   return {
-    totalAmount: 0,
     totalAmountAnimation: {frameVal: 0},
     totalAmountWei: 0,
-    totalCount: 0,
     items: {},
     opened: {state: false},
     editing: {
@@ -22,13 +21,6 @@ function initialState () {
       stage: 1
     },
   }
-}
-function limitNumberTo15 (nr) {
-  const len = nr.toString().length
-  if (len <= 15) return nr
-  const excessLen = len - 15
-  let floorLog = 10 ** excessLen
-  return Math.floor(nr / floorLog) * floorLog
 }
 
 export default {
@@ -141,7 +133,7 @@ export default {
         from: currency,
         to: 'wei'
       }, {root: true})
-      value = limitNumberTo15(value)
+      value = roundNumberDown(value, 15)
       commit('SET_TOTALAMOUNTWEI', value)
       const sendDetails = {
         value,

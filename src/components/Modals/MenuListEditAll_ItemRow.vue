@@ -13,8 +13,6 @@
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/openEditModal', item.id)" />
     </div>
-
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currency/config')) }} -->
   </div>
 </div>
 </template>
@@ -32,7 +30,7 @@ export default {
   {
     price () {
       return (!this.item.price)
-        ? this.item.prices[this.state.settings.currency.currency]
+        ? this.item.prices[get('settings/currency.currency')]
         : this.item.price
     },
   },

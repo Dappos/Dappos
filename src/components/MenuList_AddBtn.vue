@@ -1,5 +1,5 @@
 <template>
-<button class="menu-list-add" @click="state.user.menulist.adding.state = true">
+<button class="menu-list-add" @click="set('user/menulist/adding.state', true)">
   <q-icon class="_plus" name="ion-add" />
   <div class="_text">Add item</div>
 </button>

@@ -25,7 +25,7 @@
       <div class="_title">Ethereum Wallet Address</div>
       <div class="_content _wallet">
         <q-input
-          :value="state.settings.walletAddress"
+          :value="get('settings/walletAddress')"
           @change="newVal => { set('settings/walletAddress', newVal) }"
         />
         <!-- todo: change with v-modal.lazy when it becomes available -->

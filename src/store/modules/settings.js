@@ -10,6 +10,17 @@ function initialState () {
     modal: {state: false}
   }
 }
+// function gettersSetters ({commit, dispatch, state, getters, rootState, rootSetters}) {
+//   return {
+//     'walletAddress': {
+//       set (key, newVal, value) {
+//         commit('SET_WALLETADDRESS', newVal)
+//         dispatch('firestore/patch', 'userSettingsDoc', {root: true})
+//       }
+//     },
+//   }
+// }
+// customGettersSetters(gettersSetters)
 
 export default {
   namespaced: true,

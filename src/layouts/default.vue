@@ -19,7 +19,7 @@
             <div><img src="~assets/dappos-icon.svg" alt="menu"></div>
               <div class="q-ml-sm">
               <q-icon
-                :class="['_arrow', {rotated: state.menu.opened}]"
+                :class="['_arrow', {rotated: get('menu/opened')}]"
                 name="ion-arrow-down"
               />
             </div>
@@ -52,8 +52,8 @@ export default {
   computed:
   {
     elevateHeader () {
-      return (!this.state.cart.opened.state &&
-        (this.state.menu.opened || this.state.menu.animating))
+      return (!this.get('cart/opened.state') &&
+        (this.get('menu/opened') || this.get('menu/animating')))
     },
   },
 }

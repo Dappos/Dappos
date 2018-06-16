@@ -1,8 +1,7 @@
 <template>
 <div class="menu-list-add-edit-item">
   <form @submit.prevent="save">
-    <div class="_row flex"
-    >
+    <div class="_row flex">
       <button @click.prevent="togglePicker" v-if="!item.icon" class="_icon-btn">
         <q-icon name="ion-list" />
       </button>
@@ -32,7 +31,7 @@
     </div>
     <q-input
       float-label="Price"
-      v-model="item.prices[state.settings.currency.currency]"
+      v-model="item.prices[get('settings/currency.currency')]"
       type="number"
       :prefix="get('settings/currency/config').prefix"
       :decimals="get('settings/currency/config').precision"
@@ -65,13 +64,13 @@ export default {
   methods:
   {
     save () {
-      if (!this.item.prices[this.state.settings.currency.currency]) return
+      if (!this.item.prices[get('settings/currency.currency')]) return
       if (this.item.new) return this.dispatch('user/menulist/addItem')
       return this.dispatch('user/menulist/doneEdit', this.item.id)
     },
     deleteItem () {
       this.dispatch('user/menulist/deleteItem', this.item.id)
-      this.state.user.menulist.editing.state = false
+      this.set('user/menulist/editing.state', false)
     },
     addEmoji (emoji) {
       // console.log('emoji → ', emoji)

@@ -35,7 +35,7 @@ export default {
   methods:
   {
     add () {
-      if (!this.state.keypad.input) return
+      if (!this.get('keypad/input')) return
       this.dispatch('keypad/add')
       this.flyToTotal()
     },

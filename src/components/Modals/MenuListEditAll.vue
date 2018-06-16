@@ -1,7 +1,7 @@
 <template>
 <div class="menu-list-edit-all">
   <options-reveal
-    v-for="(item, key) in state.user.menulist.items"
+    v-for="(item, key) in get('user/menulist/items')"
     :key="key"
     :options="[{
       name: 'Delete',

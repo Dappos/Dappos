@@ -36,7 +36,7 @@ export default {
   {
     price () {
       return (!this.item.price)
-        ? this.item.prices[this.state.settings.currency.currency]
+        ? this.item.prices[this.get('settings/currency.currency')]
         : this.item.price
     },
     randomEmoji () {

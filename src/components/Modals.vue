@@ -3,13 +3,13 @@
   <!-- APP MENU -->
   <q-modal
     v-model="state.menu.opened"
-    @hide="state.menu.animating = false"
-    @show="state.menu.animating = false"
+    @hide="set('menu/animating', false)"
+    @show="set('menu/animating', false)"
     position="top"
     maximized
     :class="['app-menu-modal', {
-      '--opened': state.menu.opened,
-      '--closed': !state.menu.opened,
+      '--opened': get('menu/opened'),
+      '--closed': !get('menu/opened'),
       'app-minimised': get('appMinimised')
     }]"
   >
@@ -18,7 +18,7 @@
 
   <!-- CART -->
   <modal-fullscreen
-    :toggle="state.cart.opened"
+    :toggle="get('cart/opened')"
     title="Cart"
   ><cart /></modal-fullscreen>
   <!-- [CART] EDIT ITEM -->
@@ -29,42 +29,42 @@
     @hide="deleteIf0"
   >
     <cart-editing-item
-      v-if="state.cart.editing.state"
-      :item="state.cart.editing.item"
+      v-if="get('cart/editing.state')"
+      :item="get('cart/editing.item')"
     />
   </q-modal>
 
   <!-- [MENU LIST] ADDING ITEM -->
   <modal-fullscreen
-    :toggle="state.user.menulist.adding"
+    :toggle="get('user/menulist/adding')"
     title="Add item"
     :hideFunc="_ => { commit('user/menulist/resetNewItem') }"
   >
-    <menu-list-add-edit-item :item="state.user.menulist.adding.item"/>
+    <menu-list-add-edit-item :item="get('user/menulist/adding.item')"/>
   </modal-fullscreen>
   <!-- [MENU LIST] EDITING ITEM -->
   <modal-fullscreen
-    :toggle="state.user.menulist.editing"
+    :toggle="get('user/menulist/editing')"
     title="Edit item"
   >
     <menu-list-add-edit-item
-      v-if="state.user.menulist.editing.state"
-      :item="state.user.menulist.editing.item"
+      v-if="get('user/menulist/editing.state')"
+      :item="get('user/menulist/editing.item')"
     />
   </modal-fullscreen>
   <!-- [MENU LIST] EDIT ALL -->
   <modal-fullscreen
-    :toggle="state.user.menulist.editAll"
+    :toggle="get('user/menulist/editAll')"
     title="Edit items"
   >
     <menu-list-edit-all
-      v-if="state.user.menulist.editAll.state"
+      v-if="get('user/menulist/editAll.state')"
     />
   </modal-fullscreen>
 
   <!-- [HISTORY] -->
   <modal-fullscreen
-    :toggle="state.history.modal"
+    :toggle="get('history/modal')"
     title="History"
   >
     <history />
@@ -72,7 +72,7 @@
 
   <!-- [SETTINGS] -->
   <modal-fullscreen
-    :toggle="state.settings.modal"
+    :toggle="get('settings/modal')"
     :title="get('user/isSignedIn') ? 'Settings' : 'Currency'"
   >
     <settings />
@@ -80,7 +80,7 @@
 
   <!-- PAYMENT -->
   <modal-minimised
-    :toggle="state.cart.payment"
+    :toggle="get('cart/payment')"
     :showFunc="_ => { return dispatch('cart/generateQr') }"
     :hideFunc="_ => { return commit('cart/resetQR') }"
   >
@@ -105,7 +105,7 @@ export default {
   methods:
   {
     deleteIf0 () {
-      const item = this.state.cart.editing.item
+      const item = this.get('cart/editing.item')
       if (!item.count) this.commit('cart/deleteItem', item)
     },
   }
