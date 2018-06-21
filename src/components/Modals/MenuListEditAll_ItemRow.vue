@@ -8,7 +8,7 @@
       <span>{{ item.name }}</span>
     </div>
     <div class="_price">
-      {{ price | money(get('settings/currency/config')) }}
+      {{ price | money(get('settings/currencyConfig')) }}
     </div>
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/openEditModal', item.id)" />
@@ -30,7 +30,7 @@ export default {
   {
     price () {
       return (!this.item.price)
-        ? this.item.prices[get('settings/currency.currency')]
+        ? this.item.prices[this.get('settings/currency')]
         : this.item.price
     },
   },

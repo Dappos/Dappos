@@ -2,7 +2,7 @@
 <div class="payment">
   <div class="_wrapper-top">
     <div class="_title">Payment Request</div>
-    <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currency/config')) }}</div>
+    <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currencyConfig')) }}</div>
     <div class="_eth">Ξ {{ get('cart/totalAmountEth') }}</div>
   </div>
   <div class="_wrapper-bottom">

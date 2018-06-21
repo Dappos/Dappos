@@ -10,7 +10,8 @@
       </button>
       <q-input
         float-label="Item name"
-        v-model="item.name"
+        :value="item.name"
+        @change="changeName"
         type="text"
         autofocus
         required
@@ -31,10 +32,11 @@
     </div>
     <q-input
       float-label="Price"
-      v-model="item.prices[get('settings/currency.currency')]"
+      :value="item.prices[get('settings/currency')]"
+      @change="changePrice"
       type="number"
-      :prefix="get('settings/currency/config').prefix"
-      :decimals="get('settings/currency/config').precision"
+      :prefix="get('settings/currencyConfig').prefix"
+      :decimals="get('settings/currencyConfig').precision"
       numeric-keyboard-toggle
       required
       class="_row"
@@ -63,13 +65,22 @@ export default {
   },
   methods:
   {
+    changeName (newVal) {
+      if (this.item.new) return this.set('user/menulist/adding.item.name', newVal)
+      return this.dispatch('user/menulist/set', {name: newVal, id: this.item.id})
+    },
+    changePrice (newVal) {
+      const curr = this.get('settings/currency')
+      if (this.item.new) return this.set(`user/menulist/adding.item.prices.${curr}`, newVal)
+      return this.dispatch('user/menulist/setPrice', {id: this.item.id, val: newVal})
+    },
     save () {
-      if (!this.item.prices[get('settings/currency.currency')]) return
+      if (!this.item.prices[this.get('settings/currency')]) return
       if (this.item.new) return this.dispatch('user/menulist/addItem')
       return this.dispatch('user/menulist/doneEdit', this.item.id)
     },
     deleteItem () {
-      this.dispatch('user/menulist/deleteItem', this.item.id)
+      this.dispatch('user/menulist/delete', this.item.id)
       this.set('user/menulist/editing.state', false)
     },
     addEmoji (emoji) {

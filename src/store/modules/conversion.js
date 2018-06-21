@@ -36,7 +36,7 @@ export default {
   {
     getRate ({state, getters, rootState, rootGetters, commit, dispatch},
     {currency = null} = {}) {
-      if (!rootGetters['settings/currency/availableCurrencies'][currency.toLowerCase()]) return
+      if (!rootGetters['settings/availableCurrencies'][currency.toLowerCase()]) return
       currency = currency.toUpperCase()
       let url = 'https://api.coinmarketcap.com/v2/ticker/1027/?convert=' + currency
       return axios.get(url)

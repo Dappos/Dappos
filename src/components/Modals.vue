@@ -3,13 +3,13 @@
   <!-- APP MENU -->
   <q-modal
     v-model="state.menu.opened"
-    @hide="set('menu/animating', false)"
-    @show="set('menu/animating', false)"
+    @hide="set('menu.animating', false)"
+    @show="set('menu.animating', false)"
     position="top"
     maximized
     :class="['app-menu-modal', {
-      '--opened': get('menu/opened'),
-      '--closed': !get('menu/opened'),
+      '--opened': get('menu.opened'),
+      '--closed': !get('menu.opened'),
       'app-minimised': get('appMinimised')
     }]"
   >

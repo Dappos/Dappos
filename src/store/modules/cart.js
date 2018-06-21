@@ -78,7 +78,7 @@ export default {
         document.createElement('div'), // el
         0, // initial start count
         0, // initial end count
-        rootGetters['settings/currency/config'].precision, // decimal amount
+        rootGetters['settings/currencyConfig'].precision, // decimal amount
         0.4 // duration
       ]
       state.totalAmountAnimation = new CountUp(...config)
@@ -91,7 +91,7 @@ export default {
     addItem ({state, getters, rootState, rootGetters, commit, dispatch},
     item) {
       item.price = (item.price === undefined)
-        ? item.prices[rootState.settings.currency.currency]
+        ? item.prices[rootState.settings.currency]
         : item.price
       if (!item.id) {
         item.id = uid()
@@ -126,7 +126,7 @@ export default {
     },
     async generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
-      const currency = rootState.settings.currency.currency
+      const currency = rootState.settings.currency
       const amount = getters.totalAmount
       let value = await dispatch('conversion/convert', {
         amount,

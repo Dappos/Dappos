@@ -51,7 +51,9 @@ export default {
           notify({message, preset: 'error'})
         })
       }
-      const docs = ['userSettingsDoc', 'userMenulistDoc']
+      // const docs = ['userSettingsDoc', 'userMenulistDoc']
+      const docs = ['userSettingsDoc']
+      if (!rootGetters['user/isSignedIn'] || !rootGetters.db) return
       docs.forEach(docGetter => openChannel(docGetter))
     },
     patch ({dispatch, getters, state, rootState, rootGetters, commit}, docGetter = '') {

@@ -4,12 +4,12 @@
     <div class="_row">
       <div class="_title">Currency</div>
       <div class="_content">
-        <q-btn-dropdown :label="get('settings/currency/currency')" outline >
+        <q-btn-dropdown :label="get('settings/currencyLabel')" outline >
           <!-- dropdown content -->
           <q-list link>
             <q-item
-              v-for="(curr, key) in get('settings/currency/availableCurrencies')"
-              @click.native="set('settings/currency/currency', key)"
+              v-for="(curr, key) in get('settings/availableCurrencies')"
+              @click.native="set('settings/currency', key)"
               :key="`curr-dd-${key}`"
               v-close-overlay
             >

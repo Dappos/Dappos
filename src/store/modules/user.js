@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
 import Firebase from 'firebase/app'
 import 'firebase/auth'
-import menulist from './userMenulist'
+// import menulist from './userMenulist'
 
 function initialState () {
   return {
@@ -12,7 +12,7 @@ function initialState () {
 
 export default {
   namespaced: true,
-  modules: { menulist },
+  // modules: { menulist },
   state: initialState(),
   mutations:
   {
@@ -32,7 +32,7 @@ export default {
     userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch},
     {user}) {
       console.log('userOnAuthListener → ', user)
-      commit('SET_USER', Object.assign({}, user))
+      commit('SET_USER', user)
     },
     signInSuccess ({state, getters, rootState, rootGetters, commit, dispatch},
     {user}) {

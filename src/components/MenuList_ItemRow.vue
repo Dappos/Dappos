@@ -6,7 +6,7 @@
       <span v-else class="mr-sm">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
-    <div class="_price">{{ price | money(get('settings/currency/config')) }}</div>
+    <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
   </div>
   <div
     class="_fly-icon js-fly-target hidden"
@@ -36,7 +36,7 @@ export default {
   {
     price () {
       return (!this.item.price)
-        ? this.item.prices[this.get('settings/currency.currency')]
+        ? this.item.prices[this.get('settings/currency')]
         : this.item.price
     },
     randomEmoji () {

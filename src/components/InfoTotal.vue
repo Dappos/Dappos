@@ -3,7 +3,7 @@
   <div class="_text">Charge</div>
   <div class="_price">
     <span>
-      {{ get('cart/totalAmountAnimation.frameVal') | money(get('settings/currency/config')) }}
+      {{ get('cart/totalAmountAnimation.frameVal') | money(get('settings/currencyConfig')) }}
     </span>
   </div>
 </button>

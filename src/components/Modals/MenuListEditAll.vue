@@ -5,7 +5,7 @@
     :key="key"
     :options="[{
       name: 'Delete',
-      action () { return dispatch('user/menulist/deleteItem', key) },
+      action () { return dispatch('user/menulist/delete', key) },
       style: 'background-color: red;',
     }]"
   >

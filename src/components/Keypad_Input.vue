@@ -2,8 +2,8 @@
 <div class="keypad-input">
   <div class="_note">Item</div>
   <div class="_input">
-    <money v-model="state.keypad.input" v-bind="get('settings/currency/config')" />
-    <!-- <input v-model.lazy="state.keypad.input" v-money="get('settings/currency/config')" /> -->
+    <money v-model="state.keypad.input" v-bind="get('settings/currencyConfig')" />
+    <!-- <input v-model.lazy="state.keypad.input" v-money="get('settings/currencyConfig')" /> -->
   </div>
 </div>
 </template>

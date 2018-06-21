@@ -11,6 +11,7 @@ export default {
     // store.replaceState(copyObj(store.initialStateCopy))
     Object.keys(store._modulesNamespaceMap).forEach(ns => {
       let mutation = ns + 'resetStateData'
+      if (!this._mutations[mutation]) return
       commit(mutation)
     })
     store.unsyncRouter = sync(store, Router)

@@ -28,7 +28,7 @@ export default {
     tap ({state, getters, rootState, rootGetters, commit, dispatch},
     input) {
       // console.log('state.input → ', state.input)
-      const precisionCorrection = 10 ** rootGetters['settings/currency/config'].precision
+      const precisionCorrection = 10 ** rootGetters['settings/currencyConfig'].precision
       // console.log('precisionCorrection → ', precisionCorrection)
       const oldVal = Math.floor(state.input * precisionCorrection)
       // console.log('oldVal → ', oldVal)
