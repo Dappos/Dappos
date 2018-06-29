@@ -1,4 +1,5 @@
 import copyObj from '../../helpers/copyObj'
+import { deepCopy } from '@firebase/util';
 
 function defaultItem () {
   return {name: '', icon: null, prices: {jpy: 0, usd: 0}, new: true}
@@ -21,11 +22,21 @@ function initialState () {
 }
 
 export default {
-  moduleNameSpace: 'user/menulist', // must be relative to rootState
-  // docsStateProp: 'user/menulist/items', // must be relative to rootState
-  docsStateProp: 'items', // must be relative to rootState
-  firestorePath: 'users/{userId}/menulist', // you can write `{userId}` which will be replaced with `Firebase.auth().uid`
-
+  // vuex-easy-firestore config:
+  moduleNameSpace: 'user/menulist',
+  docsStateProp: 'items',
+  firestorePath: 'users/{userId}/menulist',
+  firestoreRefType: 'collection',
+  vuexUserPath: 'user/user',
+  sync: {
+    defaultValues: {prices: {usd: 0, jpy: 0}},
+    type: '2way',
+    where: [],
+    orderBy: [],
+    // OBJECT ASSIGN is only 1 lvl deep
+    // check all usage and adjust accordingly
+  },
+  // module:
   state: initialState(),
   mutations:
   {
@@ -76,7 +87,6 @@ export default {
     doneEdit ({state, getters, rootState, rootGetters, commit, dispatch},
     id) {
       commit('doneEdit', id)
-      dispatch('firestore/patch', 'userMenulistDoc', {root: true})
     },
     setPrice ({state, getters, rootState, rootGetters, commit, dispatch},
     {id, val}) {

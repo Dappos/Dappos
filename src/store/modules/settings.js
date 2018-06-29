@@ -15,11 +15,15 @@ function initialState () {
 }
 
 export default {
-  // moduleNameSpace: 'firestore', // must be relative to rootState
-  // vuexStorePath: 'nodes',
-  // docsStateProp: 'nodes', // must be relative to rootState
-  // firestorePath: 'users/{userId}/settings', // you can write `{userId}` which will be replaced with `Firebase.auth().uid`
-  namespaced: true,
+  moduleNameSpace: 'settings',
+  docsStateProp: '',
+  firestorePath: 'users/{userId}/data/settings',
+  firestoreRefType: 'doc',
+  vuexUserPath: 'user/user',
+  patch: {
+    fillables: ['walletAddress', 'gas', 'currency', 'config']
+  },
+
   state: initialState(),
   mutations:
   {
@@ -33,7 +37,6 @@ export default {
         this._vm.$set(state, key, payload[key])
       })
     },
-    ...defaultMutations(initialState())
   },
   actions:
   {
@@ -41,14 +44,6 @@ export default {
     toggleState) {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
       commit('SET_MODAL.STATE', toggleState)
-    },
-    setWalletAddress ({commit, dispatch}, newVal) {
-      commit('SET_WALLETADDRESS', newVal)
-      dispatch('firestore/patch', 'userSettingsDoc', {root: true})
-    },
-    setCurrency ({commit, dispatch}, choice) {
-      commit('SET_CURRENCY', choice)
-      dispatch('firestore/patch', 'userSettingsDoc', {root: true})
     },
   },
   getters:
@@ -58,6 +53,7 @@ export default {
     },
     currencyConfig: (state, getters, rootState, rootGetters) => {
       return Object.assign(
+        {},
         defaults[state.currency],
         state.config
       )

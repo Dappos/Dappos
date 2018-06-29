@@ -1,7 +1,11 @@
+import createEasyFirestore from 'vuex-easy-firestore'
+import createEasyAccess from 'vuex-easy-access'
+// store root
 import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
+// modules
 import cart from './modules/cart'
 import user from './modules/user'
 import keypad from './modules/keypad'
@@ -10,14 +14,12 @@ import web3 from './modules/web3'
 import ethEvents from './modules/ethEvents'
 import conversion from './modules/conversion'
 import history from './modules/history'
-import firestore from './modules/firestore'
 import _template from './modules/_template'
+// easy firestore modules
 import settings from './modules/settings'
-import createEasyFirestore from 'vuex-easy-firestore'
-// import settings from './modules/settings'
-// const settingsDB = createEasyFirestore([settings])
-import menulist from './modules/menulist';
-const menulistDB = createEasyFirestore([menulist])
+import menulist from './modules/menulist'
+const easyFirestores = createEasyFirestore([menulist, settings])
+const easyAccess = createEasyAccess({vuexEasyFirestore: true})
 
 export default function () {
   return {
@@ -34,13 +36,8 @@ export default function () {
       ethEvents,
       conversion,
       history,
-      firestore,
-      settings,
       _template
     },
-    plugins: [
-      // settingsDB,
-      menulistDB
-    ]
+    plugins: [easyFirestores, easyAccess],
   }
 }
