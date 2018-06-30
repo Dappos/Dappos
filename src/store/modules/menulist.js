@@ -23,18 +23,12 @@ function initialState () {
 
 export default {
   // vuex-easy-firestore config:
-  moduleNameSpace: 'user/menulist',
-  docsStateProp: 'items',
   firestorePath: 'users/{userId}/menulist',
   firestoreRefType: 'collection',
-  vuexUserPath: 'user/user',
-  sync: {
+  moduleName: 'user/menulist',
+  statePropName: 'items',
+  serverChange: {
     defaultValues: {prices: {usd: 0, jpy: 0}},
-    type: '2way',
-    where: [],
-    orderBy: [],
-    // OBJECT ASSIGN is only 1 lvl deep
-    // check all usage and adjust accordingly
   },
   // module:
   state: initialState(),

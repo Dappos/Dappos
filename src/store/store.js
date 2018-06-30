@@ -37,7 +37,8 @@ export default function () {
       conversion,
       history,
       _template
+      // ,menulist, settings
     },
-    plugins: [easyFirestores, easyAccess],
+    plugins: [easyAccess, easyFirestores],
   }
 }

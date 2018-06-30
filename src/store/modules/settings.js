@@ -15,15 +15,15 @@ function initialState () {
 }
 
 export default {
-  moduleNameSpace: 'settings',
-  docsStateProp: '',
+  // vuex-easy-firestore config:
   firestorePath: 'users/{userId}/data/settings',
   firestoreRefType: 'doc',
-  vuexUserPath: 'user/user',
-  patch: {
+  moduleName: 'settings',
+  statePropName: '',
+  sync: {
     fillables: ['walletAddress', 'gas', 'currency', 'config']
   },
-
+  // module:
   state: initialState(),
   mutations:
   {

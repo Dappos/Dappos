@@ -1,6 +1,6 @@
 {
   "name": "dappos",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "Dapp POS register",
   "productName": "Dappos",
   "cordovaId": "org.cordova.quasar.app",
@@ -23,11 +23,13 @@
     "firebase": "^5.0.4",
     "firebaseui": "^3.0.0",
     "is-what": "^1.0.4",
+    "nanoclone": "^0.2.1",
+    "nanomerge": "^0.1.2",
     "v-money-plus": "^0.1.0",
     "vue-countup-v2": "^1.0.3",
     "vue-i18n": "^7.3.3",
-    "vuex-easy-access": "^1.0.13",
-    "vuex-easy-firestore": "^0.1.2-beta",
+    "vuex-easy-access": "^1.1.0",
+    "vuex-easy-firestore": "^1.0.0",
     "vuex-router-sync": "^5.0.0",
     "web3": "^1.0.0-beta.34"
   },
