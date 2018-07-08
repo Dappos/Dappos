@@ -81,8 +81,8 @@
   <!-- PAYMENT -->
   <modal-minimised
     :toggle="get('cart/payment')"
-    :showFunc="_ => { return dispatch('cart/generateQr') }"
-    :hideFunc="_ => { return commit('cart/resetQR') }"
+    :showFunc="_ => { showPaymentModal() }"
+    :hideFunc="_ => { hidePaymentModal() }"
   >
     <payment />
   </modal-minimised>
@@ -108,6 +108,14 @@ export default {
       const item = this.get('cart/editing.item')
       if (!item.count) this.commit('cart/deleteItem', item)
     },
+    showPaymentModal () {
+      this.dispatch('ethEvents/subscribeAccount')
+      return this.dispatch('cart/generateQr')
+    },
+    hidePaymentModal () {
+      this.dispatch('ethEvents/unsubscribeAccount')
+      return this.commit('cart/resetQR')
+    }
   }
 }
 </script>
