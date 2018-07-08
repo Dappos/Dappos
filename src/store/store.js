@@ -10,7 +10,7 @@ import cart from './modules/cart'
 import user from './modules/user'
 import keypad from './modules/keypad'
 import animate from './modules/animate'
-import web3 from './modules/web3'
+import wallet from './modules/wallet'
 import ethEvents from './modules/ethEvents'
 import conversion from './modules/conversion'
 import history from './modules/history'
@@ -32,7 +32,7 @@ export default function () {
       user,
       keypad,
       animate,
-      web3,
+      wallet,
       ethEvents,
       conversion,
       history,
