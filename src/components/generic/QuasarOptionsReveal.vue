@@ -14,6 +14,7 @@
       v-for="option in options"
       @click="option.action()"
       :style="option.style"
+      :key="option.name"
     >{{ option.name }}</button>
   </div>
 </div>

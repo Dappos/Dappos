@@ -37,7 +37,6 @@
 
 <script>
 import storeAccess from '../components/mixins/storeAccess'
-import router from '../router'
 
 export default {
   name: 'LayoutDefault',

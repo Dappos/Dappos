@@ -32,9 +32,9 @@ export default {
       console.log('isPendingRedirect() → ', ui.isPendingRedirect())
       // The start method will wait until the DOM is loaded.
       // if (ui.isPendingRedirect()) {
-        //   ui.start('#firebaseui-auth-container', uiConfig);
+      //   ui.start('#firebaseui-auth-container', uiConfig);
       // }
-      let el = document.getElementById('firebaseui-auth-container')
+      const el = document.getElementById('firebaseui-auth-container')
       if (!el) return
       ui.start('#firebaseui-auth-container', uiConfig)
     },

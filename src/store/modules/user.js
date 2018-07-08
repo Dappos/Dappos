@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
 import Firebase from 'firebase/app'
 import 'firebase/auth'
@@ -17,25 +16,18 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
-    },
-    updateState (state, payload) {
-      Object.keys(payload).forEach(key => {
-        Vue.set(state, key, payload[key])
-      })
     },
     ...defaultMutations(initialState())
   },
   actions:
   {
-    userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch},
-    {user}) {
+    userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch}, {user}) {
       console.log('userOnAuthListener → ', user)
       commit('SET_USER', user)
     },
-    signInSuccess ({state, getters, rootState, rootGetters, commit, dispatch},
-    {user}) {
+    signInSuccess ({state, getters, rootState, rootGetters, commit, dispatch}, {user}) {
       console.log('signInSuccess → ', user)
     },
     signOutSuccess ({state, getters, rootState, rootGetters, commit, dispatch}) {
@@ -45,18 +37,18 @@ export default {
     signOut ({state, getters, rootState, rootGetters, commit, dispatch}) {
       console.log('signOut')
       Firebase.auth().signOut()
-      .then(_ => {
-        dispatch('resetStore', null, {root: true})
-      })
+        .then(_ => {
+          dispatch('resetStore', null, {root: true})
+        })
     },
   },
   getters:
   {
     isSignedIn: (state, getters, rootState, rootGetters) => {
-      return (state.user) ? true : false
+      return Boolean(state.user)
     },
     isSignedOut: (state, getters, rootState, rootGetters) => {
-      return (!state.user) ? true : false
+      return Boolean(!state.user)
     },
     id: (state) => {
       return (state.user) ? state.user.uid : 0

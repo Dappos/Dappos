@@ -1,5 +1,3 @@
-import { defaultMutations } from 'vuex-easy-access'
-import copyObj from '../../helpers/copyObj'
 import defaults from '../../config/currencyDefaults'
 
 function initialState () {
@@ -28,7 +26,7 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
     },
     replaceSettings (state, payload) {
@@ -40,8 +38,7 @@ export default {
   },
   actions:
   {
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
-    toggleState) {
+    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
       commit('SET_MODAL.STATE', toggleState)
     },

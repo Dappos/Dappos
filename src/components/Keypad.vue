@@ -8,7 +8,6 @@
 
 <script>
 import storeAccess from './mixins/storeAccess'
-import Vue from 'vue'
 import KeypadKeys from './Keypad_Keys'
 import KeypadInput from './Keypad_Input'
 

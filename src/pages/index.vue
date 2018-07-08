@@ -13,8 +13,6 @@
 
 <script>
 import storeAccess from '../components/mixins/storeAccess'
-import { dom } from 'quasar'
-const { style, height } = dom
 
 export default {
   name: 'index',

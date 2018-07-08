@@ -10,7 +10,7 @@ function roundNumberDown (nr, maxLength) {
   const len = nr.toString().length
   if (len <= maxLength) return nr
   const excessLen = len - maxLength
-  let floorLog = 10 ** excessLen
+  const floorLog = 10 ** excessLen
   return Math.floor(nr / floorLog) * floorLog
 }
 

@@ -20,7 +20,6 @@
       class="_close"
     >Close</button>
   </div>
-
 </div>
 </template>
 
@@ -41,6 +40,7 @@ export default {
   }
 }
 </script>
+
 <style lang="stylus" scoped>
 @import '../../css/themes/common.variables'
 
@@ -78,6 +78,5 @@ export default {
 ._close
   grid-area close
   color $gray-light
-
 
 </style>

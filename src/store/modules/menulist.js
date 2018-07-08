@@ -1,6 +1,3 @@
-import copyObj from '../../helpers/copyObj'
-import { deepCopy } from '@firebase/util';
-
 function defaultItem () {
   return {name: '', icon: null, prices: {jpy: 0, usd: 0}, new: true}
 }
@@ -35,7 +32,7 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
     },
     replaceMenulist (state, payload) {
@@ -74,23 +71,19 @@ export default {
       state.adding.state = false
       state.adding.item = defaultItem()
     },
-    openEditModal ({state, getters, rootState, rootGetters, commit, dispatch},
-    id) {
+    openEditModal ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
       commit('openEditModal', id)
     },
-    doneEdit ({state, getters, rootState, rootGetters, commit, dispatch},
-    id) {
+    doneEdit ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
       commit('doneEdit', id)
     },
-    setPrice ({state, getters, rootState, rootGetters, commit, dispatch},
-    {id, val}) {
+    setPrice ({state, getters, rootState, rootGetters, commit, dispatch}, {id, val}) {
       const curr = rootState.settings.currency
       const prices = {}
       prices[curr] = val
       dispatch('set', {prices, id})
     },
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
-    toggleState) {
+    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.editAll.state : toggleState
       commit('SET_EDITALL.STATE', toggleState)
     },

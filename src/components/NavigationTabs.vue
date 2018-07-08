@@ -1,6 +1,5 @@
 <template>
 <div class="navigation-tabs">
-
   <q-tabs color="bg-light" text-color="gray-dark">
     <q-route-tab
       to="/keypad"

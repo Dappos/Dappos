@@ -3,7 +3,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 export default ({ app, router, Vue, store }) => {
-
   // firebase.auth().getRedirectResult()
   // .then(result => store.dispatch('user/signInSuccess', {user: result}))
   // .catch(error => store.dispatch('apiError', {error, method: 'getRedirectResult()'}))
@@ -32,5 +31,4 @@ export default ({ app, router, Vue, store }) => {
       new Vue(app)
     }
   })
-
 }

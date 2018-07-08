@@ -8,7 +8,7 @@ import { differenceInCalendarDays } from 'date-fns/esm'
 
 function xDaysAgo (date) {
   if (!date) { return false }
-  let diff = differenceInCalendarDays(date, new Date())
+  const diff = differenceInCalendarDays(date, new Date())
   return diff
 }
 function dateIsToday (date) {

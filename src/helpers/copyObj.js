@@ -13,7 +13,7 @@ function isArray (payload) {
 
 export default function copyObj (obj) {
   let newObj
-  if (typeof obj != 'object') {
+  if (typeof obj !== 'object') {
     return obj
   }
   if (!obj) {

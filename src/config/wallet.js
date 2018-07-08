@@ -6,7 +6,7 @@ if (typeof window.web3 !== 'undefined' || typeof window.web3 !== 'undefined') {
 } else {
   // MetaMask is not enabled
   // Should show an alert
-  wallet = new Web3("ws://localhost:7545")
+  wallet = new Web3('ws://localhost:7545')
 }
 
 export default wallet

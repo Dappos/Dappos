@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
 
 function initialState () {
@@ -13,20 +12,14 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
-    },
-    updateState (state, payload) {
-      Object.keys(payload).forEach(key => {
-        Vue.set(state, key, payload[key])
-      })
     },
     ...defaultMutations(initialState())
   },
   actions:
   {
-    tap ({state, getters, rootState, rootGetters, commit, dispatch},
-    input) {
+    tap ({state, getters, rootState, rootGetters, commit, dispatch}, input) {
       // console.log('state.input → ', state.input)
       const precisionCorrection = 10 ** rootGetters['settings/currencyConfig'].precision
       // console.log('precisionCorrection → ', precisionCorrection)
