@@ -20,7 +20,7 @@ Dappos is a Ethereum based Dapp POS register.
         - [Stylus variables](#stylus-variables)
         - [Stylus helpers](#stylus-helpers)
     - [👩🏻‍🔬 External dependancies](#👩🏻‍🔬-external-dependancies)
-    - [👨🏽‍✈️ Vuex usage](#👨🏽‍✈️-vuex-usage)
+    - [👮🏽‍♂️ Vuex usage](#👮🏽‍♂️-vuex-usage)
 
 <!-- /TOC -->
 
@@ -148,7 +148,7 @@ With sizes:
 
 External plugins etc. to be installed with `npm` and added as a plugin. Please read about the plugin [documentation here](https://quasar-framework.org/guide/app-plugins.html).
 
-### 👨🏽‍✈️ Vuex usage
+### 👮🏽‍♂️ Vuex usage
 
 We are using the plugins: [Vuex easy access](https://github.com/mesqueeb/VuexEasyAccess) and [Vuex easy firestore](https://github.com/mesqueeb/VuexEasyFirestore). Please read up on the documentation!
 
