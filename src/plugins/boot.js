@@ -22,12 +22,14 @@ export default ({ app, router, Vue, store }) => {
       store.dispatch('settings/openDBChannel')
 
       router.replace({name: 'home'})
+      // eslint-disable-next-line
       new Vue(app)
     } else {
       // Signed out. Let Vuex know.
       // store.commit('auth/RESET_USER')
       console.log('no user found on authListener...')
       router.replace({ name: 'signin' })
+      // eslint-disable-next-line
       new Vue(app)
     }
   })

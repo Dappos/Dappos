@@ -1,4 +1,4 @@
-import defaults from '../../config/currencyDefaults'
+import defaults from '@config/currencyDefaults'
 
 function initialState () {
   return {

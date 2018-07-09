@@ -1,5 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
-import web3 from '../../config/web3'
+import web3 from '@config/web3'
 
 function initialState () {
   const subscription = null

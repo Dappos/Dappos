@@ -1,6 +1,6 @@
 // Quasar Notify options & helper function
 import { Notify } from 'quasar'
-
+// eslint-disable-next-line
 const configExample = {
   message: `A text with your alert's awesome message`,
   timeout: 3000, // in milliseconds; 0 means no timeout

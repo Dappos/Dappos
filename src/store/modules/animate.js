@@ -1,6 +1,6 @@
 import { defaultMutations } from 'vuex-easy-access'
 import anime from 'animejs'
-import { addClass, removeClass } from '../../helpers/DOMClassHelpers'
+import { addClass, removeClass } from '@helpers/DOMClassHelpers'
 import { dom } from 'quasar'
 const { offset } = dom
 

@@ -4,6 +4,7 @@
  * @author     Adam Dorling
  * @contact    https://codepen.io/naito
  */
+/* eslint-disable */
 function isObject (payload) {
   return Object.prototype.toString.call(payload) === '[object Object]'
 }

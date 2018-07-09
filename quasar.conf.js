@@ -1,4 +1,5 @@
 // Configuration for your app
+const path = require('path')
 
 module.exports = function (ctx) {
   return {
@@ -38,6 +39,15 @@ module.exports = function (ctx) {
           loader: 'eslint-loader',
           exclude: /(node_modules|quasar)/
         })
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing aliases
+          // Add your own alias like this:
+          'styl/variables': path.resolve(__dirname, './src/css/themes/common.variables.styl'),
+          '@router': path.resolve(__dirname, './src/router'),
+          '@store': path.resolve(__dirname, './src/store'),
+          '@helpers': path.resolve(__dirname, './src/helpers'),
+          '@config': path.resolve(__dirname, './src/config'),
+        }
       }
     },
     devServer: {

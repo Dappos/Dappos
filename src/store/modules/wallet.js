@@ -1,5 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
-import wallet from '../../config/wallet'
+import wallet from '@config/wallet'
 
 function initialState () {
   return {

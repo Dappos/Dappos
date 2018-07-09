@@ -1,6 +1,6 @@
 import { sync } from 'vuex-router-sync'
 import store from './index'
-import Router from '../router'
+import Router from '@router'
 import { dom } from 'quasar'
 const { offset, css } = dom
 

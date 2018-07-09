@@ -1,9 +1,9 @@
 import { defaultMutations } from 'vuex-easy-access'
 import { uid } from 'quasar'
-import copyObj from '../../helpers/copyObj'
+import copyObj from '@helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
 import CountUp from 'countup.js'
-import roundNumberDown from '../../helpers/roundNumberDown'
+import roundNumberDown from '@helpers/roundNumberDown'
 
 function initialState () {
   return {
@@ -137,6 +137,7 @@ export default {
           padding: 0,
         }
       }
+      // eslint-disable-next-line
       const qrCode = qr.toCanvas(sendDetails, domConfig)
     },
   },

@@ -8,7 +8,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import * as firebaseui from 'firebaseui'
-import config from '../config/config'
+import config from '@config/config'
 const uiConfig = config.firebaseUI
 
 export default {
