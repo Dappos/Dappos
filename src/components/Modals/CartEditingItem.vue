@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 .cart
   background-color $bg-light

@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .firebase-ui-wrapper
   button

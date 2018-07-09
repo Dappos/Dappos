@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 .options-reveal
   position relative
