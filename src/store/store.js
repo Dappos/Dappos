@@ -1,10 +1,11 @@
 import createEasyFirestore from 'vuex-easy-firestore'
 import createEasyAccess from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 // store root
-import state from './state'
-import getters from './getters'
-import mutations from './mutations'
-import actions from './actions'
+import initialState from './root/state'
+import getters from './root/getters'
+import mutations from './root/mutations'
+import actions from './root/actions'
 // modules
 import cart from './modules/cart'
 import user from './modules/user'
@@ -19,11 +20,11 @@ import _template from './modules/_template'
 import settings from './modules/settings'
 import menulist from './modules/menulist'
 const easyFirestores = createEasyFirestore([menulist, settings])
-const easyAccess = createEasyAccess({vuexEasyFirestore: true})
+const easyAccess = createEasyAccess(easyAccessConf)
 
 export default function () {
   return {
-    state: state(),
+    state: initialState(),
     getters,
     mutations,
     actions,
@@ -37,7 +38,7 @@ export default function () {
       conversion,
       history,
       _template
-      // ,menulist, settings
+      // 'menulist' and 'settings' are added as Vuex Easy Firestore!
     },
     plugins: [easyAccess, easyFirestores],
   }

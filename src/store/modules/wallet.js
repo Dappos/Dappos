@@ -31,8 +31,8 @@ export default {
   {
     async getAddress ({state, getters, rootState, rootGetters, commit, dispatch}, {id} = {}) {
       const accounts = await web3Wallet.eth.getAccounts()
-      commit('SET_ADDRESS', accounts[0])
-      commit('SET_ISMAINNET', await isMainNetwork(web3Wallet))
+      dispatch('set/address', accounts[0])
+      dispatch('set/isMainnet', await isMainNetwork(web3Wallet))
     }
   },
   getters:

@@ -1,5 +1,5 @@
 import { sync } from 'vuex-router-sync'
-import store from './index'
+import store from '@store'
 import Router from '@router'
 import { dom } from 'quasar'
 const { offset, css } = dom
@@ -16,7 +16,7 @@ export default {
     store.unsyncRouter = sync(store, Router)
     console.log('reset store complete!')
   },
-  toggleMenu ({state, getters, commit}, toggleState) {
+  toggleMenu ({state, getters, commit, dispatch}, toggleState) {
     let top = 0
     let left = 0
     if (getters.appMinimised) {
@@ -36,7 +36,7 @@ export default {
     if (toggleState === undefined) {
       toggleState = !state.menu.opened
     }
-    commit('SET_MENU.OPENED', toggleState)
+    dispatch('set/menu.opened', toggleState)
     if (prevState !== state.menu.opened) {
       state.menu.animating = true
     }

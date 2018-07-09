@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 import { uid } from 'quasar'
 import copyObj from '@helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
@@ -63,7 +64,7 @@ export default {
       state.totalAmountWei = 0
       document.getElementById('js-qr').innerHTML = ''
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
@@ -95,11 +96,11 @@ export default {
     },
     toggleCart ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.opened.state : toggleState
-      commit('SET_OPENED.STATE', toggleState)
+      dispatch('set/opened.state', toggleState)
     },
     openMore ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
-      commit('SET_EDITING.STATE', true)
-      commit('SET_EDITING.ITEM', item)
+      dispatch('set/editing.state', true)
+      dispatch('set/editing.item', item)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       dispatch('addItem', item)
@@ -123,7 +124,7 @@ export default {
         to: 'wei'
       }, {root: true})
       value = roundNumberDown(value, 15)
-      commit('SET_TOTALAMOUNTWEI', value)
+      dispatch('set/totalAmountWei', value)
       const sendDetails = {
         value,
         to: rootState.settings.walletAddress,

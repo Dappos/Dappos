@@ -1,10 +1,10 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 import web3 from '@config/web3'
 
 function initialState () {
-  const subscription = null
   return {
-    subscription
+    subscription: null
   }
 }
 
@@ -17,7 +17,7 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
@@ -25,7 +25,7 @@ export default {
       const wallet = rootState.wallet
       const address = wallet.address
       console.log('wallet address:' + address)
-      state.subscription = web3.eth.subscribe('pendingTransactions', (error, result) => {
+      const subscription = web3.eth.subscribe('pendingTransactions', (error, result) => {
         if (error) {
           console.log('subscribe error:', error, result)
         }
@@ -42,6 +42,7 @@ export default {
           }
         })
       })
+      dispatch('set/subscription', subscription)
     },
     unsubscribeAccount ({state, getters, rootState, rootGetters, commit, dispatch}) {
       state.subscription.unsubscribe((error, success) => {

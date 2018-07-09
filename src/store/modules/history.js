@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 
 function initialState () {
   return {
@@ -15,13 +16,13 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
     toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
-      commit('SET_MODAL.STATE', toggleState)
+      dispatch('set/modal.state', toggleState)
     },
   },
   getters:

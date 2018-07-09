@@ -4,6 +4,10 @@
 
 Dappos is a Ethereum based Dapp POS register.
 
+### Todo
+
+- Add login link on menulist
+
 ### Table of Contents
 
 <!-- TOC -->
@@ -157,8 +161,11 @@ We are using the plugins: [Vuex easy access](https://github.com/mesqueeb/VuexEas
 - Never set state directly! Always use the (auto-generated) setters
 - Usage of getters and setters in Vue components: `get(path)  set(path, val)`
 - `path` syntax is: `module/prop.subprop`
-- Always set default mutations per module: `...defaultMutations(initialState())`
+- Always set default mutations per module: `...defaultMutations(initialState(), easyAccessConf)`
 - Usage of setters in vuex module: `dispatch('module/set/prop.subprop', val)`
+- Usage of setters for firestore modules ('settings' and 'menulist'):
+  - `dispatch('settings/set', newSettings)`
+  - `dispatch('user/menulist/set' item)`
 - To overwriting a setter add an action:
 
 ```js

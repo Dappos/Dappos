@@ -16,7 +16,7 @@ export default ({ app, router, Vue, store }) => {
       Vue.prototype.$firestore = firestore
       store.$db = firestore
       // Signed in. Let Vuex know.
-      store.commit('user/menulist/SET_ITEMS', {})
+      store.commit('user/menulist/clearTestItems')
       store.dispatch('user/userOnAuthListener', {user})
       store.dispatch('user/menulist/openDBChannel')
       store.dispatch('settings/openDBChannel')

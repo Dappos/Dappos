@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 
 function initialState () {
   return {
@@ -15,7 +16,7 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
@@ -26,11 +27,11 @@ export default {
       const oldVal = Math.floor(state.input * precisionCorrection)
       // console.log('oldVal → ', oldVal)
       const newVal = Number(oldVal.toString() + input.toString()) / precisionCorrection
-      commit('SET_INPUT', newVal)
+      dispatch('set/input', newVal)
       // console.log('state.input → ', state.input)
     },
     clear ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      commit('SET_INPUT', 0)
+      dispatch('set/input', 0)
     },
     add ({state, getters, rootState, rootGetters, commit, dispatch}) {
       dispatch('cart/addItem', {price: state.input}, {root: true})
