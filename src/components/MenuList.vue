@@ -1,22 +1,12 @@
 <template>
 <div class="menu-list">
   <div class="_list">
-    <!-- <options-reveal
-      v-for="(item, key) in state.user.menulist.items"
-      :key="key"
-      :options="[{
-        name: 'Delete',
-        action () { return dispatch('user/menulist/deleteItem', key) },
-        style: 'background-color: red;',
-      }]"
-    > -->
       <item-row
-        v-for="(item, key) in state.user.menulist.items"
+        v-for="(item, key) in get('user/menulist/items')"
         :key="key"
         :item="item"
         class="_menu-list-row"
       />
-    <!-- </options-reveal> -->
   </div>
   <div class="_add">
     <add-btn class="_menu-list-row" />
@@ -45,7 +35,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .menu-list
   width 100%

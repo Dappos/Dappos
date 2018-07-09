@@ -1,8 +1,7 @@
 <template>
 <div class="menu-list-add-edit-item">
   <form @submit.prevent="save">
-    <div class="_row flex"
-    >
+    <div class="_row flex">
       <button @click.prevent="togglePicker" v-if="!item.icon" class="_icon-btn">
         <q-icon name="ion-list" />
       </button>
@@ -11,7 +10,8 @@
       </button>
       <q-input
         float-label="Item name"
-        v-model="item.name"
+        :value="item.name"
+        @change="changeName"
         type="text"
         autofocus
         required
@@ -32,10 +32,11 @@
     </div>
     <q-input
       float-label="Price"
-      v-model="item.prices[state.settings.currency.currency]"
+      :value="item.prices[get('settings/currency')]"
+      @change="changePrice"
       type="number"
-      :prefix="get('settings/currency/config').prefix"
-      :decimals="get('settings/currency/config').precision"
+      :prefix="get('settings/currencyConfig').prefix"
+      :decimals="get('settings/currencyConfig').precision"
       numeric-keyboard-toggle
       required
       class="_row"
@@ -64,14 +65,23 @@ export default {
   },
   methods:
   {
+    changeName (newVal) {
+      if (this.item.new) return this.set('user/menulist/adding.item.name', newVal)
+      return this.dispatch('user/menulist/set', {name: newVal, id: this.item.id})
+    },
+    changePrice (newVal) {
+      const curr = this.get('settings/currency')
+      if (this.item.new) return this.set(`user/menulist/adding.item.prices.${curr}`, newVal)
+      return this.dispatch('user/menulist/setPrice', {id: this.item.id, val: newVal})
+    },
     save () {
-      if (!this.item.prices[this.state.settings.currency.currency]) return
+      if (!this.item.prices[this.get('settings/currency')]) return
       if (this.item.new) return this.dispatch('user/menulist/addItem')
       return this.dispatch('user/menulist/doneEdit', this.item.id)
     },
     deleteItem () {
-      this.dispatch('user/menulist/deleteItem', this.item.id)
-      this.state.user.menulist.editing.state = false
+      this.dispatch('user/menulist/delete', this.item.id)
+      this.set('user/menulist/editing.state', false)
     },
     addEmoji (emoji) {
       // console.log('emoji → ', emoji)
@@ -85,7 +95,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 .menu-list-add-edit-item
   px lg

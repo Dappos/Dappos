@@ -4,6 +4,7 @@
  * @author     Adam Dorling
  * @contact    https://codepen.io/naito
  */
+/* eslint-disable */
 function isObject (payload) {
   return Object.prototype.toString.call(payload) === '[object Object]'
 }
@@ -13,7 +14,7 @@ function isArray (payload) {
 
 export default function copyObj (obj) {
   let newObj
-  if (typeof obj != 'object') {
+  if (typeof obj !== 'object') {
     return obj
   }
   if (!obj) {

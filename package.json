@@ -1,12 +1,13 @@
 {
   "name": "dappos",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "Dapp POS register",
   "productName": "Dappos",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Dappos Inc.",
   "private": true,
   "scripts": {
+    "lint": "eslint --ext .js,.vue src",
     "dev": "quasar dev -m spa -t ios",
     "build": "quasar build -m spa -t ios",
     "deploy": "firebase use dappos-web && firebase deploy"
@@ -18,18 +19,31 @@
     "countup.js": "^1.9.3",
     "emoji-mart-vue": "^2.6.3",
     "emoji-regex": "^7.0.0",
-    "eth-dagger": "0.0.1-beta.3",
     "ethereum-qr-code": "^0.3.0",
     "firebase": "^5.0.4",
     "firebaseui": "^3.0.0",
+    "is-what": "^1.0.4",
+    "nanoclone": "^0.2.1",
+    "nanomerge": "^0.1.2",
     "v-money-plus": "^0.1.0",
     "vue-countup-v2": "^1.0.3",
     "vue-i18n": "^7.3.3",
-    "vuex-easy-access": "^1.0.3",
+    "vuex-easy-access": "^1.2.1",
+    "vuex-easy-firestore": "^1.1.0",
     "vuex-router-sync": "^5.0.0",
     "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.3.0",
     "quasar-cli": "^0.16.0"
   },
   "engines": {

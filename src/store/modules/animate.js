@@ -1,7 +1,6 @@
-import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
 import anime from 'animejs'
-import { hasClass, addClass, removeClass } from '../../helpers/DOMClassHelpers'
+import { addClass, removeClass } from '@helpers/DOMClassHelpers'
 import { dom } from 'quasar'
 const { offset } = dom
 
@@ -18,16 +17,11 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
     },
-    updateState (state, payload) {
-      Object.keys(payload).forEach(key => {
-        Vue.set(state, key, payload[key])
-      })
-    },
     setAnimation (state, {type, id, animation}) {
-      Vue.set(state[type], id, animation)
+      this._vm.$set(state[type], id, animation)
     },
     resetAnimation (state, {type, id}) {
       state[type][id].restart()
@@ -95,10 +89,5 @@ export default {
   },
   getters:
   {
-    getIt: (state, getters, rootState, rootGetters) =>
-    (id) => {
-      getters.someOtherGetter // -> 'foo/someOtherGetter'
-      rootGetters.someOtherGetter // -> 'someOtherGetter'
-    }
   }
 }

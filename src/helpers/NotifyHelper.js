@@ -1,7 +1,7 @@
 // Quasar Notify options & helper function
 import { Notify } from 'quasar'
-
-let configExample = {
+// eslint-disable-next-line
+const configExample = {
   message: `A text with your alert's awesome message`,
   timeout: 3000, // in milliseconds; 0 means no timeout
   type: 'positive', // Available values: 'positive', 'negative', 'warning', 'info'
@@ -21,7 +21,7 @@ let configExample = {
   ]
 }
 
-let presets = {
+const presets = {
   toast: {
     timeout: 5000,
     color: 'blue-grey-10',
@@ -44,7 +44,7 @@ let presets = {
 }
 // config: (1) a Quasar Notify config object (2) a 'preset' attribute
 export default function (config) {
-  let preset = config.preset
+  const preset = config.preset
   delete config.preset
   if (preset) {
     Notify.create(Object.assign(presets[preset], config))

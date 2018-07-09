@@ -35,7 +35,7 @@ export default {
   methods:
   {
     add () {
-      if (!this.state.keypad.input) return
+      if (!this.get('keypad/input')) return
       this.dispatch('keypad/add')
       this.flyToTotal()
     },
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .keypad-keys
   display flex

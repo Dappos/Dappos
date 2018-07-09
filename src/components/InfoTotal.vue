@@ -3,7 +3,7 @@
   <div class="_text">Charge</div>
   <div class="_price">
     <span>
-      {{ state.cart.totalAmountAnimation.frameVal | money(get('settings/currency/config')) }}
+      {{ get('cart/totalAmountAnimation.frameVal') | money(get('settings/currencyConfig')) }}
     </span>
   </div>
 </button>
@@ -16,22 +16,6 @@ export default {
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () {
-    return {
-      startVal: 0,
-      endVal: 0,
-      decimals: 0,
-      duration: 2.5,
-      options: {
-        useEasing: true,
-        useGrouping: true,
-        separator: ',',
-        decimal: '.',
-        prefix: '',
-        suffix: ''
-      }
-    }
-  },
   mounted () {
     this.dispatch('cart/initializeTotalAmountAnimation')
   },
@@ -39,9 +23,9 @@ export default {
   {
     watchCountup: {
       get () {
-        return (!this.state.cart.totalAmountAnimation)
+        return (!this.get('cart/totalAmountAnimation'))
           ? 0
-          : this.state.cart.totalAmountAnimation.frameVal
+          : this.get('cart/totalAmountAnimation.frameVal')
       },
       set () {}
     },
@@ -50,14 +34,14 @@ export default {
   {
     pay () {
       if (!this.get('cart/totalAmount')) return
-      this.state.cart.payment.state = true
+      this.set('cart/payment.state', true)
     },
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .info-total
   width 100%

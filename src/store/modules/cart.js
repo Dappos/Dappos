@@ -1,16 +1,14 @@
-import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
 import { uid } from 'quasar'
-import copyObj from '../../helpers/copyObj'
+import copyObj from '@helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
 import CountUp from 'countup.js'
+import roundNumberDown from '@helpers/roundNumberDown'
 
 function initialState () {
   return {
-    totalAmount: 0,
     totalAmountAnimation: {frameVal: 0},
     totalAmountWei: 0,
-    totalCount: 0,
     items: {},
     opened: {state: false},
     editing: {
@@ -23,13 +21,6 @@ function initialState () {
     },
   }
 }
-function limitNumberTo15 (nr) {
-  const len = nr.toString().length
-  if (len <= 15) return nr
-  const excessLen = len - 15
-  let floorLog = 10 ** excessLen
-  return Math.floor(nr / floorLog) * floorLog
-}
 
 export default {
   namespaced: true,
@@ -37,18 +28,13 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
-    },
-    updateState (state, payload) {
-      Object.keys(payload).forEach(key => {
-        Vue.set(state, key, payload[key])
-      })
     },
     addItem (state, item) {
       item = copyObj(item)
       if (!state.items[item.id]) {
-        Vue.set(state.items, item.id, Object.assign({name: 'Item'}, item, {count: 0}))
+        this._vm.$set(state.items, item.id, Object.assign({name: 'Item'}, item, {count: 0}))
       }
       state.items[item.id].count++
     },
@@ -58,18 +44,18 @@ export default {
       state.items[item.id].count--
     },
     deleteItem (state, item) {
-      Vue.delete(state.items, item.id)
+      this._vm.$delete(state.items, item.id)
     },
     clearAll (state) {
       Object.values(state.items).forEach(item => {
         // item.count = 0
-        Vue.delete(state.items, item.id)
+        this._vm.$delete(state.items, item.id)
       })
     },
     clearEmpty (state) {
       Object.values(state.items).forEach(item => {
         if (!item.count) {
-          Vue.delete(state.items, item.id)
+          this._vm.$delete(state.items, item.id)
         }
       })
     },
@@ -81,19 +67,24 @@ export default {
   },
   actions:
   {
-    initializeTotalAmountAnimation ({state}) {
-      const el = document.createElement('div')
-      state.totalAmountAnimation = new CountUp(el, 0, 0)
+    initializeTotalAmountAnimation ({state, rootGetters}) {
+      const config = [
+        document.createElement('div'), // el
+        0, // initial start count
+        0, // initial end count
+        rootGetters['settings/currencyConfig'].precision, // decimal amount
+        0.4 // duration
+      ]
+      state.totalAmountAnimation = new CountUp(...config)
       if (!state.totalAmountAnimation.error) {
         state.totalAmountAnimation.start()
       } else {
         console.error(state.totalAmountAnimation.error)
       }
     },
-    addItem ({state, getters, rootState, rootGetters, commit, dispatch},
-    item) {
+    addItem ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       item.price = (item.price === undefined)
-        ? item.prices[rootState.settings.currency.currency]
+        ? item.prices[rootState.settings.currency]
         : item.price
       if (!item.id) {
         item.id = uid()
@@ -102,23 +93,19 @@ export default {
       commit('addItem', item)
       state.totalAmountAnimation.update(getters.totalAmount)
     },
-    toggleCart ({state, getters, rootState, rootGetters, commit, dispatch},
-    toggleState) {
+    toggleCart ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.opened.state : toggleState
       commit('SET_OPENED.STATE', toggleState)
     },
-    openMore ({state, getters, rootState, rootGetters, commit, dispatch},
-    item) {
+    openMore ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       commit('SET_EDITING.STATE', true)
       commit('SET_EDITING.ITEM', item)
     },
-    increment ({state, getters, rootState, rootGetters, commit, dispatch},
-    item) {
+    increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       dispatch('addItem', item)
       state.totalAmountAnimation.update(getters.totalAmount)
     },
-    decrement ({state, getters, rootState, rootGetters, commit, dispatch},
-    item) {
+    decrement ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       commit('decrementItem', item)
       state.totalAmountAnimation.update(getters.totalAmount)
     },
@@ -128,14 +115,14 @@ export default {
     },
     async generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
-      const currency = rootState.settings.currency.currency
+      const currency = rootState.settings.currency
       const amount = getters.totalAmount
       let value = await dispatch('conversion/convert', {
         amount,
         from: currency,
         to: 'wei'
       }, {root: true})
-      value = limitNumberTo15(value)
+      value = roundNumberDown(value, 15)
       commit('SET_TOTALAMOUNTWEI', value)
       const sendDetails = {
         value,
@@ -150,6 +137,7 @@ export default {
           padding: 0,
         }
       }
+      // eslint-disable-next-line
       const qrCode = qr.toCanvas(sendDetails, domConfig)
     },
   },
@@ -164,15 +152,5 @@ export default {
     totalAmountEth: (state, getters, rootState, rootGetters) => {
       return state.totalAmountWei / rootState.conversion.ethTo['wei']
     },
-    // itemsOverview: (state, getters, rootState, rootGetters) => {
-    //   let items = state.items.reduce((carry, item) => {
-    //     let id = (!item.id) ? uid() : item.id
-    //     if (!carry[id]) carry[id] = {count: 0}
-    //     Object.assign(carry[id], item)
-    //     carry[id].count++
-    //     return carry
-    //   }, {})
-    //   return items
-    // },
   }
 }

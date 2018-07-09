@@ -8,13 +8,11 @@
       <span>{{ item.name }}</span>
     </div>
     <div class="_price">
-      {{ price | money(get('settings/currency/config')) }}
+      {{ price | money(get('settings/currencyConfig')) }}
     </div>
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/openEditModal', item.id)" />
     </div>
-
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currency/config')) }} -->
   </div>
 </div>
 </template>
@@ -32,7 +30,7 @@ export default {
   {
     price () {
       return (!this.item.price)
-        ? this.item.prices[this.state.settings.currency.currency]
+        ? this.item.prices[this.get('settings/currency')]
         : this.item.price
     },
   },
@@ -43,7 +41,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 .cart-item
   px lg

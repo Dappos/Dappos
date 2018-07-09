@@ -1,11 +1,11 @@
 <template>
 <div class="menu-list-edit-all">
   <options-reveal
-    v-for="(item, key) in state.user.menulist.items"
+    v-for="(item, key) in get('user/menulist/items')"
     :key="key"
     :options="[{
       name: 'Delete',
-      action () { return dispatch('user/menulist/deleteItem', key) },
+      action () { return dispatch('user/menulist/delete', key) },
       style: 'background-color: red;',
     }]"
   >
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 // .menu-list-edit-all
 ._add

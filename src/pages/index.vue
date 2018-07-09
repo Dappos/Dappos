@@ -13,8 +13,6 @@
 
 <script>
 import storeAccess from '../components/mixins/storeAccess'
-import { dom } from 'quasar'
-const { style, height } = dom
 
 export default {
   name: 'index',
@@ -30,7 +28,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .page-index
   display flex

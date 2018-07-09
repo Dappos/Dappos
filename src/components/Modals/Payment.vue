@@ -2,28 +2,28 @@
 <div class="payment">
   <div class="_wrapper-top">
     <div class="_title">Payment Request</div>
-    <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currency/config')) }}</div>
+    <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currencyConfig')) }}</div>
     <div class="_eth">Ξ {{ get('cart/totalAmountEth') }}</div>
   </div>
   <div class="_wrapper-bottom">
-    <div v-if="state.cart.payment.stage === 1" class="_inner-wrapper">
+    <div v-if="get('cart/payment.stage') === 1" class="_inner-wrapper">
       <div class="_qr qr-code" id="js-qr"></div>
-      <div class="_address">{{ state.settings.walletAddress }}</div>
+      <div class="_address">{{ get('settings/walletAddress') }}</div>
       <div class="_spinner"><q-spinner-oval color="primary" /></div>
     </div>
-    <div v-if="state.cart.payment.stage === 2">
+    <div v-if="get('cart/payment.stage') === 2">
       <div class="_confirmations">0 confirmations</div>
       <div class="_emoji animation-flip-x">👀</div>
       <div class="_progress _watching">Watching transactions...</div>
       <div class="_spinner"><q-spinner-oval color="primary" /></div>
     </div>
-    <div v-if="state.cart.payment.stage === 3">
+    <div v-if="get('cart/payment.stage') === 3">
       <div class="_confirmations">1 confirmations</div>
       <div class="_emoji animate-bounce">👍</div>
       <div class="_progress _success">Payment received 🎉</div>
     </div>
     <div class="_close">
-      <button @click="state.cart.payment.state = false">Close</button>
+      <button @click="set('cart/payment.state', false)">Close</button>
     </div>
   </div>
 </div>
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 .payment
   font-size 1.2em

@@ -46,10 +46,9 @@ export default {
 }
 </script>
 
-<style lang="styl" scoped>
-@import '../css/themes/common.variables'
+<style lang="stylus" scoped>
+@import '~styl/variables'
 
 /*._wrapper*/
-
 
 </style>

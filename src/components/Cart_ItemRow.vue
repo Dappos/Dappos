@@ -3,12 +3,12 @@
   <div class="_wrapper">
     <div class="_count">{{ item.count }}x</div>
     <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ item.price | money(get('settings/currency/config')) }}</div>
+    <div class="_price">{{ item.price | money(get('settings/currencyConfig')) }}</div>
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('cart/openMore', item)" />
     </div>
 
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currency/config')) }} -->
+    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currencyConfig')) }} -->
   </div>
 </div>
 </template>
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .cart-item
   px lg

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { defaultMutations } from 'vuex-easy-access'
 
 function initialState () {
@@ -13,30 +12,19 @@ export default {
   mutations:
   {
     resetStateData (state) {
-      let newState = initialState()
+      const newState = initialState()
       Object.assign(state, newState)
-    },
-    updateState (state, payload) {
-      Object.keys(payload).forEach(key => {
-        Vue.set(state, key, payload[key])
-      })
     },
     ...defaultMutations(initialState())
   },
   actions:
   {
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch},
-    toggleState) {
+    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
       commit('SET_MODAL.STATE', toggleState)
     },
   },
   getters:
   {
-    getIt: (state, getters, rootState, rootGetters) =>
-    (id) => {
-      getters.someOtherGetter // -> 'foo/someOtherGetter'
-      rootGetters.someOtherGetter // -> 'someOtherGetter'
-    }
   }
 }

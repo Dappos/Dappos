@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../css/themes/common.variables'
+@import '~styl/variables'
 
 .modal-minimised .modal-content
   border-radius $radius

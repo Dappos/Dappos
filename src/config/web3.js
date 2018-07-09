@@ -1,11 +1,7 @@
 import Web3 from 'web3'
 
-if (typeof window.web3 !== 'undefined' || typeof web3 !== 'undefined') {
-  web3 = new Web3(web3.currentProvider)
-} else {
-  // MetaMask is not enabled
-  // Should show an alert
-  myWeb3 = new Web3("ws://localhost:7545")
-}
+const web3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/_ws'))
+// const web3 = new Web3(new Web3.providers.WebsocketProvider('wss://ropsten.infura.io/ws'))
+// const web3 = new Web3(new Web3.providers.WebsocketProvider('wss://rinkeby.infura.io/ws'))
 
 export default web3

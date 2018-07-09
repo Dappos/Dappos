@@ -4,12 +4,12 @@
     <div class="_row">
       <div class="_title">Currency</div>
       <div class="_content">
-        <q-btn-dropdown :label="get('settings/currency/currency')" outline >
+        <q-btn-dropdown :label="get('settings/currencyLabel')" outline >
           <!-- dropdown content -->
           <q-list link>
             <q-item
-              v-for="(curr, key) in get('settings/currency/availableCurrencies')"
-              @click.native="set('settings/currency/currency', key)"
+              v-for="(curr, key) in get('settings/availableCurrencies')"
+              @click.native="set('settings/currency', key)"
               :key="`curr-dd-${key}`"
               v-close-overlay
             >
@@ -25,7 +25,7 @@
       <div class="_title">Ethereum Wallet Address</div>
       <div class="_content _wallet">
         <q-input
-          :value="state.settings.walletAddress"
+          :value="get('settings/walletAddress')"
           @change="newVal => { set('settings/walletAddress', newVal) }"
         />
         <!-- todo: change with v-modal.lazy when it becomes available -->
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .settings
   pa xl

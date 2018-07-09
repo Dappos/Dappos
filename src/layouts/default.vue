@@ -19,7 +19,7 @@
             <div><img src="~assets/dappos-icon.svg" alt="menu"></div>
               <div class="q-ml-sm">
               <q-icon
-                :class="['_arrow', {rotated: state.menu.opened}]"
+                :class="['_arrow', {rotated: get('menu.opened')}]"
                 name="ion-arrow-down"
               />
             </div>
@@ -37,7 +37,6 @@
 
 <script>
 import storeAccess from '../components/mixins/storeAccess'
-import router from '../router'
 
 export default {
   name: 'LayoutDefault',
@@ -52,15 +51,15 @@ export default {
   computed:
   {
     elevateHeader () {
-      return (!this.state.cart.opened.state &&
-        (this.state.menu.opened || this.state.menu.animating))
+      return (!this.get('cart/opened.state') &&
+        (this.get('menu.opened') || this.get('menu.animating')))
     },
   },
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 ._layout
   background-color $bg-light

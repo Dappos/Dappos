@@ -8,7 +8,6 @@
 
 <script>
 import storeAccess from './mixins/storeAccess'
-import Vue from 'vue'
 import KeypadKeys from './Keypad_Keys'
 import KeypadInput from './Keypad_Input'
 
@@ -28,7 +27,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../css/themes/common.variables'
+@import '~styl/variables'
 
 .keypad
   width 100%
