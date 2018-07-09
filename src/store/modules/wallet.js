@@ -1,17 +1,18 @@
 import { defaultMutations } from 'vuex-easy-access'
-import wallet from '@config/wallet'
+import easyAccessConf from '@config/vuexEasyAccess'
+import web3Wallet from '@config/web3Wallet'
 
 function initialState () {
   return {
     address: null,
     isMainnet: null,
-    wallet
+    wallet: web3Wallet
   }
 }
 
-async function isMainNetwork (wallet) {
-  if (!wallet) return
-  const networkID = await wallet.eth.net.getId()
+async function isMainNetwork (_wallet) {
+  if (!_wallet) return
+  const networkID = await _wallet.eth.net.getId()
   return networkID === 1
 }
 
@@ -24,14 +25,14 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
     async getAddress ({state, getters, rootState, rootGetters, commit, dispatch}, {id} = {}) {
-      const accounts = await wallet.eth.getAccounts()
-      commit('SET_ADDRESS', accounts[0])
-      commit('SET_ISMAINNET', await isMainNetwork(wallet))
+      const accounts = await web3Wallet.eth.getAccounts()
+      dispatch('set/address', accounts[0])
+      dispatch('set/isMainnet', await isMainNetwork(web3Wallet))
     }
   },
   getters:

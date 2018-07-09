@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 import anime from 'animejs'
 import { addClass, removeClass } from '@helpers/DOMClassHelpers'
 import { dom } from 'quasar'
@@ -26,7 +27,7 @@ export default {
     resetAnimation (state, {type, id}) {
       state[type][id].restart()
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {

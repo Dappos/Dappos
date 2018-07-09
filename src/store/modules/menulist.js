@@ -1,3 +1,6 @@
+import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
+
 function defaultItem () {
   return {name: '', icon: null, prices: {jpy: 0, usd: 0}, new: true}
 }
@@ -31,6 +34,7 @@ export default {
   state: initialState(),
   mutations:
   {
+    ...defaultMutations(initialState(), easyAccessConf),
     resetStateData (state) {
       const newState = initialState()
       Object.assign(state, newState)
@@ -62,6 +66,9 @@ export default {
     doneEdit (state, id) {
       state.editing.state = false
     },
+    clearTestItems (state) {
+      state.items = {}
+    },
   },
   actions:
   {
@@ -85,7 +92,7 @@ export default {
     },
     toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
       toggleState = (toggleState === undefined) ? !state.editAll.state : toggleState
-      commit('SET_EDITALL.STATE', toggleState)
+      dispatch('set/editAll.state', toggleState)
     },
   },
   getters:

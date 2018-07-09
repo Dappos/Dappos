@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 
 function initialState () {
   // ❗️ properties > 1 level deep are not reset with resetStateData()
@@ -21,14 +22,14 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
     'setColors.primary': ({state, commit, dispatch}, newColor) => {
       // dispatch('patchToServer', state.colors.primary, {root: true})
       // console.log('patched')
-      return commit('SET_COLORS.PRIMARY', newColor)
+      return dispatch('set/colors.primary', newColor)
     },
     doIt (
       {state, getters, rootState, rootGetters, commit, dispatch},

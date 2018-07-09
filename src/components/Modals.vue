@@ -110,17 +110,18 @@ export default {
     },
     showPaymentModal () {
       this.dispatch('ethEvents/subscribeAccount')
-      return this.dispatch('cart/generateQr')
+      this.dispatch('cart/generateQr')
     },
     hidePaymentModal () {
       this.dispatch('ethEvents/unsubscribeAccount')
-      return this.commit('cart/resetQR')
+      this.commit('cart/resetQR')
     }
   }
 }
 </script>
 
 <style lang="stylus">
+// Please note that the Modals.vue component is not and should not be scoped!
 @import '~styl/variables'
 
 .modal

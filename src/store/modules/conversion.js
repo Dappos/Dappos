@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 import axios from 'axios'
 
 function initialState () {
@@ -24,7 +25,7 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {

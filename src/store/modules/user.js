@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 import Firebase from 'firebase/app'
 import 'firebase/auth'
 // import menulist from './userMenulist'
@@ -6,12 +7,12 @@ import 'firebase/auth'
 function initialState () {
   return {
     user: null,
+    eoaoae: null,
   }
 }
 
 export default {
   namespaced: true,
-  // modules: { menulist },
   state: initialState(),
   mutations:
   {
@@ -19,13 +20,13 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    ...defaultMutations(initialState())
+    ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
     userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch}, {user}) {
       console.log('userOnAuthListener → ', user)
-      commit('SET_USER', user)
+      dispatch('set/user', user)
     },
     signInSuccess ({state, getters, rootState, rootGetters, commit, dispatch}, {user}) {
       console.log('signInSuccess → ', user)

@@ -1,5 +1,6 @@
 import initialState from './state'
 import { defaultMutations } from 'vuex-easy-access'
+import easyAccessConf from '@config/vuexEasyAccess'
 
 export default {
   resetStateData (state) {
@@ -7,5 +8,5 @@ export default {
     console.log('resetting state data')
     Object.assign(state, newState)
   },
-  ...defaultMutations(initialState())
+  ...defaultMutations(initialState(), easyAccessConf)
 }
