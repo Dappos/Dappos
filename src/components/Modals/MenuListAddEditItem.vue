@@ -10,8 +10,7 @@
       </button>
       <q-input
         float-label="Item name"
-        :value="item.name"
-        @change="changeName"
+        v-model="item.name"
         type="text"
         autofocus
         required
@@ -32,8 +31,7 @@
     </div>
     <q-input
       float-label="Price"
-      :value="item.prices[get('settings/currency')]"
-      @change="changePrice"
+      v-model="item.prices[state.settings.currency]"
       type="number"
       :prefix="get('settings/currencyConfig').prefix"
       :decimals="get('settings/currencyConfig').precision"
@@ -56,7 +54,7 @@ import { Picker } from 'emoji-mart-vue'
 
 export default {
   components: { Picker },
-  props: ['item'],
+  props: ['item'], // this item is a copy when editing.
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () { return { pickerOpened: false } },
@@ -66,18 +64,21 @@ export default {
   methods:
   {
     changeName (newVal) {
-      if (this.item.new) return this.set('user/menulist/adding.item.name', newVal)
+      // if (this.item.new) return this.set('user/menulist/adding.item.name', newVal)
       return this.dispatch('user/menulist/set', {name: newVal, id: this.item.id})
     },
     changePrice (newVal) {
-      const curr = this.get('settings/currency')
-      if (this.item.new) return this.set(`user/menulist/adding.item.prices.${curr}`, newVal)
+      // const curr = this.state.settings.currency
+      // if (this.item.new) return this.set(`user/menulist/adding.item.prices.${curr}`, newVal)
       return this.dispatch('user/menulist/setPrice', {id: this.item.id, val: newVal})
     },
     save () {
-      if (!this.item.prices[this.get('settings/currency')]) return
+      if (!this.item.prices[this.state.settings.currency]) return
       if (this.item.new) return this.dispatch('user/menulist/addItem')
-      return this.dispatch('user/menulist/doneEdit', this.item.id)
+      // in the case of editing
+      this.changeName(this.item.name)
+      this.changePrice(this.item.prices[this.state.settings.currency])
+      this.set('user/menulist/editing.state', false)
     },
     deleteItem () {
       this.dispatch('user/menulist/delete', this.item.id)

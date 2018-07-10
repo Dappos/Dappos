@@ -1,4 +1,5 @@
 import { defaultMutations } from 'vuex-easy-access'
+import copyObj from '@helpers/copyObj'
 import easyAccessConf from '@config/vuexEasyAccess'
 
 function defaultItem () {
@@ -60,11 +61,8 @@ export default {
     },
     openEditModal (state, id) {
       if (!id) return
-      state.editing.item = state.items[id]
+      state.editing.item = copyObj(state.items[id])
       state.editing.state = true
-    },
-    doneEdit (state, id) {
-      state.editing.state = false
     },
     clearTestItems (state) {
       state.items = {}
@@ -80,9 +78,6 @@ export default {
     },
     openEditModal ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
       commit('openEditModal', id)
-    },
-    doneEdit ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
-      commit('doneEdit', id)
     },
     setPrice ({state, getters, rootState, rootGetters, commit, dispatch}, {id, val}) {
       const curr = rootState.settings.currency

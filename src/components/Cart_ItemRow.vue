@@ -3,12 +3,10 @@
   <div class="_wrapper">
     <div class="_count">{{ item.count }}x</div>
     <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ item.price | money(get('settings/currencyConfig')) }}</div>
+    <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
     <div class="_nav">
       <q-btn icon="ion-md-more" class="_more" @click="dispatch('cart/openMore', item)" />
     </div>
-
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currencyConfig')) }} -->
   </div>
 </div>
 </template>
@@ -24,6 +22,11 @@ export default {
   data () { return {} },
   computed:
   {
+    price () {
+      // cart items have a 'price' field assigned when they get added to the cart
+      if (this.item.price) return this.item.price
+      return this.item.prices[this.state.settings.currency]
+    },
   },
   methods:
   {

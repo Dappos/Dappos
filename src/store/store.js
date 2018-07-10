@@ -40,6 +40,6 @@ export default function () {
       _template
       // 'menulist' and 'settings' are added as Vuex Easy Firestore!
     },
-    plugins: [easyAccess, easyFirestores],
+    plugins: [easyFirestores, easyAccess],
   }
 }

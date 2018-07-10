@@ -29,9 +29,7 @@ export default {
   computed:
   {
     price () {
-      return (!this.item.price)
-        ? this.item.prices[this.get('settings/currency')]
-        : this.item.price
+      return this.item.prices[this.state.settings.currency]
     },
   },
   methods:
