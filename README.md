@@ -19,11 +19,12 @@ Dappos is a Ethereum based Dapp POS register.
     - [👩🏻‍🏫 Linting](#-linting)
     - [👨🏻‍🔧 Frameworks](#-frameworks)
     - [👸🏾 Import](#-import)
+    - [💂🏻‍ HTML](#-html)
     - [👨🏻‍🎨 CSS](#-css)
         - [Full Vue component + Stylus example](#full-vue-component--stylus-example)
         - [Stylus variables](#stylus-variables)
         - [Stylus helpers](#stylus-helpers)
-    - [👩🏻‍🔬 External dependancies](#-external-dependancies)
+    - [👩🏻‍🔬 External dependencies](#-external-dependencies)
     - [👨🏽‍🎓 Vuex usage](#-vuex-usage)
 
 <!-- /TOC -->
@@ -61,6 +62,25 @@ src/router | import ... from '@router/...'
 src/store | import ... from '@store/...'
 src/helpers | import ... from '@helpers/...'
 src/config | import ... from '@config/...'
+
+### 💂🏻‍ HTML
+
+Write functional attributes first, semantic ones and classes last:
+
+```html
+<button @click="add()" class="_add"> ... </button>
+```
+
+New line per attribute when the line feels to long:
+
+```html
+<button
+  @click="dispatch('cart/openMore', item)"
+  class="_more _button _extras"
+>
+  ...
+</button>
+```
 
 ### 👨🏻‍🎨 CSS
 
@@ -148,7 +168,7 @@ With sizes:
 - `xxl` 16px * 3
 - `xxxl` 16px * 5
 
-### 👩🏻‍🔬 External dependancies
+### 👩🏻‍🔬 External dependencies
 
 External plugins etc. to be installed with `npm` and added as a plugin. Please read about the plugin [documentation here](https://quasar-framework.org/guide/app-plugins.html).
 
