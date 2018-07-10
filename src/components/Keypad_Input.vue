@@ -41,7 +41,6 @@ export default {
     px sm
   ._input
     flex 1
-    // height 100%
     input
       px sm
       width 100%

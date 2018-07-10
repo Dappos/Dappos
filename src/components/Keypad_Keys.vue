@@ -1,19 +1,19 @@
 <template>
 <div class="keypad-keys">
   <div class="_keys">
-    <button class="_1" @click="dispatch('keypad/tap', 1)">1</button>
-    <button class="_2" @click="dispatch('keypad/tap', 2)">2</button>
-    <button class="_3" @click="dispatch('keypad/tap', 3)">3</button>
-    <button class="_4" @click="dispatch('keypad/tap', 4)">4</button>
-    <button class="_5" @click="dispatch('keypad/tap', 5)">5</button>
-    <button class="_6" @click="dispatch('keypad/tap', 6)">6</button>
-    <button class="_7" @click="dispatch('keypad/tap', 7)">7</button>
-    <button class="_8" @click="dispatch('keypad/tap', 8)">8</button>
-    <button class="_9" @click="dispatch('keypad/tap', 9)">9</button>
-    <button class="_C" @click="dispatch('keypad/clear')">C</button>
-    <button class="_0" @click="dispatch('keypad/tap', 0)">0</button>
-    <button class="_add" @click="add()">
-      <q-icon name="ion-add" size="1.3em" color="primary" />
+    <button @click="dispatch('keypad/tap', 1)">1</button>
+    <button @click="dispatch('keypad/tap', 2)">2</button>
+    <button @click="dispatch('keypad/tap', 3)">3</button>
+    <button @click="dispatch('keypad/tap', 4)">4</button>
+    <button @click="dispatch('keypad/tap', 5)">5</button>
+    <button @click="dispatch('keypad/tap', 6)">6</button>
+    <button @click="dispatch('keypad/tap', 7)">7</button>
+    <button @click="dispatch('keypad/tap', 8)">8</button>
+    <button @click="dispatch('keypad/tap', 9)">9</button>
+    <button @click="dispatch('keypad/clear')">C</button>
+    <button @click="dispatch('keypad/tap', 0)">0</button>
+    <button @click="add()" class="_add">
+      <q-icon name="ion-add" size="1.3em" color="primary" class="js-fly-keypad-add" />
     </button>
   </div>
 </div>
@@ -40,13 +40,13 @@ export default {
       this.flyToTotal()
     },
     flyToTotal () {
-      const el = document.querySelector('.js-keypad-fly')
+      const el = document.querySelector('.js-fly-keypad-add')
       const elCart = document.querySelector('.js-info-cart')
       this.dispatch('animate/fly', {
         el: el,
-        id: 'js-keypad-fly',
         target: elCart,
-        hidden: true
+        clone: true,
+        hideAfter: true,
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})
       })
@@ -85,16 +85,6 @@ export default {
         padding-top 2px
         padding-left 2px
         z-index 1
-// ._1
-// ._2
-// ._3
-// ._4
-// ._5
-// ._6
-// ._7
-// ._8
-// ._9
-// ._0
 // ._C
 // ._add
 

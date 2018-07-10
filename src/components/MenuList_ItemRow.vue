@@ -46,13 +46,15 @@ export default {
   methods:
   {
     flyToCart () {
-      const el = this.$el.children[1]
+      // const el = this.$el.children[1]
       const elCart = document.querySelector('.js-info-cart')
+      const el = this.$el.children[0].children[0].children[0]
       this.dispatch('animate/fly', {
         el: el,
-        id: this.id,
         target: elCart,
-        hidden: true
+        clone: true,
+        hideAfter: true,
+        innerHTML: (!this.item.icon) ? '📦' : false
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})
         this.scrambleInt()
@@ -73,7 +75,6 @@ export default {
   pa 0
   ma 0
   background none
-  background-color white
   border none
   outline none
   width 100%

@@ -2,7 +2,7 @@ import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import anime from 'animejs'
 import { addClass, removeClass } from '@helpers/DOMClassHelpers'
-import { dom } from 'quasar'
+import { dom, uid } from 'quasar'
 const { offset } = dom
 
 function initialState () {
@@ -51,9 +51,25 @@ export default {
     },
     fly (
       {state, getters, rootState, rootGetters, commit, dispatch},
-      {el, target, id = 'main', hidden = false} = {}
+      {el, target, id, hidden, clone, hideAfter, innerHTML} = {}
     ) {
+      const animationDuration = 500
       return new Promise((resolve, reject) => {
+        if (clone) {
+          const top = el.getBoundingClientRect().top + window.scrollY
+          const left = el.getBoundingClientRect().left + window.scrollX
+          el = el.cloneNode()
+          el.style.position = 'fixed'
+          el.style.top = top + 'px'
+          el.style.left = left + 'px'
+          el.style['z-index'] = 1000
+          document.body.appendChild(el)
+        }
+        if (!id) id = uid()
+        if (innerHTML) {
+          el.className = (hidden) ? 'hidden' : ''
+          el.innerHTML = innerHTML
+        }
         if (hidden) removeClass(el, 'hidden')
         // console.log('el → ', el)
         // console.log('target → ', target)
@@ -69,7 +85,7 @@ export default {
             translateX: Xend,
             translateY: Yend,
             scale: [6, 1],
-            duration: 500,
+            duration: animationDuration,
             easing: 'easeOutQuad',
             elasticity: 0,
             autoplay: false
@@ -80,11 +96,13 @@ export default {
         //   if (hidden) addClass(el, 'hidden')
         //   resolve()
         // }
+        commit('resetAnimation', {type: 'fly', id})
         setTimeout(_ => {
           if (hidden) addClass(el, 'hidden')
+          if (hideAfter) addClass(el, 'hidden')
+          if (clone && hideAfter) el.remove()
           resolve()
-        }, 400)
-        return commit('resetAnimation', {type: 'fly', id})
+        }, animationDuration)
       })
     },
   },
