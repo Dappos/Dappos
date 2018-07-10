@@ -14,17 +14,17 @@ Dappos is a Ethereum based Dapp POS register.
 
 - [Motivation](#motivation)
 - [Contribution guide](#contribution-guide)
-    - [👩🏼‍💻 Commiting](#👩🏼‍💻-commiting)
-    - [👨🏼‍💻 Developing](#👨🏼‍💻-developing)
-    - [👩🏻‍🏫 Linting](#👩🏻‍🏫-linting)
-    - [🧙🏻‍♂️ Frameworks](#🧙🏻‍♂️-frameworks)
-    - [🧞‍♂️ Import](#🧞‍♂️-import)
-    - [👨🏻‍🎨 CSS](#👨🏻‍🎨-css)
+    - [👩🏽‍💻 Commiting](#-commiting)
+    - [👨🏼‍💻 Developing](#-developing)
+    - [👩🏻‍🏫 Linting](#-linting)
+    - [👨🏻‍🔧 Frameworks](#-frameworks)
+    - [👸🏾 Import](#-import)
+    - [👨🏻‍🎨 CSS](#-css)
         - [Full Vue component + Stylus example](#full-vue-component--stylus-example)
         - [Stylus variables](#stylus-variables)
         - [Stylus helpers](#stylus-helpers)
-    - [👩🏻‍🔬 External dependancies](#👩🏻‍🔬-external-dependancies)
-    - [👮🏽‍♂️ Vuex usage](#👮🏽‍♂️-vuex-usage)
+    - [👩🏻‍🔬 External dependancies](#-external-dependancies)
+    - [👨🏽‍🎓 Vuex usage](#-vuex-usage)
 
 <!-- /TOC -->
 
@@ -34,9 +34,9 @@ wip
 
 ## Contribution guide
 
-### 👩🏼‍💻 Commiting
+### 👩🏽‍💻 Commiting
 
-Always make PR towards the DEV branch. Always add an emoji after each commit ✌🏻. Commit often.
+Always make PR towards the **DEV branch**. Always add an *emoji* after each commit ✌🏻. Make small commits often.
 
 ### 👨🏼‍💻 Developing
 
@@ -46,11 +46,11 @@ Always make PR towards the DEV branch. Always add an emoji after each commit ✌
 
 ES6 StandardJS linting enabled
 
-### 🧙🏻‍♂️ Frameworks
+### 👨🏻‍🔧 Frameworks
 
 Vue.js + [Quasar framework](https://quasar-framework.org/guide/)
 
-### 🧞‍♂️ Import
+### 👸🏾 Import
 
 Path aliasses available at: `quasar.conf.js`.
 
@@ -152,7 +152,7 @@ With sizes:
 
 External plugins etc. to be installed with `npm` and added as a plugin. Please read about the plugin [documentation here](https://quasar-framework.org/guide/app-plugins.html).
 
-### 👮🏽‍♂️ Vuex usage
+### 👨🏽‍🎓 Vuex usage
 
 We are using the plugins: [Vuex easy access](https://github.com/mesqueeb/VuexEasyAccess) and [Vuex easy firestore](https://github.com/mesqueeb/VuexEasyFirestore). Please read up on the documentation!
 
