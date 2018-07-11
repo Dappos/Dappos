@@ -12,7 +12,6 @@ import CartEditingItem from '../components/Modals/CartEditingItem'
 import Payment from '../components/Modals/Payment'
 // other
 import AppMenu from '../components/AppMenu'
-import LayoutSideMenu from '../components/LayoutSideMenu'
 import InfoCart from '../components/InfoCart'
 import InfoTotal from '../components/InfoTotal'
 import NavigationTabs from '../components/NavigationTabs'
@@ -35,7 +34,6 @@ export default ({ app, router, Vue }) => {
   Vue.component('payment', Payment)
 
   Vue.component('app-menu', AppMenu)
-  Vue.component('layout-side-menu', LayoutSideMenu)
   Vue.component('info-cart', InfoCart)
   Vue.component('info-total', InfoTotal)
   Vue.component('navigation-tabs', NavigationTabs)

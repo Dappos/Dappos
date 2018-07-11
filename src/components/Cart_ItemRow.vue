@@ -60,6 +60,7 @@ export default {
   font-weight 500
 ._name
   grid-area name
+  font-weight 500
 ._price
   grid-area price
   color $gray-light

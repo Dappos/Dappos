@@ -37,7 +37,7 @@ export default {
 ._info-total-wrapper
   px sm
 ._navigation-tabs-wrapper
-  py sm
+  pt lg
 ._router-view-wrapper
   flex 1
   display flex

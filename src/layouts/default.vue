@@ -13,16 +13,14 @@
           @click="dispatch('toggleMenu')"
           flat dense
           aria-label="Menu"
-          :class="['reset-button']"
+          class="reset-button _menu-btn"
         >
-          <div class="_menu-btn">
-            <div><img src="~assets/dappos-icon.svg" alt="menu"></div>
-              <div class="q-ml-sm">
-              <q-icon
-                :class="['_arrow', {rotated: get('menu.opened')}]"
-                name="ion-arrow-down"
-              />
-            </div>
+          <img src="~assets/dappos-icon.svg" class="_img" alt="menu">
+          <div class="q-ml-sm">
+            <q-icon
+              :class="['_arrow', {rotated: get('menu.opened')}]"
+              name="ion-arrow-down"
+            />
           </div>
         </button>
         <info-cart />
@@ -74,6 +72,9 @@ export default {
 ._header
   border none
 ._toolbar
+  px xl
+  mt md
+  mb sm
   background-color transparent
   border-bottom none
   justify-content space-between
@@ -81,9 +82,8 @@ export default {
 ._menu-btn
   display flex
   align-items center
-  img
+  ._img
     width 2em
-    height auto
 ._elevate
   z-index 5900
 ._arrow

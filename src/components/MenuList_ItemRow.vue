@@ -93,8 +93,10 @@ export default {
   px xl
 ._name
   font-size 1.3em
+  font-weight 500
 ._price
   font-size 1.2em
+  color $gray-light
 ._fly-icon
   position absolute
   top 0

@@ -3,7 +3,7 @@ import copyObj from '@helpers/copyObj'
 import easyAccessConf from '@config/vuexEasyAccess'
 
 function defaultItem () {
-  return {name: '', icon: null, prices: {jpy: 0, usd: 0}, new: true}
+  return {name: '', icon: null, prices: {jpy: null, usd: null}, new: true}
 }
 function testItems () {
   return {

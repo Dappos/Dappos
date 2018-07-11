@@ -1,23 +1,26 @@
 <template>
-<div class="menu-list-add-edit-item">
+<div :class="['menu-list-add-edit-item', {editing: !item.new, adding: item.new}]">
   <form @submit.prevent="save">
     <div class="_row flex">
-      <button @click.prevent="togglePicker" v-if="!item.icon" class="_icon-btn">
+      <!-- <button @click.prevent="togglePicker" v-if="!item.icon" class="_icon-btn">
         <q-icon name="ion-list" />
-      </button>
-      <button @click.prevent="togglePicker" v-else class="_icon-btn">
+      </button> -->
+      <button @click.prevent="togglePicker" v-if="item.icon" class="_icon-btn">
         <span>{{ item.icon }}</span>
       </button>
       <q-input
         float-label="Item name"
         v-model="item.name"
+        @input="checkIcon"
+        @keydown.enter-strict.prevent="focusPrice"
         type="text"
         autofocus
         required
-        class="_name"
+        class="_name js-name"
       />
     </div>
     <div v-show="pickerOpened" class="_emoji-picker _row animate-scale">
+      <button @click.prevent="removeEmoji" class="o-txt-btn _remove-icon">Remove icon</button>
       <picker
         @select="addEmoji"
         :include="['foods']"
@@ -37,12 +40,12 @@
       :decimals="get('settings/currencyConfig').precision"
       numeric-keyboard-toggle
       required
-      class="_row"
+      class="_row _price js-price"
     />
     <button type="submit" class="o-btn _save _row">Save</button>
     <button
       v-if="!item.new"
-      @click="deleteItem" class="o-btn _delete _row"
+      @click.prevent="deleteItem" class="o-btn _delete _row"
     >Delete</button>
   </form>
 </div>
@@ -51,6 +54,7 @@
 <script>
 import storeAccess from '../mixins/storeAccess'
 import { Picker } from 'emoji-mart-vue'
+import { findEmoji, indexOfEmoji } from '@helpers/emojiUtils'
 
 export default {
   components: { Picker },
@@ -61,8 +65,31 @@ export default {
   computed:
   {
   },
+  watch: {
+    // whenever question changes, this function will run
+    // item: {
+    //   handler (val) {
+    //     if (val.icon) {
+    //       this.item.name = val.name.replace(new RegExp('^' + val.icon, 'g'), '')
+    //     }
+    //   },
+    //   deep: true
+    // }
+  },
   methods:
   {
+    checkIcon (nameInput) {
+      if (this.item.icon) return
+      const emoji = findEmoji(nameInput)[0]
+      if (indexOfEmoji(nameInput, emoji) === 0) {
+        this.item.icon = emoji
+        setTimeout(_ => {
+          this.item.name = this.item.name.replace(new RegExp('^' + emoji, 'g'), '')
+        }, 1)
+        return
+      }
+      this.item.icon = null
+    },
     changeName (newVal) {
       // if (this.item.new) return this.set('user/menulist/adding.item.name', newVal)
       return this.dispatch('user/menulist/set', {name: newVal, id: this.item.id})
@@ -78,6 +105,7 @@ export default {
       // in the case of editing
       this.changeName(this.item.name)
       this.changePrice(this.item.prices[this.state.settings.currency])
+      this.dispatch('user/menulist/set', {icon: this.item.icon, id: this.item.id})
       this.set('user/menulist/editing.state', false)
     },
     deleteItem () {
@@ -88,10 +116,27 @@ export default {
       // console.log('emoji → ', emoji)
       this.item.icon = emoji.native
       this.pickerOpened = false
+      this.focusPrice()
+    },
+    removeEmoji () {
+      this.item.icon = null
+      this.pickerOpened = false
+      this.focusName()
     },
     togglePicker () {
       this.pickerOpened = !this.pickerOpened
     },
+    focusName () {
+      const selector = (this.item.new) ? 'adding' : 'editing'
+      document.querySelector(`.menu-list-add-edit-item.${selector} .js-name input`).focus()
+    },
+    focusPrice () {
+      const selector = (this.item.new) ? 'adding' : 'editing'
+      document.querySelector(`.menu-list-add-edit-item.${selector} .js-price input`).focus()
+    },
+  },
+  beforeDestroy () {
+    this.pickerOpened = false
   }
 }
 </script>
@@ -112,7 +157,11 @@ export default {
   flex 1
 ._emoji-picker
   display flex
+  flex-direction column
+  align-items center
   justify-content center
+  ._remove-icon
+    mb sm
 ._save
   mt xl
 ._save, ._delete

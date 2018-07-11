@@ -44,6 +44,7 @@ module.exports = {
     'no-unused-vars': 1,
     'prefer-const': 1,
     'no-new': 1,
+    'vue/valid-v-on': 0,
 
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0

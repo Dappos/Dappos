@@ -3,11 +3,13 @@ body
   color $text
   font-family $font-main
 
+// QR-code is injected, so CSS defined here
 .qr-code
   canvas
     width 100% !important
     height auto !important
 
+// Improved flipOutX animation
 @keyframes flipOutX
   0%
     transform perspective(400px)
@@ -21,18 +23,22 @@ body
     opacity 0
     margin-top -4em
 
+// navigational tabs's quasar components are injected so CSS defined here:
 ._navigation-tabs-wrapper
   .q-tab-icon
     font-size 1.3em
   .q-router-link-exact-active:after
-    // border-bottom solid
     content ' '
     position absolute
-    bottom 5%
+    bottom 0%
     width 70%
-    height 2.3px
+    height 3px
     border-radius 2em
-    background-color $gray-dark
+    background-color $gray-light
   .q-tabs-scroller,
   .q-tab
     flex 1 1 auto
+
+
+.q-input .q-if-label
+  font-weight 500
