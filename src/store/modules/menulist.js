@@ -1,16 +1,28 @@
 import { defaultMutations } from 'vuex-easy-access'
 import copyObj from '@helpers/copyObj'
 import easyAccessConf from '@config/vuexEasyAccess'
+import currencies from '@config/currencyDefaults'
 
+function defaultPrices (usd, jpy) {
+  return Object.keys(currencies)
+    .reduce((carry, key) => {
+      carry[key] = (usd && key === 'usd')
+        ? usd
+        : (jpy && key === 'jpy')
+          ? jpy
+          : null
+      return carry
+    }, {})
+}
 function defaultItem () {
-  return {name: '', icon: null, prices: {jpy: null, usd: null}, new: true}
+  return {name: '', icon: null, prices: defaultPrices(), new: true}
 }
 function testItems () {
   return {
-    'ice-coffee': {name: 'Ice Coffee', icon: null, id: 'ice-coffee', prices: {jpy: 400, usd: 4}},
-    'hot-coffee': {name: 'Hot Coffee', icon: '☕', id: 'hot-coffee', prices: {jpy: 400, usd: 4}},
-    'latte': {name: 'Latte', icon: null, id: 'latte', prices: {jpy: 500, usd: 5}},
-    'beer': {name: 'Beer', icon: null, id: 'beer', prices: {jpy: 500, usd: 5}},
+    'ice-coffee': {name: 'Ice Coffee', icon: null, id: 'ice-coffee', prices: defaultPrices(4, 400)},
+    'hot-coffee': {name: 'Hot Coffee', icon: '☕', id: 'hot-coffee', prices: defaultPrices(4, 400)},
+    'latte': {name: 'Latte', icon: null, id: 'latte', prices: defaultPrices(5, 500)},
+    'beer': {name: 'Beer', icon: null, id: 'beer', prices: defaultPrices(5, 500)},
   }
 }
 function initialState () {
@@ -29,7 +41,7 @@ export default {
   moduleName: 'user/menulist',
   statePropName: 'items',
   serverChange: {
-    defaultValues: {prices: {usd: 0, jpy: 0}},
+    defaultValues: {prices: defaultPrices()},
   },
   // module:
   state: initialState(),
