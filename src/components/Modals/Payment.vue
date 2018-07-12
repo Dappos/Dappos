@@ -8,7 +8,7 @@
   <div class="_wrapper-bottom">
     <div v-if="get('cart/payment.stage') === 1" class="_inner-wrapper">
       <div class="_qr qr-code" id="js-qr"></div>
-      <div class="_address">{{ get('settings/walletAddress') }}</div>
+      <div class="_address">{{ get('settings/wallet.address') }}</div>
       <div class="_spinner"><q-spinner-oval color="primary" /></div>
     </div>
     <div v-if="get('cart/payment.stage') === 2">

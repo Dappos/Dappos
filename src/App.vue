@@ -9,9 +9,7 @@
 <script>
 export default {
   name: 'App',
-  mounted () {
-    this.$store.dispatch('wallet/getAddress')
-  },
+  mounted () {},
   methods:
   {
     onResize (size) {

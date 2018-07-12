@@ -22,8 +22,7 @@ export default {
   actions:
   {
     subscribeAccount ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      const wallet = rootState.wallet
-      const address = wallet.address
+      const address = rootState.settings.wallet.address
       console.log('wallet address:' + address)
       const subscription = web3.eth.subscribe('pendingTransactions', (error, result) => {
         if (error) {

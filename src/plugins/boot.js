@@ -20,6 +20,7 @@ export default ({ app, router, Vue, store }) => {
       store.dispatch('user/userOnAuthListener', {user})
       store.dispatch('user/menulist/openDBChannel')
       store.dispatch('settings/openDBChannel')
+        .then(_ => store.dispatch('wallet/getAddress'))
 
       router.replace({name: 'home'})
       // eslint-disable-next-line

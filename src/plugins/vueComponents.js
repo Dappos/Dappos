@@ -10,6 +10,7 @@ import MenuListAddEditItem from '../components/Modals/MenuListAddEditItem'
 import MenuListEditAll from '../components/Modals/MenuListEditAll'
 import CartEditingItem from '../components/Modals/CartEditingItem'
 import Payment from '../components/Modals/Payment'
+import OverwriteAddress from '../components/Modals/OverwriteAddress'
 // other
 import AppMenu from '../components/AppMenu'
 import InfoCart from '../components/InfoCart'
@@ -32,6 +33,7 @@ export default ({ app, router, Vue }) => {
   Vue.component('menu-list-edit-all', MenuListEditAll)
   Vue.component('cart-editing-item', CartEditingItem)
   Vue.component('payment', Payment)
+  Vue.component('overwrite-address', OverwriteAddress)
 
   Vue.component('app-menu', AppMenu)
   Vue.component('info-cart', InfoCart)

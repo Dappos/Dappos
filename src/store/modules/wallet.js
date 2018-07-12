@@ -6,7 +6,11 @@ function initialState () {
   return {
     address: null,
     isMainnet: null,
-    wallet: web3Wallet
+    modals: {
+      overwriteAddress: {
+        state: false
+      }
+    }
   }
 }
 
@@ -31,8 +35,13 @@ export default {
   {
     async getAddress ({state, getters, rootState, rootGetters, commit, dispatch}, {id} = {}) {
       const accounts = await web3Wallet.eth.getAccounts()
-      dispatch('set/address', accounts[0])
+      const address = accounts[0]
+      dispatch('set/address', address)
+      if (address !== rootState.settings.wallet.address) {
+        dispatch('set/modals.overwriteAddress.state', true)
+      }
       dispatch('set/isMainnet', await isMainNetwork(web3Wallet))
+      return address
     }
   },
   getters:

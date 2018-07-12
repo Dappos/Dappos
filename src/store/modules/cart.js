@@ -127,7 +127,7 @@ export default {
       dispatch('set/totalAmountWei', value)
       const sendDetails = {
         value,
-        to: rootState.settings.walletAddress,
+        to: rootState.settings.wallet.address,
         gas: rootState.settings.gas,
       }
       const domConfig = {

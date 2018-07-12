@@ -4,7 +4,7 @@ import defaults from '@config/currencyDefaults'
 
 function initialState () {
   return {
-    walletAddress: '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe',
+    wallet: {address: null},
     gas: 42000,
     currency: 'jpy',
     config: {
@@ -21,7 +21,7 @@ export default {
   moduleName: 'settings',
   statePropName: '',
   sync: {
-    fillables: ['walletAddress', 'gas', 'currency', 'config']
+    fillables: ['wallet', 'gas', 'currency', 'config']
   },
   // module:
   state: initialState(),

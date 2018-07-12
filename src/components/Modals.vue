@@ -87,6 +87,13 @@
     <payment />
   </modal-minimised>
 
+  <!-- UPDATE WALLET ADDRESS -->
+  <modal-minimised
+    :toggle="state.wallet.modals.overwriteAddress"
+  >
+    <overwrite-address />
+  </modal-minimised>
+
 </div>
 </template>
 
