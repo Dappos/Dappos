@@ -6,7 +6,9 @@ Dappos is a Ethereum based Dapp POS register.
 
 ### Todo
 
+- Payment confirmation
 - Add login link on menulist
+- Write Motivation
 
 ### Table of Contents
 
@@ -26,6 +28,8 @@ Dappos is a Ethereum based Dapp POS register.
         - [Stylus helpers](#stylus-helpers)
     - [👩🏻‍🔬 External dependencies](#-external-dependencies)
     - [👨🏽‍🎓 Vuex usage](#-vuex-usage)
+- [Inner workings](#inner-workings)
+    - [🌏 App initialisation](#-app-initialisation)
 
 <!-- /TOC -->
 
@@ -196,3 +200,19 @@ actions: {
   },
 }
 ```
+
+## Inner workings
+
+### 🌏 App initialisation
+
+The inner process of how the app initialises:
+
+1. Vuex store and router are instanciated (`store/index` and `router/index`)
+2. Other plugins are instanciated (`plugins/` please see the [documentation](https://quasar-framework.org/guide/app-plugins.html))
+3. Firebase gets initialised (`plugins/firebase`)
+4. Authentication is checked (`plugins/boot`) after which:
+  - Firestore DB channels are openend
+  - Web3 checks for a wallet
+  - Vue, the app & DOM get created
+
+The order of the plugins can be checked in `quasar.conf.js`.
