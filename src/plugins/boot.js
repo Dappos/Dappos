@@ -19,8 +19,12 @@ export default ({ app, router, Vue, store }) => {
       store.commit('user/menulist/clearTestItems')
       store.dispatch('user/userOnAuthListener', {user})
       store.dispatch('user/menulist/openDBChannel')
+        .catch(console.error)
+      store.dispatch('history/openDBChannel')
+        .catch(console.error)
       store.dispatch('settings/openDBChannel')
         .then(_ => store.dispatch('wallet/getAddress'))
+        .catch(console.error)
 
       router.replace({name: 'home'})
       // eslint-disable-next-line

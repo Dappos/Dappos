@@ -117,7 +117,7 @@ export default {
     },
     showPaymentModal () {
       this.dispatch('ethEvents/subscribeAccount')
-      this.dispatch('cart/generateQr')
+      this.dispatch('cart/createPaymentRequest')
     },
     hidePaymentModal () {
       this.dispatch('ethEvents/unsubscribeAccount')

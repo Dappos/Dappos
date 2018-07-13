@@ -1,23 +1,22 @@
 <template>
 <div class="history">
   <div class="_wrapper">
-
+    <pre>
+      {{ state.history.receits }}
+    </pre>
   </div>
 </div>
 </template>
 
 <script>
 import storeAccess from './mixins/storeAccess'
-const testHistory = {
-
-}
 
 export default {
   components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return testHistory },
+  data () { return {} },
   computed:
   {
   },

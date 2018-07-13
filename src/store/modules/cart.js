@@ -34,8 +34,17 @@ export default {
     },
     addItem (state, item) {
       item = copyObj(item)
+      Object.keys(item).forEach(k => {
+        if (!['count', 'icon', 'id', 'name', 'price'].includes(k)) {
+          delete item[k]
+        }
+      })
       if (!state.items[item.id]) {
-        this._vm.$set(state.items, item.id, Object.assign({name: 'Item'}, item, {count: 0}))
+        this._vm.$set(
+          state.items,
+          item.id,
+          Object.assign({name: 'Item'}, item, {count: 0})
+        )
       }
       state.items[item.id].count++
     },
@@ -114,19 +123,29 @@ export default {
       commit('clearAll')
       state.totalAmountAnimation.update(getters.totalAmount)
     },
-    async generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      const qr = new EthereumQRPlugin()
+    async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
       const amount = getters.totalAmount
-      let value = await dispatch('conversion/convert', {
+      let wei = await dispatch('conversion/convert', {
         amount,
         from: currency,
         to: 'wei'
       }, {root: true})
-      value = roundNumberDown(value, 15)
-      dispatch('set/totalAmountWei', value)
+      wei = roundNumberDown(wei, 15)
+      dispatch('set/totalAmountWei', wei)
+      dispatch('history/insert', {
+        amount,
+        currency,
+        wei,
+        items: state.items,
+        wallet: rootState.settings.wallet.address
+      }, {root: true})
+      dispatch('generateQr')
+    },
+    generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      const qr = new EthereumQRPlugin()
       const sendDetails = {
-        value,
+        value: state.totalAmountWei,
         to: rootState.settings.wallet.address,
         gas: rootState.settings.gas,
       }

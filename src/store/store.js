@@ -14,12 +14,12 @@ import animate from './modules/animate'
 import wallet from './modules/wallet'
 import ethEvents from './modules/ethEvents'
 import conversion from './modules/conversion'
-import history from './modules/history'
 import _template from './modules/_template'
 // easy firestore modules
-import settings from './modules/settings'
 import menulist from './modules/menulist'
-const easyFirestores = createEasyFirestore([menulist, settings])
+import settings from './modules/settings'
+import history from './modules/history'
+const easyFirestores = createEasyFirestore([menulist, settings, history])
 const easyAccess = createEasyAccess(easyAccessConf)
 
 export default function () {
@@ -36,7 +36,6 @@ export default function () {
       wallet,
       ethEvents,
       conversion,
-      history,
       _template
       // 'menulist' and 'settings' are added as Vuex Easy Firestore!
     },
