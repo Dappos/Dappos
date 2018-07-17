@@ -29,8 +29,8 @@ export default {
   methods:
   {
     toggleCart () {
-      this.dispatch('cart/toggleCart')
-      this.dispatch('toggleMenu', false)
+      this.dispatch('modals/toggle', 'cart.cart')
+      this.dispatch('modals/toggleMenu', false)
     },
   }
 }

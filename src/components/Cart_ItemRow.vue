@@ -5,7 +5,7 @@
     <div class="_name">{{ item.name }}</div>
     <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
     <div class="_nav">
-      <q-btn icon="ion-md-more" @click="dispatch('cart/openMore', item)" class="_more" />
+      <q-btn icon="ion-md-more" @click="dispatch('modals/cartMore', item)" class="_more" />
     </div>
   </div>
 </div>

@@ -11,7 +11,11 @@
       {{ price | money(get('settings/currencyConfig')) }}
     </div>
     <div class="_nav">
-      <q-btn icon="ion-md-more" class="_more" @click="dispatch('user/menulist/openEditModal', item.id)" />
+      <q-btn
+        @click="dispatch('modals/toggleMenu', item.id)"
+        icon="ion-md-more"
+        class="_more"
+      />
     </div>
   </div>
 </div>

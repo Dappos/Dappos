@@ -1,6 +1,6 @@
 <template>
 <q-modal
-  v-model="toggle.state"
+  v-model="toggle.opened"
   minimized
   class="modal-minimised"
   @hide="hideFunction"

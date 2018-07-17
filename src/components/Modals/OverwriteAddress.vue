@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="_wrapper-bottom">
-    <button @click="set('wallet/modals.overwriteAddress.state', false)" class="_cancel">Cancel</button>
+    <button @click="dispatch('modals/toggle', 'wallet.overwriteAddress')" class="_cancel">Cancel</button>
     <button @click="overwrite" class="_overwrite">Use new wallet</button>
   </div>
 </div>
@@ -38,7 +38,7 @@ export default {
       this.set('settings', {wallet: {address: this.state.wallet.address}})
       this.overwritten = true
       setTimeout(_ => {
-        this.set('wallet/modals.overwriteAddress.state', false)
+        this.dispatch('modals/toggle', ['wallet.overwriteAddress', false])
       }, 800)
     },
   }

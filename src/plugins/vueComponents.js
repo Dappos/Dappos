@@ -1,25 +1,25 @@
 // import components here
 // generic
-import ModalFullscreen from '../components/generic/ModalFullscreen'
-import ModalMinimised from '../components/generic/ModalMinimised'
-import QuasarOptionsReveal from '../components/generic/QuasarOptionsReveal'
-import FirebaseUi from '../components/FirebaseUi'
+import ModalFullscreen from '@components/generic/ModalFullscreen'
+import ModalMinimised from '@components/generic/ModalMinimised'
+import QuasarOptionsReveal from '@components/generic/QuasarOptionsReveal'
+import FirebaseUi from '@components/FirebaseUi'
 // modals
-import Modals from '../components/Modals'
-import MenuListAddEditItem from '../components/Modals/MenuListAddEditItem'
-import MenuListEditAll from '../components/Modals/MenuListEditAll'
-import CartEditingItem from '../components/Modals/CartEditingItem'
-import Payment from '../components/Modals/Payment'
-import OverwriteAddress from '../components/Modals/OverwriteAddress'
+import Modals from '@components/Modals'
+import MenuListAddEditItem from '@components/Modals/MenuListAddEditItem'
+import MenuListEditAll from '@components/Modals/MenuListEditAll'
+import CartEditingItem from '@components/Modals/CartEditingItem'
+import Payment from '@components/Modals/Payment'
+import OverwriteAddress from '@components/Modals/OverwriteAddress'
 // other
-import AppMenu from '../components/AppMenu'
-import InfoCart from '../components/InfoCart'
-import InfoTotal from '../components/InfoTotal'
-import NavigationTabs from '../components/NavigationTabs'
-import Keypad from '../components/Keypad'
-import Cart from '../components/Cart'
-import txnHistory from '../components/History'
-import Settings from '../components/Settings'
+import AppMenu from '@components/AppMenu'
+import InfoCart from '@components/InfoCart'
+import InfoTotal from '@components/InfoTotal'
+import NavigationTabs from '@components/NavigationTabs'
+import Keypad from '@components/Keypad'
+import Cart from '@components/Cart'
+import txnHistory from '@components/History'
+import Settings from '@components/Settings'
 
 export default ({ app, router, Vue }) => {
   // register the components here

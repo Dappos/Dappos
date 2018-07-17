@@ -45,6 +45,8 @@ module.exports = function (ctx) {
           'styl/variables': path.resolve(__dirname, './src/css/themes/common.variables.styl'),
           '@router': path.resolve(__dirname, './src/router'),
           '@store': path.resolve(__dirname, './src/store'),
+          '@modules': path.resolve(__dirname, './src/store/modules'),
+          '@components': path.resolve(__dirname, './src/components'),
           '@helpers': path.resolve(__dirname, './src/helpers'),
           '@config': path.resolve(__dirname, './src/config'),
         }

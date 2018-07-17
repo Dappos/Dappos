@@ -14,13 +14,14 @@ const dummyReceit = {
   transactionHash: null,
   confirmations: 0
 }
+
 function initialState () {
   return {
     receits: {'_dummy': dummyReceit},
-    modal: {state: false},
     testVal: null,
   }
 }
+
 export default {
   // vuex-easy-firestore config:
   firestorePath: 'users/{userId}/receits',
@@ -49,10 +50,6 @@ export default {
   },
   actions:
   {
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
-      toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
-      dispatch('set/modal.state', toggleState)
-    },
   },
   getters:
   {

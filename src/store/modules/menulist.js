@@ -1,5 +1,4 @@
 import { defaultMutations } from 'vuex-easy-access'
-import copyObj from '@helpers/copyObj'
 import easyAccessConf from '@config/vuexEasyAccess'
 import currencies from '@config/currencyDefaults'
 
@@ -14,9 +13,11 @@ function defaultPrices (usd, jpy) {
       return carry
     }, {})
 }
-function defaultItem () {
+
+export function defaultItem () {
   return {name: '', icon: null, prices: defaultPrices(), new: true}
 }
+
 function testItems () {
   return {
     'ice-coffee': {name: 'Ice Coffee', icon: null, id: 'ice-coffee', prices: defaultPrices(4, 400)},
@@ -25,12 +26,10 @@ function testItems () {
     'beer': {name: 'Beer', icon: null, id: 'beer', prices: defaultPrices(5, 500)},
   }
 }
+
 function initialState () {
   return {
     items: testItems(),
-    adding: {state: false, item: defaultItem()},
-    editing: {state: false, item: null},
-    editAll: {state: false},
   }
 }
 
@@ -71,11 +70,6 @@ export default {
     resetNewItem (state) {
       state.adding.item = defaultItem()
     },
-    openEditModal (state, id) {
-      if (!id) return
-      state.editing.item = copyObj(state.items[id])
-      state.editing.state = true
-    },
     clearTestItems (state) {
       state.items = {}
     },
@@ -88,18 +82,11 @@ export default {
       state.adding.state = false
       state.adding.item = defaultItem()
     },
-    openEditModal ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
-      commit('openEditModal', id)
-    },
     setPrice ({state, getters, rootState, rootGetters, commit, dispatch}, {id, val}) {
       const curr = rootState.settings.currency
       const prices = {}
       prices[curr] = val
       dispatch('set', {prices, id})
-    },
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
-      toggleState = (toggleState === undefined) ? !state.editAll.state : toggleState
-      dispatch('set/editAll.state', toggleState)
     },
   },
   getters:

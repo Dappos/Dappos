@@ -11,15 +11,6 @@ function initialState () {
     totalAmountAnimation: {frameVal: 0},
     totalAmountWei: 0,
     items: {},
-    opened: {state: false},
-    editing: {
-      state: false,
-      item: null
-    },
-    payment: {
-      state: false,
-      stage: 1
-    },
   }
 }
 
@@ -102,14 +93,6 @@ export default {
       }
       commit('addItem', item)
       state.totalAmountAnimation.update(getters.totalAmount)
-    },
-    toggleCart ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
-      toggleState = (toggleState === undefined) ? !state.opened.state : toggleState
-      dispatch('set/opened.state', toggleState)
-    },
-    openMore ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
-      dispatch('set/editing.state', true)
-      dispatch('set/editing.item', item)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       dispatch('addItem', item)

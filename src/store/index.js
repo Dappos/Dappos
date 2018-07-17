@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import initStore from './store'
+import initStore from './root'
 
 Vue.use(Vuex)
 

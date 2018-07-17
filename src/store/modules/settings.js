@@ -10,7 +10,6 @@ function initialState () {
     config: {
       // only set these if you want to overwrite defaults.
     },
-    modal: {state: false}
   }
 }
 
@@ -41,10 +40,6 @@ export default {
   },
   actions:
   {
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
-      toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
-      dispatch('set/modal.state', toggleState)
-    },
   },
   getters:
   {

@@ -211,7 +211,7 @@ The inner process of how the app initialises:
 2. Other plugins are instanciated (`plugins/` please see the [documentation](https://quasar-framework.org/guide/app-plugins.html))
 3. Firebase gets initialised (`plugins/firebase`)
 4. Authentication is checked (`plugins/boot`) after which:
-  - Firestore DB channels are openend
+  - Firestore DB channels are opened
   - Web3 checks for a wallet
   - Vue, the app & DOM get created
 

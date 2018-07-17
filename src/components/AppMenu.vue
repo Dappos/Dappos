@@ -10,7 +10,7 @@
         <router-link
           v-if="row.url && !row.func"
           :to="row.url"
-          @click.native="set('menu.opened', false)"
+          @click.native="set('modals/toggleMenu', false)"
         >
           {{ row.name }}
         </router-link>
@@ -56,16 +56,16 @@ export default {
         },
         {
           name: 'History',
-          func: _ => { return this.dispatch('history/toggleModal', true) },
+          func: _ => { return this.dispatch('modals/toggle', 'history') },
         },
         {
           name: 'Edit items',
-          func: _ => { return this.dispatch('user/menulist/toggleModal', true) },
+          func: _ => { return this.dispatch('modals/toggle', 'menulist.editAll') },
           hide: this.get('user/isSignedOut')
         },
         {
           name: this.get('user/isSignedIn') ? 'Account settings' : 'Currency',
-          func: _ => { return this.dispatch('settings/toggleModal', true) },
+          func: _ => { return this.dispatch('modals/toggle', 'settings') },
         },
         {
           name: 'Signout',

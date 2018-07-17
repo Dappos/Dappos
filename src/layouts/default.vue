@@ -10,7 +10,7 @@
         class="_toolbar"
       >
         <button
-          @click="dispatch('toggleMenu')"
+          @click="dispatch('modals/toggleMenu')"
           flat dense
           aria-label="Menu"
           class="reset-button _menu-btn"
@@ -18,7 +18,7 @@
           <img src="~assets/dappos-icon.svg" class="_img" alt="menu">
           <div class="q-ml-sm">
             <q-icon
-              :class="['_arrow', {rotated: get('menu.opened')}]"
+              :class="['_arrow', {rotated: state.modals.menu.opened}]"
               name="ion-arrow-down"
             />
           </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import storeAccess from '../components/mixins/storeAccess'
+import storeAccess from '@components/mixins/storeAccess'
 
 export default {
   name: 'LayoutDefault',
@@ -49,8 +49,8 @@ export default {
   computed:
   {
     elevateHeader () {
-      return (!this.get('cart/opened.state') &&
-        (this.get('menu.opened') || this.get('menu.animating')))
+      return (!this.get('modals/cart.cart.opened') &&
+        (this.get('modals/menu.opened') || this.get('modals/menu.animating')))
     },
   },
 }
