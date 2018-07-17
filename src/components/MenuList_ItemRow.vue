@@ -8,9 +8,6 @@
     </div>
     <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
   </div>
-  <div
-    class="_fly-icon js-fly-target hidden"
-  >{{ (item.icon) ? item.icon : randomEmoji }}</div>
 </button>
 </template>
 
@@ -54,7 +51,7 @@ export default {
         target: elCart,
         clone: true,
         hideAfter: true,
-        innerHTML: (!this.item.icon) ? '📦' : false
+        innerHTML: (!this.item.icon) ? '📦' : this.item.icon
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})
         this.scrambleInt()
