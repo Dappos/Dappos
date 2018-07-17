@@ -10,7 +10,7 @@
       </button>
       <q-input
         float-label="Item name"
-        v-model="item.name"
+        :value="item.name"
         @input="checkIcon"
         @keydown.enter-strict.prevent="focusPrice"
         type="text"
@@ -79,13 +79,16 @@ export default {
   methods:
   {
     checkIcon (nameInput) {
-      if (this.item.icon) return
+      this.item.name = nameInput
+      if (this.item.icon) {
+        return
+      }
       const emoji = findEmoji(nameInput)[0]
       if (indexOfEmoji(nameInput, emoji) === 0) {
-        this.item.icon = emoji
-        setTimeout(_ => {
+        this.$nextTick(_ => {
+          this.item.icon = emoji
           this.item.name = this.item.name.replace(new RegExp('^' + emoji, 'g'), '')
-        }, 1)
+        })
         return
       }
       this.item.icon = null

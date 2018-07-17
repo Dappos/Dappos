@@ -64,7 +64,7 @@ export default {
     },
     menulistEdit ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
       dispatch('set/menulist.editing.opened', true)
-      dispatch('set/menulist.editing.item', copyObj(rootState.menulist.items[id]))
+      dispatch('set/menulist.editing.item', copyObj(rootState.user.menulist.items[id]))
     },
     toggleMenu ({state, dispatch, rootGetters}, toggleState) {
       let top = 0

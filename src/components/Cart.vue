@@ -4,7 +4,7 @@
     leave-active-class="animated flipOutX"
   >
     <item-row
-      v-for="(item, index) in get('cart/items')"
+      v-for="(item, index) in state.cart.items"
       :item="item"
       :key="'c-' + index"
     />

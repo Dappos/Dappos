@@ -12,7 +12,7 @@
     </div>
     <div class="_nav">
       <q-btn
-        @click="dispatch('modals/toggleMenu', item.id)"
+        @click="dispatch('modals/menulistEdit', item.id)"
         icon="ion-md-more"
         class="_more"
       />
