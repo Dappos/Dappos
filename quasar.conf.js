@@ -86,6 +86,7 @@ module.exports = function (ctx) {
         'QWindowResizeObservable',
         'QSelect',
         'QBtnDropdown',
+        'QSlider',
       ],
       directives: [
         'Ripple', 'TouchSwipe', 'CloseOverlay'

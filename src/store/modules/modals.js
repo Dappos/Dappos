@@ -66,6 +66,10 @@ export default {
     'menulist.resetNewItem': ({state}) => {
       state.menulist.adding.item = defaultItem()
     },
+    resetPaymentRequest: ({state, dispatch, commit}) => {
+      commit('cart/resetPaymentRequest', null, {root: true})
+      dispatch('set/cart.payment.stage', 1)
+    },
     toggleMenu ({state, dispatch, rootGetters}, toggleState) {
       let top = 0
       let left = 0

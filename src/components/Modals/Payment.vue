@@ -6,19 +6,22 @@
     <div class="_eth">Ξ {{ get('cart/totalAmountEth') }}</div>
   </div>
   <div class="_wrapper-bottom">
-    <div v-if="get('cart/payment.stage') === 1" class="_inner-wrapper">
+    <!-- Stage 1: Payment request (with QR) -->
+    <div v-if="get('modals/cart.payment.stage') === 1" class="_inner-wrapper">
       <div class="_qr qr-code" id="js-qr"></div>
       <div class="_address">{{ get('settings/wallet.address') }}</div>
       <div class="_spinner"><q-spinner-oval color="primary" /></div>
     </div>
-    <div v-if="get('cart/payment.stage') === 2">
-      <div class="_confirmations">0 confirmations</div>
+    <!-- Stage 2: Counting txn confirmations -->
+    <div v-if="get('modals/cart.payment.stage') === 2">
+      <div class="_confirmations">{{ confirmationCount }} confirmations</div>
       <div class="_emoji animation-flip-x">👀</div>
       <div class="_progress _watching">Watching transactions...</div>
       <div class="_spinner"><q-spinner-oval color="primary" /></div>
     </div>
-    <div v-if="get('cart/payment.stage') === 3">
-      <div class="_confirmations">1 confirmations</div>
+    <!-- Stage 3: Success! -->
+    <div v-if="get('modals/cart.payment.stage') === 3">
+      <div class="_confirmations">{{ confirmationCount }} confirmations</div>
       <div class="_emoji animate-bounce">👍</div>
       <div class="_progress _success">Payment received 🎉</div>
     </div>
@@ -40,6 +43,9 @@ export default {
   data () { return {} },
   computed:
   {
+    confirmationCount () {
+      return Object.values(this.get('cart/confirmedTransactions'))[0]
+    },
   },
   methods:
   {
@@ -74,16 +80,18 @@ export default {
   font-size .8em
   color $gray-dark
 ._qr
-  height 200px
-  width 200px
+  height 150px
+  width 150px
 ._address
-  mt lg
+  mt sm
+  media-xs mt lg
   font-size .7em
   color $gray-dark
   width 100%
   word-wrap break-word
 ._spinner
-  mt sm
+  mt xs
+  media-xs mt sm
 ._confirmations
   font-size .8em
   color $gray-light

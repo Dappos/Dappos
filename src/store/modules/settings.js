@@ -6,6 +6,7 @@ function initialState () {
   return {
     wallet: {address: null},
     gas: 42000,
+    requiredConfirmationCount: 1,
     currency: 'jpy',
     config: {
       // only set these if you want to overwrite defaults.
@@ -20,7 +21,7 @@ export default {
   moduleName: 'settings',
   statePropName: '',
   sync: {
-    fillables: ['wallet', 'gas', 'currency', 'config']
+    fillables: ['wallet', 'gas', 'currency', 'config', 'requiredConfirmationCount']
   },
   // module:
   state: initialState(),

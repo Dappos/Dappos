@@ -32,6 +32,20 @@
         <!-- v-model.lazy="state.settings.wallet.address" -->
       </div>
     </div>
+    <div class="_row">
+      <div class="_title">Required confirmation count</div>
+      <div class="_content _wallet">
+        <div class="_info">
+          The required minimum confirmation count you require per payment. This is counted by the amount of blocks on the Ethereum blockchain since the transaction.
+        </div>
+        <q-slider
+          :value="Number(state.settings.requiredConfirmationCount)"
+          @change="val => { set('settings/requiredConfirmationCount', Number(val)) }"
+          :min="0" :max="10"
+          :step="1" label-always snap
+        />
+      </div>
+    </div>
   </div>
 </div>
 </template>

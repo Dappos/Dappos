@@ -11,6 +11,18 @@ function initialState () {
     totalAmountAnimation: {frameVal: 0},
     totalAmountWei: 0,
     items: {},
+    paymentRequest: {
+      wei: 0,
+      amount: 0,
+      currency: null,
+      items: {},
+      wallet: null,
+      txn: null,
+      confirmations: 0
+    },
+    foundTransactions: {
+      '*': null // txnHash: new Date()
+    }
   }
 }
 
@@ -62,7 +74,11 @@ export default {
     },
     resetQR (state) {
       state.totalAmountWei = 0
+      if (!document.getElementById('js-qr')) return
       document.getElementById('js-qr').innerHTML = ''
+    },
+    resetPaymentRequest (state) {
+      state.paymentRequest = initialState().paymentRequest
     },
     ...defaultMutations(initialState(), easyAccessConf)
   },
@@ -116,13 +132,15 @@ export default {
       }, {root: true})
       wei = roundNumberDown(wei, 15)
       dispatch('set/totalAmountWei', wei)
-      dispatch('history/insert', {
+      dispatch('set/paymentRequest', {
         amount,
         currency,
         wei,
         items: state.items,
-        wallet: rootState.settings.wallet.address
-      }, {root: true})
+        wallet: rootState.settings.wallet.address,
+        txn: null,
+        confirmations: 0
+      })
       dispatch('generateQr')
     },
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
@@ -155,5 +173,14 @@ export default {
     totalAmountEth: (state, getters, rootState, rootGetters) => {
       return state.totalAmountWei / rootState.conversion.ethTo['wei']
     },
+    confirmedTransactions: (state, getters, rootState, rootGetters) => {
+      const receits = rootGetters['history/receitByTxnHash']
+      return Object.keys(state.foundTransactions)
+        .reduce((carry, txnHash) => {
+          if (!receits[txnHash]) return carry
+          carry[txnHash] = receits[txnHash].confirmations
+          return carry
+        }, {})
+    }
   }
 }

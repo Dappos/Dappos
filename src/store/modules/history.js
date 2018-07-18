@@ -11,14 +11,13 @@ const dummyReceit = {
     "7HGW75P1JLJPAwTEHany":{"name":"HOT Coffee 😆","icon":"😎","id":"7HGW75P1JLJPAwTEHany","price":400,"count":2},
     "JqXBBs9vHqEn53ZDN0OL":{"name":"Iced Coffee","icon":null,"id":"JqXBBs9vHqEn53ZDN0OL","price":400,"count":1}}
   `),
-  transactionHash: null,
+  txn: null,
   confirmations: 0
 }
 
 function initialState () {
   return {
     receits: {'_dummy': dummyReceit},
-    testVal: null,
   }
 }
 
@@ -30,10 +29,6 @@ export default {
   statePropName: 'receits',
   sync: {
     insertHook: function (updateStore, doc, store) {
-      doc = Object.assign({
-        transactionHash: null,
-        confirmations: 0
-      }, doc)
       updateStore(doc)
     },
   },
@@ -53,5 +48,14 @@ export default {
   },
   getters:
   {
+    receitByTxnHash: (state, getters) => {
+      return Object.values(state.receits)
+        .reduce((carry, receit) => {
+          if (!receit.txn) return carry
+          const txnHash = receit.txn.hash
+          carry[txnHash] = receit
+          return carry
+        }, {})
+    },
   }
 }

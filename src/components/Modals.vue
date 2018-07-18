@@ -122,6 +122,7 @@ export default {
     hidePaymentModal () {
       this.dispatch('ethEvents/unsubscribeAccount')
       this.commit('cart/resetQR')
+      this.dispatch('modals/resetPaymentRequest')
     }
   }
 }
