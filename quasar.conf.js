@@ -18,8 +18,9 @@ module.exports = function (ctx) {
       'index.styl'
     ],
     extras: [
-      ctx.theme.mat ? 'roboto-font' : null,
+      'fontawesome',
       'material-icons',
+      ctx.theme.mat ? 'roboto-font' : null,
       ctx.theme.ios ? 'ionicons' : null,
       // 'mdi',
       // 'fontawesome'
@@ -33,12 +34,12 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules|quasar)/
-        })
+        // cfg.module.rules.push({
+        //   enforce: 'pre',
+        //   test: /\.(js|vue)$/,
+        //   loader: 'eslint-loader',
+        //   exclude: /(node_modules|quasar)/
+        // })
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing aliases
           // Add your own alias like this:

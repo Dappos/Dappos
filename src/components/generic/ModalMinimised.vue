@@ -39,5 +39,6 @@ export default {
 
 .modal-minimised .modal-content
   border-radius $radius
+  font-size .9em
 
 </style>

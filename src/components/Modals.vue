@@ -37,7 +37,7 @@
   <!-- [MENU LIST] ADDING ITEM -->
   <modal-fullscreen
     :toggle="state.modals.menulist.adding"
-    :hideFunc="_ => { commit('user/menulist/resetNewItem') }"
+    :hideFunc="_ => { dispatch('modals/menulist.resetNewItem') }"
     title="Add item"
   >
     <menu-list-add-edit-item :item="state.modals.menulist.adding.item"/>

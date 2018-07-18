@@ -3,8 +3,8 @@
   <div class="_wrapper-top">
     <div class="_title">Found new active wallet!</div>
     <div>
-      <div>New wallet:</div>
-      <div class="_address">{{ state.wallet.address }}</div>
+      <div v-show="!overwritten">New wallet:</div>
+      <div v-show="!overwritten" class="_address">{{ state.wallet.address }}</div>
       <div>Wallet saved in settings:</div>
       <div class="_address">
         <span v-show="overwritten" class="mr-sm">✅</span>
@@ -69,6 +69,7 @@ export default {
   mb md
   background-color $bg-light
   word-break break-all
+  font-size .9em
 ._wrapper-bottom
   display flex
   justify-content flex-end

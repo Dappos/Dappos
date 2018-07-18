@@ -59,17 +59,6 @@ export default {
         this._vm.$set(state, key, payload[key])
       })
     },
-    addItem (state) {
-      const id = state.adding.item.name.toLowerCase().replace(' ', '-')
-      state.adding.item.id = id
-      delete state.adding.item.new
-      this._vm.$set(state.items, id, state.adding.item)
-      state.adding.state = false
-      state.adding.item = defaultItem()
-    },
-    resetNewItem (state) {
-      state.adding.item = defaultItem()
-    },
     clearTestItems (state) {
       state.items = {}
     },
@@ -77,10 +66,13 @@ export default {
   actions:
   {
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      delete state.adding.item.new
-      dispatch('insert', state.adding.item)
-      state.adding.state = false
-      state.adding.item = defaultItem()
+      const item = rootState.modals.menulist.adding.item
+      const id = item.name.toLowerCase().replace(' ', '-')
+      item.id = id
+      delete item.new
+      dispatch('insert', item)
+      dispatch('modals/toggle', 'menulist.adding', {root: true})
+      dispatch('modals/menulist.resetNewItem', null, {root: true})
     },
     setPrice ({state, getters, rootState, rootGetters, commit, dispatch}, {id, val}) {
       const curr = rootState.settings.currency

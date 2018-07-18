@@ -1,4 +1,4 @@
-import { defaultMutations, defaultGetter } from 'vuex-easy-access'
+import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import { defaultItem } from '@modules/menulist'
 import copyObj from '@helpers/copyObj'
@@ -27,9 +27,6 @@ function initialState () {
     },
   }
 }
-function get (path) {
-  return defaultGetter(path, store)
-}
 
 export default {
   namespaced: true,
@@ -54,7 +51,7 @@ export default {
         modalPath = array[0]
         toggleState = array[1]
       }
-      const opened = get(`modals/${modalPath}.opened`)
+      const opened = store.get(`modals/${modalPath}.opened`)
       toggleState = (toggleState === undefined) ? !opened : toggleState
       dispatch(`set/${modalPath}.opened`, toggleState)
     },
@@ -65,6 +62,9 @@ export default {
     menulistEdit ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
       dispatch('set/menulist.editing.opened', true)
       dispatch('set/menulist.editing.item', copyObj(rootState.user.menulist.items[id]))
+    },
+    'menulist.resetNewItem': ({state}) => {
+      state.menulist.adding.item = defaultItem()
     },
     toggleMenu ({state, dispatch, rootGetters}, toggleState) {
       let top = 0

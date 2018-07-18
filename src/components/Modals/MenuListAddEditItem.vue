@@ -109,11 +109,11 @@ export default {
       this.changeName(this.item.name)
       this.changePrice(this.item.prices[this.state.settings.currency])
       this.dispatch('user/menulist/set', {icon: this.item.icon, id: this.item.id})
-      this.set('user/menulist/editing.state', false)
+      this.dispatch('modals/toggle', 'menulist.editing')
     },
     deleteItem () {
       this.dispatch('user/menulist/delete', this.item.id)
-      this.set('user/menulist/editing.state', false)
+      this.dispatch('modals/toggle', 'menulist.editing')
     },
     addEmoji (emoji) {
       // console.log('emoji → ', emoji)

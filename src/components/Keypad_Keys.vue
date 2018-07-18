@@ -70,7 +70,7 @@ export default {
     grid-template-columns 1fr 1fr 1fr
     grid-gap 1px
     button
-      font-size 3em
+      font-size 2.2em
       pa 0
       display flex
       justify-content center

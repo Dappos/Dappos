@@ -15,7 +15,7 @@
           aria-label="Menu"
           class="reset-button _menu-btn"
         >
-          <img src="~assets/dappos-icon.svg" class="_img" alt="menu">
+          <img src="~assets/dappos-icon.svg" class="_logo" alt="menu">
           <div class="q-ml-sm">
             <q-icon
               :class="['_arrow', {rotated: state.modals.menu.opened}]"
@@ -35,11 +35,25 @@
 
 <script>
 import storeAccess from '@components/mixins/storeAccess'
+import { dom } from 'quasar'
+const { css } = dom
 
 export default {
   name: 'LayoutDefault',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
+  mounted () {
+    const h = window.innerHeight
+    const els = [
+      document.querySelector('body'),
+      document.getElementById('q-app'),
+    ]
+    els.forEach(el => {
+      css(el, {
+        'min-height': h + 'px'
+      })
+    })
+  },
   data () {
     return {}
   },
@@ -73,8 +87,8 @@ export default {
   border none
 ._toolbar
   px xl
-  mt md
-  mb sm
+  mt sm
+  mb xs
   background-color transparent
   border-bottom none
   justify-content space-between
@@ -82,8 +96,8 @@ export default {
 ._menu-btn
   display flex
   align-items center
-  ._img
-    width 2em
+  ._logo
+    width 1.6em
 ._elevate
   z-index 5900
 ._arrow

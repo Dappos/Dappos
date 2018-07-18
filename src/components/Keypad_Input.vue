@@ -34,8 +34,9 @@ export default {
   align-items baseline
   background-color white
   font-weight 500
+  font-size .8em
   px md
-  py lg
+  py md
   ._note
     color $gray-dark
     font-size 1.6em

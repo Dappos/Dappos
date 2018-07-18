@@ -23,7 +23,7 @@
       <div class="_progress _success">Payment received 🎉</div>
     </div>
     <div class="_close">
-      <button @click="set('cart/payment.state', false)">Close</button>
+      <button @click="dispatch('modals/toggle', 'cart.payment')">Close</button>
     </div>
   </div>
 </div>

@@ -3,14 +3,14 @@
   <q-tabs color="bg-light" text-color="gray-dark">
     <q-route-tab
       to="/keypad"
-      icon="ion-calculator"
+      icon="fas fa-calculator"
       default
       slot="title"
       class="_tab"
     />
     <q-route-tab
       to="/menulist"
-      icon="ion-list"
+      icon="fas fa-list-ul"
       slot="title"
       class="_tab"
     />
@@ -41,7 +41,7 @@ export default {
 
 // .navigation-tabs
 ._tab
-  font-size 3em
+  font-size 1.6em
   pb md
 
 </style>

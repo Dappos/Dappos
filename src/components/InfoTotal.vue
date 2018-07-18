@@ -34,7 +34,7 @@ export default {
   {
     pay () {
       if (!this.get('cart/totalAmount')) return
-      this.set('cart/payment.state', true)
+      this.dispatch('modals/toggle', 'cart.payment')
     },
   }
 }
