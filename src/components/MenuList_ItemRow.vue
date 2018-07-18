@@ -2,7 +2,7 @@
 <button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
     <div class="_name">
-      <q-icon v-if="!item.icon" name="ion-list" class="mr-md"/>
+      <q-icon v-if="!item.icon" name="ion-list" class="mr-sm"/>
       <span v-else class="mr-sm">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
@@ -87,7 +87,8 @@ export default {
   display flex
   justify-content space-between
   align-items baseline
-  px xl
+  px md
+  pl lg
 ._name
   font-size 1.3em
   font-weight 500

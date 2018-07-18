@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 class Progress {
   constructor(param = {}) {
     this.timestamp        = null;
@@ -67,7 +67,7 @@ class Confetti {
       "left: 0",
       "pointer-events: none",
       "z-index: 100000",
-      "transition: opacity 3s ease-in-out"
+      "transition: opacity 2s ease-in-out"
     ].join(";");
     this.canvas.className = 'confetti'
 
@@ -167,6 +167,9 @@ class Confetti {
 function makeItRain (stopTiming = 10000, speed = 6000) {
   const duration = speed
   const length = 120
+  const secondStart = (stopTiming < duration / 2)
+    ? stopTiming - stopTiming / 2
+    : duration / 2
 
   new Confetti({
     width    : window.innerWidth,
@@ -182,7 +185,7 @@ function makeItRain (stopTiming = 10000, speed = 6000) {
       length   : length,
       duration : duration
     })
-  }, duration / 2)
+  }, secondStart)
 
   setTimeout(() => {
     document.querySelectorAll('.confetti')
@@ -193,8 +196,7 @@ function makeItRain (stopTiming = 10000, speed = 6000) {
   setTimeout(() => {
     document.querySelectorAll('.confetti')
       .forEach(el => el.remove())
-  }, stopTiming + 3000)
+  }, stopTiming + 2000)
 }
 window.makeItRain = makeItRain
-
 export default makeItRain

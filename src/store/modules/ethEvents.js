@@ -68,15 +68,15 @@ export default {
     watchConfirmations ({state, getters, rootState, rootGetters, commit, dispatch}, txnHash) {
       const receits = rootGetters['history/receitByTxnHash']
       const confirmationWatcher = setInterval(_ => {
-        const currentCount = receits[txnHash].confirmations
+        const txnRef = receits[txnHash]
         countConfirmations(txnHash).then(count => {
-          if (count && count > currentCount) {
+          if (count && count > txnRef.confirmations) {
             dispatch('history/patch', {id: receits[txnHash].id, confirmations: count}, {root: true})
             if (count >= rootState.settings.requiredConfirmationCount) {
               dispatch('modals/set/cart.payment.stage', 3, {root: true})
               clearInterval(state.confirmationWatchers[txnHash])
               dispatch('delete/confirmationWatchers.*', txnHash)
-              startConfetti(4000)
+              startConfetti(1250)
             }
           }
         })

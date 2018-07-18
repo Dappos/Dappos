@@ -2,6 +2,7 @@
 // generic
 import ModalFullscreen from '@components/generic/ModalFullscreen'
 import ModalMinimised from '@components/generic/ModalMinimised'
+import RowWrapper from '@components/generic/RowWrapper'
 import QuasarOptionsReveal from '@components/generic/QuasarOptionsReveal'
 import FirebaseUi from '@components/FirebaseUi'
 // modals
@@ -25,6 +26,7 @@ export default ({ app, router, Vue }) => {
   // register the components here
   Vue.component('modal-fullscreen', ModalFullscreen)
   Vue.component('modal-minimised', ModalMinimised)
+  Vue.component('row-wrapper', RowWrapper)
   Vue.component('options-reveal', QuasarOptionsReveal)
   Vue.component('firebase-ui', FirebaseUi)
 

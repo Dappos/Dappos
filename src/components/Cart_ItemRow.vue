@@ -1,5 +1,5 @@
 <template>
-<div class="cart-item">
+<row-wrapper>
   <div class="_wrapper">
     <div class="_count">{{ item.count }}x</div>
     <div class="_name">{{ item.name }}</div>
@@ -8,7 +8,7 @@
       <q-btn icon="ion-md-more" @click="dispatch('modals/cartMore', item)" class="_more" />
     </div>
   </div>
-</div>
+</row-wrapper>
 </template>
 
 <script>
@@ -37,11 +37,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~styl/variables'
 
-.cart-item
-  px lg
-
 ._wrapper
-  py sm
   font-size 1.2em
   display grid
   grid-template-areas "count name nav" \
@@ -49,7 +45,6 @@ export default {
   grid-template-columns auto 1fr auto
   grid-gap .2em 1em
   align-items center
-  border-bottom 1px solid $bg-light
 ._count
   grid-area count
   background-color $gray-light

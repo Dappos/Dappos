@@ -150,7 +150,7 @@ export default {
 .app-menu-modal.modal.--closed
   background rgba(0,0,0,0) !important
 .app-menu-modal.modal.--opened
-  background rgba(0,0,0,0.3) !important
+  background rgba(0,0,0,0) !important
 
 .app-menu-modal.modal
   z-index 5800
