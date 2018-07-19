@@ -65,7 +65,7 @@
   <!-- [HISTORY] -->
   <modal-fullscreen
     :toggle="state.modals.history"
-    title="History"
+    title="Transaction history"
   >
     <history />
   </modal-fullscreen>

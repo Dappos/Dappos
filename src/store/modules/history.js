@@ -1,9 +1,23 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 
-const dummyReceit = {
-  amount: 1200,
-  currency: 'jpy',
+export function defaultReceit () {
+  return {
+    symbol: 'ETH',
+    wei: 0, // 123123123123123
+    token: 0,
+    fiat: 0, // 123123
+    fiatCurrency: null, // 'jpy'
+    items: {},
+    wallet: null,
+    txn: null,
+    confirmations: 0
+  }
+}
+
+const dummyReceit = Object.assign(defaultReceit(), {
+  fiat: 1200,
+  fiatCurrency: 'jpy',
   wei: 80808080800808,
   wallet: '0x20f201297e53f949e56e2dE5196Ea57f4E91DE0e',
   items: JSON.parse(`{
@@ -13,7 +27,7 @@ const dummyReceit = {
   `),
   txn: null,
   confirmations: 0
-}
+})
 
 function initialState () {
   return {
@@ -31,6 +45,9 @@ export default {
     insertHook: function (updateStore, doc, store) {
       updateStore(doc)
     },
+  },
+  serverChange: {
+    defaultValues: defaultReceit()
   },
   // module:
   namespaced: true,

@@ -51,6 +51,7 @@ export default {
         target: elCart,
         clone: true,
         hideAfter: true,
+        startOffsetX: 100,
         innerHTML: (!this.item.icon) ? '📦' : this.item.icon
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})

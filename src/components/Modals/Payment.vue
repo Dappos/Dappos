@@ -2,8 +2,8 @@
 <div class="payment">
   <div class="_wrapper-top">
     <div class="_title">Payment Request</div>
-    <div class="_price">{{ get('cart/totalAmount') | money(get('settings/currencyConfig')) }}</div>
-    <div class="_eth">Ξ {{ get('cart/totalAmountEth') }}</div>
+    <div class="_price">{{ get('cart/value') | money(get('settings/currencyConfig')) }}</div>
+    <div class="_eth">Ξ {{ get('cart/valueEth') }}</div>
   </div>
   <div class="_wrapper-bottom">
     <!-- Stage 1: Payment request (with QR) -->
@@ -84,14 +84,14 @@ export default {
   width 150px
 ._address
   mt sm
-  media-xs mt lg
+  media-sm mt lg
   font-size .7em
   color $gray-dark
   width 100%
   word-wrap break-word
 ._spinner
   mt xs
-  media-xs mt sm
+  media-sm mt sm
 ._confirmations
   font-size .8em
   color $gray-light
