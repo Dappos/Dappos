@@ -1,14 +1,22 @@
 <template>
-<row-wrapper>
-  <div class="_wrapper">
-    <div class="_count">{{ item.count }}x</div>
-    <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
-    <div class="_nav">
-      <q-btn icon="ion-md-more" @click="dispatch('modals/cartMore', item)" class="_more" />
+<options-reveal
+  :options="[{
+    name: 'Delete',
+    action () { return commit('cart/deleteItem', item) },
+    style: 'background-color: red;',
+  }]"
+>
+  <row-wrapper>
+    <div class="_wrapper">
+      <div class="_count">x{{ item.count }}</div>
+      <div class="_name">{{ item.name }}</div>
+      <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
+      <div class="_nav">
+        <q-btn icon="ion-md-more" @click="dispatch('modals/cartMore', item)" class="_more" />
+      </div>
     </div>
-  </div>
-</row-wrapper>
+  </row-wrapper>
+</options-reveal>
 </template>
 
 <script>
@@ -48,11 +56,12 @@ export default {
 ._count
   grid-area count
   background-color $gray-light
-  py .2em
-  px .33em
+  py .4em
+  px .5em
   border-radius $radius
   color white
-  font-weight 500
+  font-weight 600
+  font-size .8em
 ._name
   grid-area name
   font-weight 500
