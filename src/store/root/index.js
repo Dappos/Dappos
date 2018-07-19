@@ -13,7 +13,6 @@ import keypad from '@modules/keypad'
 import animate from '@modules/animate'
 import wallet from '@modules/wallet'
 import ethEvents from '@modules/ethEvents'
-import conversion from '@modules/conversion'
 import modals from '@modules/modals'
 // import _template from '@modules/_template'
 // easy firestore modules
@@ -36,7 +35,6 @@ export default function () {
       animate,
       wallet,
       ethEvents,
-      conversion,
       modals,
       // _template
       // 'menulist' and 'settings' are added as Vuex Easy Firestore!

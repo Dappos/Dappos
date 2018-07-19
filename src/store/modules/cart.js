@@ -5,21 +5,15 @@ import copyObj from '@helpers/copyObj'
 import EthereumQRPlugin from 'ethereum-qr-code'
 import CountUp from 'countup.js'
 import roundNumberDown from '@helpers/roundNumberDown'
+import convert from '@helpers/conversion'
+import { defaultReceit } from '@modules/history'
 
 function initialState () {
   return {
-    totalAmountAnimation: {frameVal: 0},
-    totalAmountWei: 0,
+    valueAnimation: {frameVal: 0},
+    valueWei: 0,
     items: {},
-    paymentRequest: {
-      wei: 0,
-      amount: 0,
-      currency: null,
-      items: {},
-      wallet: null,
-      txn: null,
-      confirmations: 0
-    },
+    paymentRequest: defaultReceit(),
     foundTransactions: {
       '*': null // txnHash: new Date()
     }
@@ -73,7 +67,7 @@ export default {
       })
     },
     resetQR (state) {
-      state.totalAmountWei = 0
+      state.valueWei = 0
       if (!document.getElementById('js-qr')) return
       document.getElementById('js-qr').innerHTML = ''
     },
@@ -92,11 +86,11 @@ export default {
         rootGetters['settings/currencyConfig'].precision, // decimal amount
         0.4 // duration
       ]
-      state.totalAmountAnimation = new CountUp(...config)
-      if (!state.totalAmountAnimation.error) {
-        state.totalAmountAnimation.start()
+      state.valueAnimation = new CountUp(...config)
+      if (!state.valueAnimation.error) {
+        state.valueAnimation.start()
       } else {
-        console.error(state.totalAmountAnimation.error)
+        console.error(state.valueAnimation.error)
       }
     },
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
@@ -108,34 +102,31 @@ export default {
         item.nonListed = true
       }
       commit('addItem', item)
-      state.totalAmountAnimation.update(getters.totalAmount)
+      state.valueAnimation.update(getters.value)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       dispatch('addItem', item)
-      state.totalAmountAnimation.update(getters.totalAmount)
+      state.valueAnimation.update(getters.value)
     },
     decrement ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       commit('decrementItem', item)
-      state.totalAmountAnimation.update(getters.totalAmount)
+      state.valueAnimation.update(getters.value)
     },
     clearAll ({state, getters, rootState, rootGetters, commit, dispatch}) {
       commit('clearAll')
-      state.totalAmountAnimation.update(getters.totalAmount)
+      state.valueAnimation.update(getters.value)
     },
     async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
-      const amount = getters.totalAmount
-      let wei = await dispatch('conversion/convert', {
-        amount,
-        from: currency,
-        to: 'wei'
-      }, {root: true})
+      const amount = getters.value
+      let wei = await convert(amount, currency, 'wei')
       wei = roundNumberDown(wei, 15)
-      dispatch('set/totalAmountWei', wei)
+      dispatch('set/valueWei', wei)
       dispatch('set/paymentRequest', {
-        amount,
-        currency,
+        fiat: amount,
+        fiatCurrency: currency,
         wei,
+        symbol: 'ETH',
         items: state.items,
         wallet: rootState.settings.wallet.address,
         txn: null,
@@ -146,7 +137,7 @@ export default {
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
       const sendDetails = {
-        value: state.totalAmountWei,
+        value: state.valueWei,
         to: rootState.settings.wallet.address,
         gas: rootState.settings.gas,
       }
@@ -164,14 +155,14 @@ export default {
   },
   getters:
   {
-    totalAmount: (state, getters, rootState, rootGetters) => {
+    value: (state, getters, rootState, rootGetters) => {
       return Object.values(state.items).reduce((carry, item) => { return carry + (item.count * item.price) }, 0)
     },
     totalCount: (state, getters, rootState, rootGetters) => {
       return Object.values(state.items).reduce((carry, item) => { return carry + item.count }, 0)
     },
-    totalAmountEth: (state, getters, rootState, rootGetters) => {
-      return state.totalAmountWei / rootState.conversion.ethTo['wei']
+    valueEth: (state, getters, rootState, rootGetters) => {
+      return convert(state.valueWei, 'wei', 'eth')
     },
     confirmedTransactions: (state, getters, rootState, rootGetters) => {
       const receits = rootGetters['history/receitByTxnHash']

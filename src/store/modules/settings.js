@@ -1,6 +1,6 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
-import defaults from '@config/currencyDefaults'
+import currencyDefaults from '@config/currencyDefaults'
 
 function initialState () {
   return {
@@ -50,15 +50,15 @@ export default {
     currencyConfig: (state, getters, rootState, rootGetters) => {
       return Object.assign(
         {},
-        defaults[state.currency],
+        currencyDefaults[state.currency],
         state.config
       )
     },
     availableCurrencies: (state, getters, rootState, rootGetters) => {
-      return Object.keys(defaults)
+      return Object.keys(currencyDefaults)
         .reduce((carry, key) => {
           const info = {
-            label: `${defaults[key].prefix} ${key.toUpperCase()}`,
+            label: `${currencyDefaults[key].prefix} ${key.toUpperCase()}`,
             value: key
           }
           carry[key] = info
