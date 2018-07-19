@@ -23,11 +23,13 @@ export default {
 @import '~styl/variables'
 
 .row-wrapper
-  px lg
+  pl md
+  media-sm pl lg
   background-color white
 
 ._row-inner-wrapper
   py sm
+  pr sm
   border-bottom 1px solid $bg-light
 
 </style>
