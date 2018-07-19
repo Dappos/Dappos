@@ -34,6 +34,7 @@
     </div>
     <q-input
       float-label="Price"
+      @keydown.enter-strict.prevent="save"
       v-model="item.prices[state.settings.currency]"
       type="number"
       :prefix="get('settings/currencyConfig').prefix"
