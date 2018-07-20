@@ -4,39 +4,38 @@
 
 Dappos is a Ethereum based Dapp POS register.
 
-### Todo
-
-- Add login link on menulist
-
 ### Table of Contents
 
 <!-- TOC -->
 
 - [Motivation](#motivation)
 - [Contribution guide](#contribution-guide)
-    - [👩🏼‍💻 Commiting](#👩🏼‍💻-commiting)
-    - [👨🏼‍💻 Developing](#👨🏼‍💻-developing)
-    - [👩🏻‍🏫 Linting](#👩🏻‍🏫-linting)
-    - [🧙🏻‍♂️ Frameworks](#🧙🏻‍♂️-frameworks)
-    - [🧞‍♂️ Import](#🧞‍♂️-import)
-    - [👨🏻‍🎨 CSS](#👨🏻‍🎨-css)
+    - [👩🏽‍💻 Commiting](#-commiting)
+    - [👨🏼‍💻 Developing](#-developing)
+    - [👩🏻‍🏫 Linting](#-linting)
+    - [👨🏻‍🔧 Frameworks](#-frameworks)
+    - [👸🏾 Import](#-import)
+    - [💂🏻‍ HTML](#-html)
+    - [👨🏻‍🎨 CSS](#-css)
         - [Full Vue component + Stylus example](#full-vue-component--stylus-example)
         - [Stylus variables](#stylus-variables)
         - [Stylus helpers](#stylus-helpers)
-    - [👩🏻‍🔬 External dependancies](#👩🏻‍🔬-external-dependancies)
-    - [👮🏽‍♂️ Vuex usage](#👮🏽‍♂️-vuex-usage)
+    - [👩🏻‍🔬 External dependencies](#-external-dependencies)
+    - [👨🏽‍🎓 Vuex usage](#-vuex-usage)
+- [Inner workings](#inner-workings)
+    - [🌏 App initialisation](#-app-initialisation)
 
 <!-- /TOC -->
 
 ## Motivation
 
-wip
+There was no POS app for Ethereum to our knowledge, so we made one! ✌🏻
 
 ## Contribution guide
 
-### 👩🏼‍💻 Commiting
+### 👩🏽‍💻 Commiting
 
-Always make PR towards the DEV branch. Always add an emoji after each commit ✌🏻. Commit often.
+Always make PR towards the **DEV branch**. Always add an *emoji* after each commit ✌🏻. Make small commits often.
 
 ### 👨🏼‍💻 Developing
 
@@ -46,11 +45,11 @@ Always make PR towards the DEV branch. Always add an emoji after each commit ✌
 
 ES6 StandardJS linting enabled
 
-### 🧙🏻‍♂️ Frameworks
+### 👨🏻‍🔧 Frameworks
 
 Vue.js + [Quasar framework](https://quasar-framework.org/guide/)
 
-### 🧞‍♂️ Import
+### 👸🏾 Import
 
 Path aliasses available at: `quasar.conf.js`.
 
@@ -61,6 +60,25 @@ src/router | import ... from '@router/...'
 src/store | import ... from '@store/...'
 src/helpers | import ... from '@helpers/...'
 src/config | import ... from '@config/...'
+
+### 💂🏻‍ HTML
+
+Write functional attributes first, semantic ones and classes last:
+
+```html
+<button @click="add()" class="_add"> ... </button>
+```
+
+New line per attribute when the line feels to long:
+
+```html
+<button
+  @click="dispatch('cart/openMore', item)"
+  class="_more _button _extras"
+>
+  ...
+</button>
+```
 
 ### 👨🏻‍🎨 CSS
 
@@ -148,11 +166,11 @@ With sizes:
 - `xxl` 16px * 3
 - `xxxl` 16px * 5
 
-### 👩🏻‍🔬 External dependancies
+### 👩🏻‍🔬 External dependencies
 
 External plugins etc. to be installed with `npm` and added as a plugin. Please read about the plugin [documentation here](https://quasar-framework.org/guide/app-plugins.html).
 
-### 👮🏽‍♂️ Vuex usage
+### 👨🏽‍🎓 Vuex usage
 
 We are using the plugins: [Vuex easy access](https://github.com/mesqueeb/VuexEasyAccess) and [Vuex easy firestore](https://github.com/mesqueeb/VuexEasyFirestore). Please read up on the documentation!
 
@@ -176,3 +194,19 @@ actions: {
   },
 }
 ```
+
+## Inner workings
+
+### 🌏 App initialisation
+
+The inner process of how the app initialises:
+
+1. Vuex store and router are instanciated (`store/index` and `router/index`)
+2. Other plugins are instanciated (`plugins/` please see the [documentation](https://quasar-framework.org/guide/app-plugins.html))
+3. Firebase gets initialised (`plugins/firebase`)
+4. Authentication is checked (`plugins/boot`) after which:
+  - Firestore DB channels are opened
+  - Web3 checks for a wallet
+  - Vue, the app & DOM get created
+
+The order of the plugins can be checked in `quasar.conf.js`.

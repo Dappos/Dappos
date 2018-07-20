@@ -50,5 +50,26 @@ export default {
     border-radius $radius
   .firebaseui-idp-password
     background-color $primary
+.firebaseui-container
+  fonts()
+  box-shadow none
+.firebaseui-card-header
+  pt xl
+  border-bottom none
+.firebaseui-label
+  color $gray-light
+.firebaseui-label::after
+  background-color $primary !important
+.firebaseui-button
+  text-transform capitalize !important
+  border none !important
+  background-color $primary !important
+  color white !important
+  font-weight 500 !important
+  border-radius $radius !important
+  white-space nowrap !important
+  text-decoration none !important
+  text-align center !important
+  shadow-subtle()
 
 </style>

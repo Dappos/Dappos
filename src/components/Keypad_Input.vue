@@ -33,15 +33,17 @@ export default {
   display flex
   align-items baseline
   background-color white
+  font-weight 500
+  font-size .8em
   px md
-  py lg
+  py md
+  media-lg py xl
   ._note
     color $gray-dark
-    font-size 2em
+    font-size 1.6em
     px sm
   ._input
     flex 1
-    // height 100%
     input
       px sm
       width 100%

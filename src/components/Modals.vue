@@ -2,15 +2,15 @@
 <div class="modals">
   <!-- APP MENU -->
   <q-modal
-    v-model="state.menu.opened"
-    @hide="set('menu.animating', false)"
-    @show="set('menu.animating', false)"
+    v-model="state.modals.menu.opened"
+    @hide="set('modals/menu.animating', false)"
+    @show="set('modals/menu.animating', false)"
     position="top"
     maximized
     :class="['app-menu-modal', {
-      '--opened': get('menu.opened'),
-      '--closed': !get('menu.opened'),
-      'app-minimised': get('appMinimised')
+      '--opened': state.modals.menu.opened,
+      '--closed': !state.modals.menu.opened,
+      'app-minimised': state.appMinimised
     }]"
   >
     <app-menu />
@@ -18,61 +18,61 @@
 
   <!-- CART -->
   <modal-fullscreen
-    :toggle="get('cart/opened')"
+    :toggle="state.modals.cart.cart"
     title="Cart"
   ><cart /></modal-fullscreen>
   <!-- [CART] EDIT ITEM -->
   <q-modal
-    v-model="state.cart.editing.state"
+    v-model="state.modals.cart.editing.opened"
     position="bottom"
     :class="{'app-minimised': get('appMinimised')}"
     @hide="deleteIf0"
   >
     <cart-editing-item
-      v-if="get('cart/editing.state')"
-      :item="get('cart/editing.item')"
+      v-if="state.modals.cart.editing.opened"
+      :item="state.modals.cart.editing.item"
     />
   </q-modal>
 
   <!-- [MENU LIST] ADDING ITEM -->
   <modal-fullscreen
-    :toggle="get('user/menulist/adding')"
+    :toggle="state.modals.menulist.adding"
+    :hideFunc="_ => { dispatch('modals/menulist.resetNewItem') }"
     title="Add item"
-    :hideFunc="_ => { commit('user/menulist/resetNewItem') }"
   >
-    <menu-list-add-edit-item :item="get('user/menulist/adding.item')"/>
+    <menu-list-add-edit-item :item="state.modals.menulist.adding.item"/>
   </modal-fullscreen>
   <!-- [MENU LIST] EDITING ITEM -->
   <modal-fullscreen
-    :toggle="get('user/menulist/editing')"
+    :toggle="state.modals.menulist.editing"
     title="Edit item"
   >
     <menu-list-add-edit-item
-      v-if="get('user/menulist/editing.state')"
-      :item="get('user/menulist/editing.item')"
+      v-if="state.modals.menulist.editing.opened"
+      :item="state.modals.menulist.editing.item"
     />
   </modal-fullscreen>
   <!-- [MENU LIST] EDIT ALL -->
   <modal-fullscreen
-    :toggle="get('user/menulist/editAll')"
+    :toggle="state.modals.menulist.editAll"
     title="Edit items"
   >
     <menu-list-edit-all
-      v-if="get('user/menulist/editAll.state')"
+      v-if="state.modals.menulist.editAll.opened"
     />
   </modal-fullscreen>
 
   <!-- [HISTORY] -->
   <modal-fullscreen
-    :toggle="get('history/modal')"
-    title="History"
+    :toggle="state.modals.history"
+    title="Transaction history"
   >
     <history />
   </modal-fullscreen>
 
   <!-- [SETTINGS] -->
   <modal-fullscreen
-    :toggle="get('settings/modal')"
+    :toggle="state.modals.settings"
     :title="get('user/isSignedIn') ? 'Settings' : 'Currency'"
   >
     <settings />
@@ -80,11 +80,25 @@
 
   <!-- PAYMENT -->
   <modal-minimised
-    :toggle="get('cart/payment')"
+    :toggle="state.modals.cart.payment"
     :showFunc="_ => { showPaymentModal() }"
     :hideFunc="_ => { hidePaymentModal() }"
   >
     <payment />
+  </modal-minimised>
+
+  <!-- UPDATE WALLET ADDRESS -->
+  <modal-minimised
+    :toggle="state.modals.wallet.overwriteAddress"
+  >
+    <overwrite-address />
+  </modal-minimised>
+
+  <!-- NO ADDRESS FOUND -->
+  <modal-minimised
+    :toggle="state.modals.wallet.noAddressFound"
+  >
+    <no-address-found />
   </modal-minimised>
 
 </div>
@@ -110,11 +124,12 @@ export default {
     },
     showPaymentModal () {
       this.dispatch('ethEvents/subscribeAccount')
-      this.dispatch('cart/generateQr')
+      this.dispatch('cart/createPaymentRequest')
     },
     hidePaymentModal () {
       this.dispatch('ethEvents/unsubscribeAccount')
       this.commit('cart/resetQR')
+      this.dispatch('modals/resetPaymentRequest')
     }
   }
 }
@@ -142,10 +157,11 @@ export default {
 .app-menu-modal.modal.--closed
   background rgba(0,0,0,0) !important
 .app-menu-modal.modal.--opened
-  background rgba(0,0,0,0.3) !important
+  background rgba(0,0,0,0) !important
 
 .app-menu-modal.modal
   z-index 5800
+  max-width 464px
   transition all .3s ease-in-out, background .4s linear
 .app-menu-modal .modal-content
   transition all .3s ease-in-out

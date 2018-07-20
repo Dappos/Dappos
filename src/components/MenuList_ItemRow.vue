@@ -2,15 +2,12 @@
 <button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
     <div class="_name">
-      <q-icon v-if="!item.icon" name="ion-list" class="mr-md"/>
+      <q-icon v-if="!item.icon" name="ion-list" class="mr-sm"/>
       <span v-else class="mr-sm">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
     <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
   </div>
-  <div
-    class="_fly-icon js-fly-target hidden"
-  >{{ (item.icon) ? item.icon : randomEmoji }}</div>
 </button>
 </template>
 
@@ -46,13 +43,16 @@ export default {
   methods:
   {
     flyToCart () {
-      const el = this.$el.children[1]
+      // const el = this.$el.children[1]
       const elCart = document.querySelector('.js-info-cart')
+      const el = this.$el.children[0].children[0].children[0]
       this.dispatch('animate/fly', {
         el: el,
-        id: this.id,
         target: elCart,
-        hidden: true
+        clone: true,
+        hideAfter: true,
+        startOffsetX: 100,
+        innerHTML: (!this.item.icon) ? '📦' : this.item.icon
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})
         this.scrambleInt()
@@ -73,7 +73,6 @@ export default {
   pa 0
   ma 0
   background none
-  background-color white
   border none
   outline none
   width 100%
@@ -89,11 +88,14 @@ export default {
   display flex
   justify-content space-between
   align-items baseline
-  px xl
+  px md
+  pl lg
 ._name
   font-size 1.3em
+  font-weight 500
 ._price
   font-size 1.2em
+  color $gray-light
 ._fly-icon
   position absolute
   top 0

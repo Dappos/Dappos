@@ -2,7 +2,6 @@
 <div class="keypad">
   <keypad-input class="_keypad-input" />
   <keypad-keys class="_keypad-keys" />
-  <q-icon class="_fly-icon js-keypad-fly hidden" name="ion-add" color="primary" />
 </div>
 </template>
 
@@ -33,11 +32,10 @@ export default {
   width 100%
   display flex
   flex-direction column
-  position relative
+  border-radius $radius
   ._keypad-input
     border-top-left-radius $radius
     border-top-right-radius $radius
-    // overflow hidden
     width 100%
   ._keypad-keys
     border-bottom-left-radius $radius
@@ -47,11 +45,5 @@ export default {
     height 100%
     flex 1
     border-top 1px solid $bg-light
-._fly-icon
-  position absolute
-  top 10%
-  left 47%
-  font-size 4em
-  z-index 10000
 
 </style>

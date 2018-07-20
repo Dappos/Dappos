@@ -12,12 +12,24 @@
 </style>
 
 <script>
-import storeAccess from '../components/mixins/storeAccess'
+import storeAccess from '@components/mixins/storeAccess'
+import { dom } from 'quasar'
+const { css } = dom
 
 export default {
   name: 'index',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
+  mounted () {
+    const h = window.innerHeight
+    css(
+      document.querySelector('main'),
+      {
+        'min-height': h - 74 + 'px',
+        'max-height': h - 74 + 'px'
+      }
+    )
+  },
   computed:
   {
   },
@@ -37,7 +49,7 @@ export default {
 ._info-total-wrapper
   px sm
 ._navigation-tabs-wrapper
-  py sm
+  pt sm
 ._router-view-wrapper
   flex 1
   display flex

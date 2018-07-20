@@ -1,7 +1,7 @@
 {
   "name": "dappos",
-  "version": "0.5.0",
-  "description": "Dapp POS register",
+  "version": "0.9.0",
+  "description": "A dApp POS register for Ethereum",
   "productName": "Dappos",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Dappos Inc.",
@@ -10,7 +10,10 @@
     "lint": "eslint --ext .js,.vue src",
     "dev": "quasar dev -m spa -t ios",
     "build": "quasar build -m spa -t ios",
-    "deploy": "firebase use dappos-web && firebase deploy"
+    "deploy": "firebase use dappos-web && firebase deploy",
+    "test": "ava",
+    "test--build": "rollup -c build/rollup.js && npm run test",
+    "test-B": "npm run test--build"
   },
   "dependencies": {
     "animejs": "^2.2.0",
@@ -21,20 +24,26 @@
     "emoji-regex": "^7.0.0",
     "ethereum-qr-code": "^0.3.0",
     "firebase": "^5.0.4",
-    "firebaseui": "^3.0.0",
+    "firebaseui": "^3.1.1",
     "is-what": "^1.0.4",
     "nanoclone": "^0.2.1",
     "nanomerge": "^0.1.2",
     "v-money-plus": "^0.1.0",
     "vue-countup-v2": "^1.0.3",
     "vue-i18n": "^7.3.3",
-    "vuex-easy-access": "^1.3.0",
-    "vuex-easy-firestore": "^1.1.0",
+    "vuex-easy-access": "^2.4.3",
+    "vuex-easy-firestore": "^1.2.1",
     "vuex-router-sync": "^5.0.0",
     "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^4.18.2",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^4.0.1",
@@ -44,7 +53,12 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.3.0",
-    "quasar-cli": "^0.16.0"
+    "quasar-cli": "^0.16.0",
+    "rollup": "^0.62.0",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-terser": "^1.0.1"
   },
   "engines": {
     "node": ">= 8.9.0",

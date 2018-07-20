@@ -14,10 +14,9 @@
       class="_item-row"
     />
   </options-reveal>
-  <div class="_add">
+  <row-wrapper class="_add">
     <add-btn class="_menu-list-row" />
-  </div>
-
+  </row-wrapper>
 </div>
 </template>
 
@@ -45,10 +44,7 @@ export default {
 @import '~styl/variables'
 
 // .menu-list-edit-all
-._add
-  px lg
-  > *
-    py md
-    border-bottom 1px solid $bg-light
+._menu-list-row
+  py md
 
 </style>

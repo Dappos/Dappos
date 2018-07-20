@@ -16,7 +16,7 @@
       <q-icon name="ion-add" />
     </button>
     <button
-      @click="set('cart/editing.state', false)"
+      @click="dispatch('modals/toggle', 'cart.editing')"
       class="_close"
     >Close</button>
   </div>

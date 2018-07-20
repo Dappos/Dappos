@@ -12,17 +12,17 @@ admin.initializeApp()
 const firestore = admin.firestore()
 
 exports.update = functions.https.onRequest((request, response) => {
-  let url = 'https://api.coinmarketcap.com/v2/ticker/1027/?convert=JPY'
+  const url = 'https://api.coinmarketcap.com/v2/ticker/1027/?convert=JPY'
   axios.get(url)
-  .then(function (res) {
-    let JPY = res.data.quotes.JPY.price
-    let USD = res.data.quotes.USD.price
-    let data = { JPY, USD }
-    firestore.collection('exchangeRates').doc('coinmarketcap').update(data)
-    // console.log(response)
-    response.send(200)
-  })
-  .catch(function (error) {
-    // console.log(error)
-  })
+    .then(function (res) {
+      const JPY = res.data.quotes.JPY.price
+      const USD = res.data.quotes.USD.price
+      const data = { JPY, USD }
+      firestore.collection('exchangeRates').doc('coinmarketcap').update(data)
+      // console.log(response)
+      response.send(200)
+    })
+    .catch(function (error) {
+      console.error(error)
+    })
 })

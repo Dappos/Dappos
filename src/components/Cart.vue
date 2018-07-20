@@ -4,14 +4,14 @@
     leave-active-class="animated flipOutX"
   >
     <item-row
-      v-for="(item, index) in get('cart/items')"
+      v-for="(item, index) in state.cart.items"
       :item="item"
       :key="'c-' + index"
     />
   </transition-group>
-  <div class="_clear">
+  <row-wrapper class="_clear">
     <button @click="dispatch('cart/clearAll')">Clear all</button>
-  </div>
+  </row-wrapper>
 </div>
 </template>
 
@@ -38,14 +38,12 @@ export default {
 
 // .cart
 ._clear
-  px lg
   width 100%
   button
     reset-button()
     width 100%
-    border-bottom 1px solid $bg-light
     font-size 1.2em
     color $gray-light
-    py md
+    py sm
 
 </style>

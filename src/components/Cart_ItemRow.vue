@@ -1,16 +1,22 @@
 <template>
-<div class="cart-item">
-  <div class="_wrapper">
-    <div class="_count">{{ item.count }}x</div>
-    <div class="_name">{{ item.name }}</div>
-    <div class="_price">{{ item.price | money(get('settings/currencyConfig')) }}</div>
-    <div class="_nav">
-      <q-btn icon="ion-md-more" class="_more" @click="dispatch('cart/openMore', item)" />
+<options-reveal
+  :options="[{
+    name: 'Delete',
+    action () { return commit('cart/deleteItem', item) },
+    style: 'background-color: red;',
+  }]"
+>
+  <row-wrapper>
+    <div class="_wrapper">
+      <div class="_count">x{{ item.count }}</div>
+      <div class="_name">{{ item.name }}</div>
+      <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
+      <div class="_nav">
+        <q-btn icon="ion-md-more" @click="dispatch('modals/cartMore', item)" class="_more" />
+      </div>
     </div>
-
-    <!-- {{ item.prices[state.settings.currency.currency] | money(get('settings/currencyConfig')) }} -->
-  </div>
-</div>
+  </row-wrapper>
+</options-reveal>
 </template>
 
 <script>
@@ -24,6 +30,11 @@ export default {
   data () { return {} },
   computed:
   {
+    price () {
+      // cart items have a 'price' field assigned when they get added to the cart
+      if (this.item.price) return this.item.price
+      return this.item.prices[this.state.settings.currency]
+    },
   },
   methods:
   {
@@ -34,11 +45,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~styl/variables'
 
-.cart-item
-  px lg
-
 ._wrapper
-  py sm
   font-size 1.2em
   display grid
   grid-template-areas "count name nav" \
@@ -46,17 +53,18 @@ export default {
   grid-template-columns auto 1fr auto
   grid-gap .2em 1em
   align-items center
-  border-bottom 1px solid $bg-light
 ._count
   grid-area count
   background-color $gray-light
-  py .2em
-  px .33em
+  py .4em
+  px .5em
   border-radius $radius
   color white
-  font-weight 500
+  font-weight 600
+  font-size .8em
 ._name
   grid-area name
+  font-weight 500
 ._price
   grid-area price
   color $gray-light

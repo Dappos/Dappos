@@ -7,6 +7,7 @@ export default [
       {
         path: '',
         component: () => import('pages/index'),
+        meta: { authRequired: true },
         children: [
           {path: '', component: () => import('components/Keypad')},
           {path: 'keypad', name: 'home', component: () => import('components/Keypad')},

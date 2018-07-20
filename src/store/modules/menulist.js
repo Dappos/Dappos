@@ -1,23 +1,35 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
+import currencies from '@config/currencyDefaults'
 
-function defaultItem () {
-  return {name: '', icon: null, prices: {jpy: 0, usd: 0}, new: true}
+function defaultPrices (usd, jpy) {
+  return Object.keys(currencies)
+    .reduce((carry, key) => {
+      carry[key] = (usd && key === 'usd')
+        ? usd
+        : (jpy && key === 'jpy')
+          ? jpy
+          : null
+      return carry
+    }, {})
 }
+
+export function defaultItem () {
+  return {name: '', icon: null, prices: defaultPrices(), new: true}
+}
+
 function testItems () {
   return {
-    'ice-coffee': {name: 'Ice Coffee', icon: null, id: 'ice-coffee', prices: {jpy: 400, usd: 4}},
-    'hot-coffee': {name: 'Hot Coffee', icon: '☕', id: 'hot-coffee', prices: {jpy: 400, usd: 4}},
-    'latte': {name: 'Latte', icon: null, id: 'latte', prices: {jpy: 500, usd: 5}},
-    'beer': {name: 'Beer', icon: null, id: 'beer', prices: {jpy: 500, usd: 5}},
+    'ice-coffee': {name: 'Ice Coffee', icon: null, id: 'ice-coffee', prices: defaultPrices(4, 400)},
+    'hot-coffee': {name: 'Hot Coffee', icon: '☕', id: 'hot-coffee', prices: defaultPrices(4, 400)},
+    'latte': {name: 'Latte', icon: null, id: 'latte', prices: defaultPrices(5, 500)},
+    'beer': {name: 'Beer', icon: null, id: 'beer', prices: defaultPrices(5, 500)},
   }
 }
+
 function initialState () {
   return {
     items: testItems(),
-    adding: {state: false, item: defaultItem()},
-    editing: {state: false, item: null},
-    editAll: {state: false},
   }
 }
 
@@ -28,7 +40,7 @@ export default {
   moduleName: 'user/menulist',
   statePropName: 'items',
   serverChange: {
-    defaultValues: {prices: {usd: 0, jpy: 0}},
+    defaultValues: {prices: defaultPrices()},
   },
   // module:
   state: initialState(),
@@ -47,25 +59,6 @@ export default {
         this._vm.$set(state, key, payload[key])
       })
     },
-    addItem (state) {
-      const id = state.adding.item.name.toLowerCase().replace(' ', '-')
-      state.adding.item.id = id
-      delete state.adding.item.new
-      this._vm.$set(state.items, id, state.adding.item)
-      state.adding.state = false
-      state.adding.item = defaultItem()
-    },
-    resetNewItem (state) {
-      state.adding.item = defaultItem()
-    },
-    openEditModal (state, id) {
-      if (!id) return
-      state.editing.item = state.items[id]
-      state.editing.state = true
-    },
-    doneEdit (state, id) {
-      state.editing.state = false
-    },
     clearTestItems (state) {
       state.items = {}
     },
@@ -73,26 +66,19 @@ export default {
   actions:
   {
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      delete state.adding.item.new
-      dispatch('insert', state.adding.item)
-      state.adding.state = false
-      state.adding.item = defaultItem()
-    },
-    openEditModal ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
-      commit('openEditModal', id)
-    },
-    doneEdit ({state, getters, rootState, rootGetters, commit, dispatch}, id) {
-      commit('doneEdit', id)
+      const item = rootState.modals.menulist.adding.item
+      const id = item.name.toLowerCase().replace(' ', '-')
+      item.id = id
+      delete item.new
+      dispatch('insert', item)
+      dispatch('modals/toggle', 'menulist.adding', {root: true})
+      dispatch('modals/menulist.resetNewItem', null, {root: true})
     },
     setPrice ({state, getters, rootState, rootGetters, commit, dispatch}, {id, val}) {
       const curr = rootState.settings.currency
       const prices = {}
       prices[curr] = val
       dispatch('set', {prices, id})
-    },
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
-      toggleState = (toggleState === undefined) ? !state.editAll.state : toggleState
-      dispatch('set/editAll.state', toggleState)
     },
   },
   getters:

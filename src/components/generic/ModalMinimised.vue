@@ -1,6 +1,6 @@
 <template>
 <q-modal
-  v-model="toggle.state"
+  v-model="toggle.opened"
   minimized
   class="modal-minimised"
   @hide="hideFunction"
@@ -39,5 +39,6 @@ export default {
 
 .modal-minimised .modal-content
   border-radius $radius
+  font-size .9em
 
 </style>

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import storeAccess from '../components/mixins/storeAccess'
+import storeAccess from '@components/mixins/storeAccess'
 
 export default {
   components: {},

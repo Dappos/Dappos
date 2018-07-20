@@ -18,8 +18,9 @@ module.exports = function (ctx) {
       'index.styl'
     ],
     extras: [
-      ctx.theme.mat ? 'roboto-font' : null,
+      'fontawesome',
       'material-icons',
+      ctx.theme.mat ? 'roboto-font' : null,
       ctx.theme.ios ? 'ionicons' : null,
       // 'mdi',
       // 'fontawesome'
@@ -45,6 +46,9 @@ module.exports = function (ctx) {
           'styl/variables': path.resolve(__dirname, './src/css/themes/common.variables.styl'),
           '@router': path.resolve(__dirname, './src/router'),
           '@store': path.resolve(__dirname, './src/store'),
+          '@modules': path.resolve(__dirname, './src/store/modules'),
+          '@components': path.resolve(__dirname, './src/components'),
+          '@mixins': path.resolve(__dirname, './src/components/mixins'),
           '@helpers': path.resolve(__dirname, './src/helpers'),
           '@config': path.resolve(__dirname, './src/config'),
         }
@@ -83,6 +87,7 @@ module.exports = function (ctx) {
         'QWindowResizeObservable',
         'QSelect',
         'QBtnDropdown',
+        'QSlider',
       ],
       directives: [
         'Ripple', 'TouchSwipe', 'CloseOverlay'

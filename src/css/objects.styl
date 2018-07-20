@@ -13,14 +13,29 @@ o-btn()
   text-align center
   display flex
   justify-content center
-  shadow-2()
-
+  shadow-subtle()
 .o-btn
   o-btn()
   background-color $primary
 .o-btn--s
   o-btn()
   background-color $secondary
+
+o-txt-btn()
+  ma 0
+  border none
+  pa xs
+  font-size 1em
+  background none
+  color $primary
+  font-weight 500
+  white-space nowrap
+  text-decoration none
+  text-align center
+  display flex
+  justify-content center
+.o-txt-btn
+  o-txt-btn()
 
 .o-indent
   pl lg

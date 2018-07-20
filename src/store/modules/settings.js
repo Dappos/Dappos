@@ -1,16 +1,16 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
-import defaults from '@config/currencyDefaults'
+import currencyDefaults from '@config/currencyDefaults'
 
 function initialState () {
   return {
-    walletAddress: '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe',
+    wallet: {address: null},
     gas: 42000,
+    requiredConfirmationCount: 1,
     currency: 'jpy',
     config: {
       // only set these if you want to overwrite defaults.
     },
-    modal: {state: false}
   }
 }
 
@@ -21,7 +21,7 @@ export default {
   moduleName: 'settings',
   statePropName: '',
   sync: {
-    fillables: ['walletAddress', 'gas', 'currency', 'config']
+    fillables: ['wallet', 'gas', 'currency', 'config', 'requiredConfirmationCount']
   },
   // module:
   state: initialState(),
@@ -41,10 +41,6 @@ export default {
   },
   actions:
   {
-    toggleModal ({state, getters, rootState, rootGetters, commit, dispatch}, toggleState) {
-      toggleState = (toggleState === undefined) ? !state.modal.state : toggleState
-      dispatch('set/modal.state', toggleState)
-    },
   },
   getters:
   {
@@ -54,15 +50,15 @@ export default {
     currencyConfig: (state, getters, rootState, rootGetters) => {
       return Object.assign(
         {},
-        defaults[state.currency],
+        currencyDefaults[state.currency],
         state.config
       )
     },
     availableCurrencies: (state, getters, rootState, rootGetters) => {
-      return Object.keys(defaults)
+      return Object.keys(currencyDefaults)
         .reduce((carry, key) => {
           const info = {
-            label: `${defaults[key].prefix} ${key.toUpperCase()}`,
+            label: `${currencyDefaults[key].prefix} ${key.toUpperCase()}`,
             value: key
           }
           carry[key] = info

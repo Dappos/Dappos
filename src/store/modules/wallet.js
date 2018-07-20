@@ -6,7 +6,6 @@ function initialState () {
   return {
     address: null,
     isMainnet: null,
-    wallet: web3Wallet
   }
 }
 
@@ -31,8 +30,14 @@ export default {
   {
     async getAddress ({state, getters, rootState, rootGetters, commit, dispatch}, {id} = {}) {
       const accounts = await web3Wallet.eth.getAccounts()
-      dispatch('set/address', accounts[0])
+      const address = accounts[0]
+      if (!address) return console.error('Please unlock MetaMask')
+      dispatch('set/address', address)
+      if (address !== rootState.settings.wallet.address) {
+        dispatch('modals/toggle', ['wallet.overwriteAddress', true], {root: true})
+      }
       dispatch('set/isMainnet', await isMainNetwork(web3Wallet))
+      return address
     }
   },
   getters:

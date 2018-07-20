@@ -40,19 +40,15 @@ export default {
 .menu-list
   width 100%
   height 100%
-  display flex
-  flex-direction column
   background-color white
   border-radius $radius
   line-height 3
+  overflow scroll
   ._list
     width 100%
-    > *:first-child
-      border-radius $radius
   ._add
     width 100%
     height 100%
-    flex 1
     > *
       border-bottom 1px solid $bg-light
 

@@ -10,22 +10,21 @@
         class="_toolbar"
       >
         <button
-          @click="dispatch('toggleMenu')"
+          @click="dispatch('modals/toggleMenu')"
           flat dense
           aria-label="Menu"
-          :class="['reset-button']"
+          class="reset-button _menu-btn"
         >
-          <div class="_menu-btn">
-            <div><img src="~assets/dappos-icon.svg" alt="menu"></div>
-              <div class="q-ml-sm">
-              <q-icon
-                :class="['_arrow', {rotated: get('menu.opened')}]"
-                name="ion-arrow-down"
-              />
-            </div>
+          <img src="~assets/dappos-icon.svg" class="_logo" alt="menu">
+          <div class="q-ml-sm">
+            <q-icon
+              :class="['_arrow', {rotated: state.modals.menu.opened}]"
+              name="ion-arrow-down"
+            />
           </div>
         </button>
-        <info-cart />
+        <info-cart v-if="!elevateHeader" />
+        <info-wallet v-if="elevateHeader" />
       </q-toolbar>
     </q-layout-header>
 
@@ -36,12 +35,26 @@
 </template>
 
 <script>
-import storeAccess from '../components/mixins/storeAccess'
+import storeAccess from '@components/mixins/storeAccess'
+import { dom } from 'quasar'
+const { css } = dom
 
 export default {
   name: 'LayoutDefault',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
+  mounted () {
+    const h = window.innerHeight
+    const els = [
+      document.querySelector('body'),
+      document.getElementById('q-app'),
+    ]
+    els.forEach(el => {
+      css(el, {
+        'min-height': h + 'px'
+      })
+    })
+  },
   data () {
     return {}
   },
@@ -51,8 +64,8 @@ export default {
   computed:
   {
     elevateHeader () {
-      return (!this.get('cart/opened.state') &&
-        (this.get('menu.opened') || this.get('menu.animating')))
+      return (!this.get('modals/cart.cart.opened') &&
+        (this.get('modals/menu.opened') || this.get('modals/menu.animating')))
     },
   },
 }
@@ -74,6 +87,9 @@ export default {
 ._header
   border none
 ._toolbar
+  px xl
+  mt sm
+  mb xs
   background-color transparent
   border-bottom none
   justify-content space-between
@@ -81,9 +97,8 @@ export default {
 ._menu-btn
   display flex
   align-items center
-  img
-    width 2em
-    height auto
+  ._logo
+    width 1.6em
 ._elevate
   z-index 5900
 ._arrow
@@ -91,8 +106,8 @@ export default {
 .rotated
   transform rotate(180deg)
 
-.page--signin
-  background url('~assets/auth-background.jpg') no-repeat center center fixed
-  background-size cover
+// .page--signin
+//   background url('~assets/auth-background.jpg') no-repeat center center fixed
+//   background-size cover
 
 </style>

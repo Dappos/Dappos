@@ -1,6 +1,6 @@
 <template>
 <q-modal
-  v-model="toggle.state"
+  v-model="toggle.opened"
   @hide="hideFunction"
   @show="showFunction"
   :class="['modal-fullscreen',
@@ -11,7 +11,7 @@
   <div class="_wrapper">
     <div class="_top">
       <div class="_nav">
-        <button @click="toggle.state = !toggle.state" class="reset-button">
+        <button @click="toggle.opened = !toggle.opened" class="reset-button">
           <q-icon name="ion-close" size="2em" />
         </button>
       </div>
