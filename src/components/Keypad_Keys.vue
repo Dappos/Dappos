@@ -5,7 +5,7 @@
     <button @click="dispatch('keypad/tap', 2)">2</button>
     <button @click="dispatch('keypad/tap', 3)">3</button>
     <button @click="dispatch('keypad/tap', 4)">4</button>
-    <button @click="dispatch('keypad/tap', 5)">5</button>
+    <button @click="dispatch('keypad/tap', 5)" class="js-keypad-fly-target">5</button>
     <button @click="dispatch('keypad/tap', 6)">6</button>
     <button @click="dispatch('keypad/tap', 7)">7</button>
     <button @click="dispatch('keypad/tap', 8)">8</button>
@@ -40,13 +40,14 @@ export default {
       this.flyToTotal()
     },
     flyToTotal () {
-      const el = document.querySelector('.js-fly-keypad-add')
+      const el = document.querySelector('.js-keypad-fly-target')
       const elCart = document.querySelector('.js-info-cart')
       this.dispatch('animate/fly', {
         el: el,
         target: elCart,
         clone: true,
         hideAfter: true,
+        innerHTML: '📦'
       }).then(_ => {
         this.dispatch('animate/pop', {el: elCart})
       })
