@@ -4,7 +4,6 @@
 
 Dappos is a Ethereum based Dapp POS register.
 
-
 ### Table of Contents
 
 <!-- TOC -->
@@ -30,7 +29,7 @@ Dappos is a Ethereum based Dapp POS register.
 
 ## Motivation
 
-wip
+There was no POS app for Ethereum to our knowledge, so we made one! ✌🏻
 
 ## Contribution guide
 
