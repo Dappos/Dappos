@@ -23,7 +23,8 @@
             />
           </div>
         </button>
-        <info-cart />
+        <info-cart v-if="!elevateHeader" />
+        <info-wallet v-if="elevateHeader" />
       </q-toolbar>
     </q-layout-header>
 
@@ -105,8 +106,8 @@ export default {
 .rotated
   transform rotate(180deg)
 
-.page--signin
-  background url('~assets/auth-background.jpg') no-repeat center center fixed
-  background-size cover
+// .page--signin
+//   background url('~assets/auth-background.jpg') no-repeat center center fixed
+//   background-size cover
 
 </style>

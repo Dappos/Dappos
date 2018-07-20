@@ -4,7 +4,7 @@ import ModalFullscreen from '@components/generic/ModalFullscreen'
 import ModalMinimised from '@components/generic/ModalMinimised'
 import RowWrapper from '@components/generic/RowWrapper'
 import QuasarOptionsReveal from '@components/generic/QuasarOptionsReveal'
-import FirebaseUi from '@components/FirebaseUi'
+import FirebaseUi from '@components/SigninFirebaseUi'
 // modals
 import Modals from '@components/Modals'
 import MenuListAddEditItem from '@components/Modals/MenuListAddEditItem'
@@ -12,9 +12,11 @@ import MenuListEditAll from '@components/Modals/MenuListEditAll'
 import CartEditingItem from '@components/Modals/CartEditingItem'
 import Payment from '@components/Modals/Payment'
 import OverwriteAddress from '@components/Modals/OverwriteAddress'
+import NoAddressFound from '@components/Modals/NoAddressFound'
 // other
 import AppMenu from '@components/AppMenu'
 import InfoCart from '@components/InfoCart'
+import InfoWallet from '@components/InfoWallet'
 import InfoTotal from '@components/InfoTotal'
 import NavigationTabs from '@components/NavigationTabs'
 import Keypad from '@components/Keypad'
@@ -36,9 +38,11 @@ export default ({ app, router, Vue }) => {
   Vue.component('cart-editing-item', CartEditingItem)
   Vue.component('payment', Payment)
   Vue.component('overwrite-address', OverwriteAddress)
+  Vue.component('no-address-found', NoAddressFound)
 
   Vue.component('app-menu', AppMenu)
   Vue.component('info-cart', InfoCart)
+  Vue.component('info-wallet', InfoWallet)
   Vue.component('info-total', InfoTotal)
   Vue.component('navigation-tabs', NavigationTabs)
   Vue.component('keypad', Keypad)

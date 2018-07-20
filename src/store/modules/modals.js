@@ -13,6 +13,7 @@ function initialState () {
     settings: {opened: false},
     wallet: {
       overwriteAddress: {opened: false},
+      noAddressFound: {opened: false},
     },
     history: {opened: false},
     menulist: {

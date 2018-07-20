@@ -37,6 +37,7 @@ export default {
   font-size .8em
   px md
   py md
+  media-lg py xl
   ._note
     color $gray-dark
     font-size 1.6em

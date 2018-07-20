@@ -94,6 +94,13 @@
     <overwrite-address />
   </modal-minimised>
 
+  <!-- NO ADDRESS FOUND -->
+  <modal-minimised
+    :toggle="state.modals.wallet.noAddressFound"
+  >
+    <no-address-found />
+  </modal-minimised>
+
 </div>
 </template>
 
@@ -154,6 +161,7 @@ export default {
 
 .app-menu-modal.modal
   z-index 5800
+  max-width 464px
   transition all .3s ease-in-out, background .4s linear
 .app-menu-modal .modal-content
   transition all .3s ease-in-out
