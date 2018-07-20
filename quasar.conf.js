@@ -48,6 +48,7 @@ module.exports = function (ctx) {
           '@store': path.resolve(__dirname, './src/store'),
           '@modules': path.resolve(__dirname, './src/store/modules'),
           '@components': path.resolve(__dirname, './src/components'),
+          '@mixins': path.resolve(__dirname, './src/components/mixins'),
           '@helpers': path.resolve(__dirname, './src/helpers'),
           '@config': path.resolve(__dirname, './src/config'),
         }

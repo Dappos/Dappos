@@ -1,7 +1,7 @@
 {
   "name": "dappos",
   "version": "0.5.0",
-  "description": "Dapp POS register",
+  "description": "A dApp POS register for Ethereum",
   "productName": "Dappos",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Dappos Inc.",
