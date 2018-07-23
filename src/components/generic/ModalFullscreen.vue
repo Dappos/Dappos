@@ -11,11 +11,11 @@
   <div class="_wrapper">
     <div class="_top">
       <div class="_nav">
-        <button @click="toggle.opened = !toggle.opened" class="reset-button">
+        <button @click="toggle.opened = !toggle.opened" class="_close reset-button">
           <q-icon name="ion-close" size="2em" />
         </button>
       </div>
-      <div class="_title"><h2>{{ title }}</h2></div>
+      <h2 class="_title">{{ title }}</h2>
     </div>
     <slot />
   </div>
@@ -53,8 +53,14 @@ export default {
 ._top
   border-bottom 1px solid $bg-light
   pa lg
+  pb sm
 ._nav
   display flex
   justify-content flex-end
+._title
+  font-size 1.625em
+  font-weight 500
+._close
+  color $gray-dark
 
 </style>

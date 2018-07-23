@@ -2,8 +2,8 @@
 <button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
     <div class="_name">
-      <q-icon v-if="!item.icon" name="ion-list" class="mr-sm"/>
-      <span v-else class="mr-sm">{{ item.icon }}</span>
+      <q-icon v-if="!item.icon" name="ion-list" class="_icon _generic"/>
+      <span v-else class="_icon _emoji">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
     <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
@@ -91,10 +91,15 @@ export default {
   px md
   pl lg
 ._name
-  font-size 1.3em
+  font-size 1em
   font-weight 500
+  ._icon._emoji
+    mr sm
+  ._icon._generic
+    ml .1em
+    mr .9em
 ._price
-  font-size 1.2em
+  font-size .875em
   color $gray-light
 ._fly-icon
   position absolute

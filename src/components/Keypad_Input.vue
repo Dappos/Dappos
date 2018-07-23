@@ -34,21 +34,20 @@ export default {
   align-items baseline
   background-color white
   font-weight 500
-  font-size .8em
   px md
   py md
   media-lg py xl
   ._note
     color $gray-dark
-    font-size 1.6em
+    font-size .875em
     px sm
   ._input
     flex 1
+    font-size 1.5em
     input
       px sm
       width 100%
       border none
-      font-size 2.5em
       text-align right
 
 </style>
