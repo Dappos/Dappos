@@ -26,7 +26,7 @@
       <div class="_content _wallet">
         <q-input
           :value="get('settings/wallet.address')"
-          @change="newVal => { set('settings', {wallet: {address: newVal}}) }"
+          @change="newVal => { set('settings/wallet.address', newVal) }"
         />
         <!-- todo: change with v-modal.lazy when it becomes available -->
         <!-- v-model.lazy="state.settings.wallet.address" -->

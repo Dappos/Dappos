@@ -35,7 +35,7 @@ export default {
   methods:
   {
     overwrite () {
-      this.set('settings', {wallet: {address: this.state.wallet.address}})
+      this.set('settings/wallet.address', this.state.wallet.address)
       this.overwritten = true
       setTimeout(_ => {
         this.dispatch('modals/toggle', ['wallet.overwriteAddress', false])
