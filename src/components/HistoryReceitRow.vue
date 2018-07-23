@@ -60,6 +60,7 @@ export default {
   grid-template-columns auto auto
   grid-gap .2em 1em
   align-items top
+  font-size .875em
 ._overview
   grid-area overview
 ._date

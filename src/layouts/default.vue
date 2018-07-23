@@ -98,11 +98,12 @@ export default {
   display flex
   align-items center
   ._logo
-    width 1.6em
+    width 1.4em
 ._elevate
   z-index 5900
 ._arrow
   transition all .4s linear
+  color $gray-medium
 .rotated
   transform rotate(180deg)
 

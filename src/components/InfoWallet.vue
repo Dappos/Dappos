@@ -42,11 +42,11 @@ export default {
 // ._wrapper
 ._title
   color $gray-dark
-  font-size .8em
+  font-size .625em
 ._address
   color $gray-dark
-  font-weight 500
-  font-size .9em
+  font-weight 600
+  font-size .625em
   width 100%
 
 </style>

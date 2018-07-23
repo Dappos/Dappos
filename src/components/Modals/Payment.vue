@@ -57,7 +57,7 @@ export default {
 @import '~styl/variables'
 
 .payment
-  font-size 1.2em
+  font-size 1em
 ._wrapper-top, ._wrapper-bottom
   pa lg
 ._wrapper-top, ._wrapper-bottom, ._inner-wrapper

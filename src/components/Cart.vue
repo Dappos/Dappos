@@ -42,8 +42,8 @@ export default {
   button
     reset-button()
     width 100%
-    font-size 1.2em
     color $gray-light
     py sm
+    font-weight 500
 
 </style>

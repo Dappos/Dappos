@@ -109,7 +109,7 @@ export default {
 ._wrapper
   pa xl
 ._row
-  my xl
+  my 1.8em
 ._link
   > *
     color $gray-dark

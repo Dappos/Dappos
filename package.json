@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue src",
     "dev": "quasar dev -m spa -t ios",
     "build": "quasar build -m spa -t ios",
-    "deploy": "firebase use dappos-web && firebase deploy",
+    "deploy": "npm run build && firebase use dappos-web && firebase deploy",
     "test": "ava",
     "test--build": "rollup -c build/rollup.js && npm run test",
     "test-B": "npm run test--build"
