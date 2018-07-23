@@ -47,6 +47,7 @@ export default {
   color $gray-dark
   width 100%
   height 100%
+  font-size .875em
 ._cart
   mr sm
   font-weight 500

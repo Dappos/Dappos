@@ -46,7 +46,7 @@ export default {
 @import '~styl/variables'
 
 ._wrapper
-  font-size 1.2em
+  font-size 1em
   display grid
   grid-template-areas "count name nav" \
                       "count price nav"
@@ -61,14 +61,14 @@ export default {
   border-radius $radius
   color white
   font-weight 600
-  font-size .8em
+  font-size .875em
 ._name
   grid-area name
   font-weight 500
 ._price
   grid-area price
   color $gray-light
-  font-size .8em
+  font-size .75em
 ._nav
   grid-area nav
 ._more

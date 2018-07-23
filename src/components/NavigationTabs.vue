@@ -41,7 +41,7 @@ export default {
 
 // .navigation-tabs
 ._tab
-  font-size 1.6em
+  font-size 1.2em
   pb md
 
 </style>

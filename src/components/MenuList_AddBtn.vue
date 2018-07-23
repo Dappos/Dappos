@@ -1,6 +1,6 @@
 <template>
 <button class="menu-list-add" @click="dispatch('modals/toggle', 'menulist.adding')">
-  <q-icon class="_plus" name="ion-add" />
+  <q-icon class="_plus" name="fas fa-plus" />
   <div class="_text">Add item</div>
 </button>
 </template>
@@ -32,12 +32,13 @@ export default {
   display flex
   justify-content center
   align-items center
-  font-size 1.3em
+  font-size 1em
   color $primary
+  font-weight 600
 
 ._plus
   mr sm
   pb xxs
-  font-size 1.2em
+  font-size .7em
 
 </style>

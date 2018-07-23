@@ -5,7 +5,7 @@
     <button @click="dispatch('keypad/tap', 2)">2</button>
     <button @click="dispatch('keypad/tap', 3)">3</button>
     <button @click="dispatch('keypad/tap', 4)">4</button>
-    <button @click="dispatch('keypad/tap', 5)" class="js-keypad-fly-target">5</button>
+    <button @click="dispatch('keypad/tap', 5)"><div class="js-keypad-fly-target"></div>5</button>
     <button @click="dispatch('keypad/tap', 6)">6</button>
     <button @click="dispatch('keypad/tap', 7)">7</button>
     <button @click="dispatch('keypad/tap', 8)">8</button>
@@ -71,7 +71,7 @@ export default {
     grid-template-columns 1fr 1fr 1fr
     grid-gap 1px
     button
-      font-size 2.2em
+      font-size 2em
       pa 0
       display flex
       justify-content center

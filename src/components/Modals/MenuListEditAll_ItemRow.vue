@@ -3,8 +3,8 @@
   <div class="_wrapper">
     <!-- <div class="_count">{{ item.count }}x</div> -->
     <div class="_name">
-      <q-icon v-if="!item.icon" name="ion-list" class="mr-md"/>
-      <span v-else class="mr-sm">{{ item.icon }}</span>
+      <q-icon v-if="!item.icon" name="ion-list" class="_icon _generic"/>
+      <span v-else class="_icon _emoji">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
     <div class="_price">
@@ -46,7 +46,7 @@ export default {
 @import '~styl/variables'
 
 ._wrapper
-  font-size 1.2em
+  font-size 1em
   display grid
   grid-template-areas "count name nav" \
                       "count price nav"
@@ -63,10 +63,19 @@ export default {
   font-weight 500
 ._name
   grid-area name
+  display flex
+  align-items center
+  ._icon
+    font-size 1.2em
+  ._icon._emoji
+    mr sm
+  ._icon._generic
+    ml .1em
+    mr .7em
 ._price
   grid-area price
   color $gray-light
-  font-size .8em
+  font-size .75em
   pl xl
 ._nav
   grid-area nav
