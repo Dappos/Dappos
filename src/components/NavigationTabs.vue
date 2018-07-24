@@ -1,15 +1,18 @@
 <template>
 <div class="navigation-tabs">
-  <q-tabs color="bg-light" text-color="gray-dark">
-    <q-route-tab
-      to="/keypad"
+  <q-tabs
+    v-model="state.navigationTab"
+    color="bg-light" text-color="gray-dark"
+  >
+    <q-tab
+      name="keypad"
       icon="fas fa-calculator"
       default
       slot="title"
       class="_tab"
     />
-    <q-route-tab
-      to="/menulist"
+    <q-tab
+      name="menulist"
       icon="fas fa-list-ul"
       slot="title"
       class="_tab"

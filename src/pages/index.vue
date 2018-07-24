@@ -2,8 +2,9 @@
 <q-page class="page-index">
   <div class="_info-total-wrapper"><info-total /></div>
   <div class="_navigation-tabs-wrapper"><navigation-tabs /></div>
-  <div class="_router-view-wrapper">
-    <router-view class="_router-view" />
+  <div class="_bottom-part-wrapper">
+    <keypad v-if="state.navigationTab === 'keypad'" class="_bottom-part" />
+    <menu-list v-if="state.navigationTab === 'menulist'" class="_bottom-part" />
   </div>
 </q-page>
 </template>
@@ -50,10 +51,10 @@ export default {
   px sm
 ._navigation-tabs-wrapper
   pt sm
-._router-view-wrapper
+._bottom-part-wrapper
   flex 1
   display flex
-._router-view
+._bottom-part
   flex 1
 
 </style>
