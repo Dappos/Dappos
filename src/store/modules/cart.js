@@ -2,7 +2,7 @@ import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import { uid } from 'quasar'
 import copyObj from '@helpers/copyObj'
-import EthereumQRPlugin from 'ethereum-qr-code'
+import EthereumQRPlugin from '@dri/ethereum-qr-code'
 import CountUp from 'countup.js'
 import roundNumberDown from '@helpers/roundNumberDown'
 import convert from '@helpers/conversion'
@@ -94,9 +94,11 @@ export default {
       }
     },
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
-      item.price = (item.price === undefined)
-        ? item.prices[rootState.settings.currency]
-        : item.price
+      const currentPrice = (item.prices[this.get('settings/currency')])
+      const price = (!currentPrice)
+        ? 0
+        : currentPrice
+      item.price = price
       if (!item.id) {
         item.id = uid()
         item.nonListed = true
@@ -137,7 +139,7 @@ export default {
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
       const sendDetails = {
-        value: state.valueWei,
+        amount: state.valueWei,
         to: rootState.settings.wallet.address,
         gas: rootState.settings.gas,
       }
@@ -156,10 +158,15 @@ export default {
   getters:
   {
     value: (state, getters, rootState, rootGetters) => {
-      return Object.values(state.items).reduce((carry, item) => { return carry + (item.count * item.price) }, 0)
+      return Object.values(state.items).reduce((carry, item) => {
+        const price = (item.price) ? item.price : 0
+        return carry + (item.count * price)
+      }, 0)
     },
     totalCount: (state, getters, rootState, rootGetters) => {
-      return Object.values(state.items).reduce((carry, item) => { return carry + item.count }, 0)
+      return Object.values(state.items).reduce((carry, item) => {
+        return carry + item.count
+      }, 0)
     },
     valueEth: (state, getters, rootState, rootGetters) => {
       return convert(state.valueWei, 'wei', 'eth')

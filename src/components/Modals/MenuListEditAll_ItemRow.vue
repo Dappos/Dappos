@@ -33,7 +33,10 @@ export default {
   computed:
   {
     price () {
-      return this.item.prices[this.state.settings.currency]
+      const currentPrice = (this.item.prices && this.item.prices[this.get('settings/currency')])
+      return (!currentPrice)
+        ? 0
+        : currentPrice
     },
   },
   methods:

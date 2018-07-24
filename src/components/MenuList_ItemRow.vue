@@ -13,6 +13,7 @@
 
 <script>
 import storeAccess from './mixins/storeAccess'
+import { fly, pop } from '@helpers/animejsWrapper'
 import { uid } from 'quasar'
 const Chance = require('chance')
 const chance = new Chance()
@@ -32,9 +33,10 @@ export default {
   computed:
   {
     price () {
-      return (!this.item.price)
-        ? this.item.prices[this.get('settings/currency')]
-        : this.item.price
+      const currentPrice = (this.item.prices && this.item.prices[this.get('settings/currency')])
+      return (!currentPrice)
+        ? 0
+        : currentPrice
     },
     randomEmoji () {
       return this.standardEmojis[this.emojiInt]
@@ -43,18 +45,18 @@ export default {
   methods:
   {
     flyToCart () {
-      // const el = this.$el.children[1]
       const elCart = document.querySelector('.js-info-cart')
       const el = this.$el.children[0].children[0].children[0]
-      this.dispatch('animate/fly', {
+      fly({
         el: el,
         target: elCart,
         clone: true,
         hideAfter: true,
         startOffsetX: 100,
+        startOffsetY: -80,
         innerHTML: (!this.item.icon) ? '📦' : this.item.icon
       }).then(_ => {
-        this.dispatch('animate/pop', {el: elCart})
+        pop({el: elCart})
         this.scrambleInt()
       })
     },

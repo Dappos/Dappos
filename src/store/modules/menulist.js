@@ -9,7 +9,7 @@ function defaultPrices (usd, jpy) {
         ? usd
         : (jpy && key === 'jpy')
           ? jpy
-          : null
+          : 0
       return carry
     }, {})
 }
