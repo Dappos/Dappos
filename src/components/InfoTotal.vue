@@ -46,6 +46,7 @@ export default {
 
 .info-total
   width 100%
+  font-weight 600
 ._price
   ml sm
   input

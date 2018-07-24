@@ -41,6 +41,10 @@ export default {
   },
   actions:
   {
+    currency ({state, dispatch}, newVal) {
+      dispatch('set', {currency: newVal})
+      dispatch('cart/initializeTotalAmountAnimation', null, {root: true})
+    }
   },
   getters:
   {

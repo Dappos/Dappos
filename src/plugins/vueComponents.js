@@ -20,6 +20,7 @@ import InfoWallet from '@components/InfoWallet'
 import InfoTotal from '@components/InfoTotal'
 import NavigationTabs from '@components/NavigationTabs'
 import Keypad from '@components/Keypad'
+import MenuList from '@components/MenuList'
 import Cart from '@components/Cart'
 import txnHistory from '@components/History'
 import Settings from '@components/Settings'
@@ -46,6 +47,7 @@ export default ({ app, router, Vue }) => {
   Vue.component('info-total', InfoTotal)
   Vue.component('navigation-tabs', NavigationTabs)
   Vue.component('keypad', Keypad)
+  Vue.component('menu-list', MenuList)
   Vue.component('cart', Cart)
   Vue.component('history', txnHistory)
   Vue.component('settings', Settings)
