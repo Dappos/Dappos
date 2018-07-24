@@ -10,7 +10,6 @@ import actions from './actions'
 import cart from '@modules/cart'
 import user from '@modules/user'
 import keypad from '@modules/keypad'
-import animate from '@modules/animate'
 import wallet from '@modules/wallet'
 import ethEvents from '@modules/ethEvents'
 import modals from '@modules/modals'
@@ -32,7 +31,6 @@ export default function () {
       cart,
       user,
       keypad,
-      animate,
       wallet,
       ethEvents,
       modals,

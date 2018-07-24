@@ -32,8 +32,11 @@ export default {
   {
     price () {
       // cart items have a 'price' field assigned when they get added to the cart
-      if (this.item.price) return this.item.price
-      return this.item.prices[this.state.settings.currency]
+      if (this.item.price || this.item.price === 0) return this.item.price
+      const currentPrice = (this.item.prices && this.item.prices[this.get('settings/currency')])
+      return (!currentPrice)
+        ? 0
+        : currentPrice
     },
   },
   methods:

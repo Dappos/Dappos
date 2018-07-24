@@ -25,6 +25,7 @@ export default {
       const precisionCorrection = 10 ** rootGetters['settings/currencyConfig'].precision
       // console.log('precisionCorrection → ', precisionCorrection)
       const oldVal = Math.floor(state.input * precisionCorrection)
+      if (oldVal.toString().length >= 9) return
       // console.log('oldVal → ', oldVal)
       const newVal = Number(oldVal.toString() + input.toString()) / precisionCorrection
       dispatch('set/input', newVal)
@@ -34,7 +35,9 @@ export default {
       dispatch('set/input', 0)
     },
     add ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      dispatch('cart/addItem', {price: state.input}, {root: true})
+      dispatch('cart/addItem', {
+        prices: {[this.get('settings/currency')]: state.input}
+      }, {root: true})
       dispatch('clear')
     },
   },

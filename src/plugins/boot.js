@@ -23,7 +23,10 @@ export default ({ app, router, Vue, store }) => {
       store.dispatch('history/openDBChannel')
         .catch(console.error)
       store.dispatch('settings/openDBChannel')
-        .then(_ => store.dispatch('wallet/getAddress'))
+        .then(_ => {
+          store.dispatch('wallet/getAddress')
+          store.dispatch('cart/initializeTotalAmountAnimation')
+        })
         .catch(console.error)
 
       router.replace({name: 'home'})

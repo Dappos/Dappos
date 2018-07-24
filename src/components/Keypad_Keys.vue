@@ -10,7 +10,7 @@
     <button @click="dispatch('keypad/tap', 7)">7</button>
     <button @click="dispatch('keypad/tap', 8)">8</button>
     <button @click="dispatch('keypad/tap', 9)">9</button>
-    <button @click="dispatch('keypad/clear')">C</button>
+    <button @click="dispatch('keypad/clear')" class="text-gray-medium">C</button>
     <button @click="dispatch('keypad/tap', 0)">0</button>
     <button @click="add()" class="_add">
       <q-icon name="ion-add" size="1.3em" color="primary" class="js-fly-keypad-add" />
@@ -21,6 +21,7 @@
 
 <script>
 import storeAccess from './mixins/storeAccess'
+import { fly, pop } from '@helpers/animejsWrapper'
 
 export default {
   components: {},
@@ -42,14 +43,16 @@ export default {
     flyToTotal () {
       const el = document.querySelector('.js-keypad-fly-target')
       const elCart = document.querySelector('.js-info-cart')
-      this.dispatch('animate/fly', {
+      fly({
         el: el,
         target: elCart,
         clone: true,
         hideAfter: true,
+        startOffsetY: -80,
+        startOffsetX: -30,
         innerHTML: '📦'
       }).then(_ => {
-        this.dispatch('animate/pop', {el: elCart})
+        pop({el: elCart})
       })
     },
   }
@@ -81,6 +84,7 @@ export default {
       border none
       outline none
       z-index 3
+      user-select none
       &:active
         box-shadow inset 2px 2px $bg-light
         padding-top 2px

@@ -9,7 +9,7 @@
           <q-list link>
             <q-item
               v-for="(curr, key) in get('settings/availableCurrencies')"
-              @click.native="set('settings', {currency: key})"
+              @click.native="set('settings/currency', key)"
               :key="`curr-dd-${key}`"
               v-close-overlay
             >
