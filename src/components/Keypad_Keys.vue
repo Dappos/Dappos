@@ -84,6 +84,7 @@ export default {
       border none
       outline none
       z-index 3
+      user-select none
       &:active
         box-shadow inset 2px 2px $bg-light
         padding-top 2px
