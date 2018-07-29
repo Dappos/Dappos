@@ -124,6 +124,7 @@ export default {
     },
     showPaymentModal () {
       this.dispatch('ethEvents/subscribeAccount')
+      this.dispatch('ethEvents/subscribeERC20')
       this.dispatch('cart/createPaymentRequest')
     },
     hidePaymentModal () {

@@ -3,6 +3,7 @@ import easyAccessConf from '@config/vuexEasyAccess'
 import { countConfirmations } from '@helpers/web3'
 import startConfetti from '@helpers/Confetti'
 import web3 from '@config/web3'
+import erc20Abi from '@helpers/erc20Abi'
 
 function initialState () {
   return {
@@ -93,6 +94,21 @@ export default {
         dispatch('modals/set/cart.payment.stage', 2, {root: true})
         dispatch('watchConfirmations', txn.hash)
       }
+    },
+    subscribeERC20 ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      const posAddress = rootState.settings.wallet.address
+      const erc20Address = '0xa8e9fa8f91e5ae138c74648c9c304f1c75003a8d' // Ropsten ZRX
+      const erc20Contract = new web3.eth.Contract(erc20Abi, erc20Address)
+      erc20Contract.events.Transfer({fromBlock: 'latest', filter: {_to: posAddress}})
+        .on('data', event => {
+          console.log('ERC20 token transfer', {
+            blockNumber: event.blockNumber,
+            transactionHash: event.transactionHash,
+            from: event.returnValues.from,
+            to: event.returnValues.to,
+            value: event.returnValues.value / Math.pow(10, 6),
+          })
+        })
     },
   },
   getters:
