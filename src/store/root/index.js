@@ -8,11 +8,11 @@ import mutations from './mutations'
 import actions from './actions'
 // modules
 import cart from '@modules/cart'
-import user from '@modules/user'
 import keypad from '@modules/keypad'
 import wallet from '@modules/wallet'
 import ethEvents from '@modules/ethEvents'
 import modals from '@modules/modals'
+import user from '@modules/user'
 // import _template from '@modules/_template'
 // easy firestore modules
 import menulist from '@modules/menulist'
@@ -28,8 +28,8 @@ export default function () {
     mutations,
     actions,
     modules: {
-      cart,
       user,
+      cart,
       keypad,
       wallet,
       ethEvents,

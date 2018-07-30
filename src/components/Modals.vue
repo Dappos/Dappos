@@ -101,11 +101,19 @@
     <no-address-found />
   </modal-minimised>
 
+  <!-- BETA ACTIVATION -->
+  <modal-minimised
+    :toggle="state.modals.betaBlock"
+    :noDismiss="true"
+  >
+    <beta-activation />
+  </modal-minimised>
+
 </div>
 </template>
 
 <script>
-import storeAccess from './mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 
 export default {
   components: {},
@@ -119,7 +127,7 @@ export default {
   methods:
   {
     deleteIf0 () {
-      const item = this.get('cart/editing.item')
+      const item = this.get('modals/cart.editing.item')
       if (!item.count) this.commit('cart/deleteItem', item)
     },
     showPaymentModal () {

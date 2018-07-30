@@ -13,6 +13,7 @@ import CartEditingItem from '@components/Modals/CartEditingItem'
 import Payment from '@components/Modals/Payment'
 import OverwriteAddress from '@components/Modals/OverwriteAddress'
 import NoAddressFound from '@components/Modals/NoAddressFound'
+import betaActivation from '@components/Modals/betaActivation'
 // other
 import AppMenu from '@components/AppMenu'
 import InfoCart from '@components/InfoCart'
@@ -40,6 +41,7 @@ export default ({ app, router, Vue }) => {
   Vue.component('payment', Payment)
   Vue.component('overwrite-address', OverwriteAddress)
   Vue.component('no-address-found', NoAddressFound)
+  Vue.component('beta-activation', betaActivation)
 
   Vue.component('app-menu', AppMenu)
   Vue.component('info-cart', InfoCart)

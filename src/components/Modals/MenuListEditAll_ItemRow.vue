@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import storeAccess from '../mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 
 export default {
   components: {},

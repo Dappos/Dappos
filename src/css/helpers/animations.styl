@@ -1,0 +1,37 @@
+
+.animation-flip-x
+  animation flip-x 3s linear infinite
+
+@keyframes flip-x {
+  0%, 49.999% { transform: scaleX(1) }
+  50%, 100% { transform: scaleX(-1) }
+}
+
+.animation-half-rotation
+  animation rotation 0.3s ease-out
+
+@keyframes rotation {
+  0% {
+    opacity 0
+    transform rotate(-180deg)
+  }
+  90% {
+    transform rotate(20deg)
+  }
+  100% {
+    opacity 1
+    transform rotate(0deg)
+  }
+}
+
+.animation-appear
+  animation appear 0.4s ease-out
+
+@keyframes appear {
+  0% {
+    opacity 0
+  }
+  100% {
+    opacity 1
+  }
+}

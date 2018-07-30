@@ -6,6 +6,7 @@ export default [
     children: [
       {
         path: '',
+        name: 'home',
         component: () => import('pages/index'),
         meta: { authRequired: true },
       },

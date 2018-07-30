@@ -9,6 +9,7 @@ const { offset, css } = dom
 
 function initialState () {
   return {
+    betaBlock: {opened: false},
     menu: {opened: false, animating: false},
     settings: {opened: false},
     wallet: {
