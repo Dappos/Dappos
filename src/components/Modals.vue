@@ -169,7 +169,6 @@ export default {
 
 .app-menu-modal.modal
   z-index 5800
-  max-width 464px
   transition all .3s ease-in-out, background .4s linear
 .app-menu-modal .modal-content
   transition all .3s ease-in-out
@@ -178,7 +177,14 @@ export default {
   height 750px !important
   width 464px !important
 
+// For layout app-size
+.modal.minimized .modal-content
+  max-width 80%
+  max-height 80%
 .fullscreen
   layout-app-size()
+  top 0 !important
+  left 0 !important
+  margin auto
 
 </style>
