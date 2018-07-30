@@ -178,4 +178,7 @@ export default {
   height 750px !important
   width 464px !important
 
+.fullscreen
+  layout-app-size()
+
 </style>

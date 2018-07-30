@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" :style="{'min-height': $store.state.windowSize.height + 'px'}">
     <router-view class="_app-wrapper" />
     <q-window-resize-observable @resize="onResize" />
     <modals />
@@ -23,7 +23,6 @@ export default {
 <style lang="stylus">
 
 #q-app
-  min-height 100vh
   display flex
   flex-direction column
   justify-content center
