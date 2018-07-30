@@ -102,7 +102,7 @@ export default {
     subscribeERC20 ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const posAddress = rootState.settings.wallet.address
       const erc20Address = '0xa8e9fa8f91e5ae138c74648c9c304f1c75003a8d' // Ropsten ZRX
-      const erc20Contract = web3.eth.Contract(erc20Abi, erc20Address)
+      const erc20Contract = new web3.eth.Contract(erc20Abi, erc20Address)
       erc20Contract.events.Transfer({fromBlock: 'latest', filter: {_to: posAddress}})
         .on('data', event => {
           console.log('ERC20 token transfer', {
