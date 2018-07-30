@@ -5,6 +5,8 @@
   class="modal-minimised"
   @hide="hideFunction"
   @show="showFunction"
+  :noEscDismiss="noDismiss"
+  :noBackdropDismiss="noDismiss"
 >
   <slot />
 </q-modal>
@@ -13,7 +15,7 @@
 <script>
 export default {
   components: {},
-  props: ['toggle', 'hideFunc', 'showFunc'],
+  props: ['toggle', 'hideFunc', 'showFunc', 'noDismiss'],
   data () { return {} },
   computed:
   {
@@ -38,7 +40,6 @@ export default {
 @import '~styl/variables'
 
 .modal-minimised .modal-content
-  border-radius $radius
-  font-size .9em
+  border-radius $radius-big
 
 </style>

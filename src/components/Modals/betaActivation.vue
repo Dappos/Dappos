@@ -1,20 +1,17 @@
 <template>
-<div class="history">
+<div class="component-name">
   <div class="_wrapper">
-    <history-receit-row
-      v-for="receit in Object.values(state.history.receits)"
-      :receit="receit"
-      :key="receit.id"
-    />
+    <div>Dappos is currently in private Beta.</div>
+    <div class="mt-lg">Please sign up at <a href="https://dappos.app">dappos.app</a> and wait for your invitation.</div>
   </div>
 </div>
 </template>
 
 <script>
 import storeAccess from '@mixins/storeAccess'
-import HistoryReceitRow from './HistoryReceitRow'
+
 export default {
-  components: { HistoryReceitRow },
+  components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
@@ -31,6 +28,9 @@ export default {
 <style lang="stylus" scoped>
 @import '~styl/variables'
 
-// .history
+// .component-name
+._wrapper
+  pa xl
+  font-size 1.3em
 
 </style>

@@ -88,7 +88,11 @@ export default {
       console.log('found TXN! → ', txn)
       dispatch('set/transactions.*', txn)
       const paymentRequest = rootState.cart.paymentRequest
-      if (txn.value >= paymentRequest.wei) {
+      console.log('Number(txn.value) → ', Number(txn.value))
+      console.log('Number(paymentRequest.wei) → ', Number(paymentRequest.wei))
+      const txnValueEnough = (Number(txn.value) >= Number(paymentRequest.wei))
+      console.log('txnValueEnough → ', txnValueEnough)
+      if (Number(txn.value) >= Number(paymentRequest.wei)) {
         dispatch('cart/set/foundTransactions.*', {[txn.hash]: new Date()}, {root: true})
         dispatch('history/insert', Object.assign(paymentRequest, {txn}), {root: true})
         dispatch('modals/set/cart.payment.stage', 2, {root: true})

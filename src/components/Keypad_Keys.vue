@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import storeAccess from './mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 import { fly, pop } from '@helpers/animejsWrapper'
 
 export default {

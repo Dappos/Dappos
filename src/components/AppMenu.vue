@@ -14,6 +14,12 @@
         >
           {{ row.name }}
         </router-link>
+        <a
+          v-if="row.href"
+          :href="row.href"
+        >
+          {{ row.name }}
+        </a>
         <button
           v-if="!row.url && row.func"
           @click="row.func()"
@@ -27,7 +33,7 @@
 </template>
 
 <script>
-import storeAccess from './mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 
 export default {
   components: {},
@@ -43,7 +49,7 @@ export default {
       const items = [
         {
           name: 'About Dappos',
-          url: '/about'
+          href: 'https://dappos.app'
         },
         {
           name: '',
@@ -57,6 +63,7 @@ export default {
         {
           name: 'History',
           func: _ => { return this.dispatch('modals/toggle', 'history') },
+          hide: this.get('user/isSignedOut')
         },
         {
           name: 'Edit items',
@@ -66,6 +73,7 @@ export default {
         {
           name: this.get('user/isSignedIn') ? 'Account settings' : 'Currency',
           func: _ => { return this.dispatch('modals/toggle', 'settings') },
+          hide: this.get('user/isSignedOut')
         },
         {
           name: 'Signout',
@@ -89,7 +97,7 @@ export default {
         },
         {
           name: 'Feedback',
-          url: '/feedback'
+          href: 'mailto:hello@dappos.app'
         },
       ]
       return items.filter(i => !i.hide)

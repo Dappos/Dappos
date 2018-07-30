@@ -26,6 +26,8 @@ export default {
 @import '~styl/variables'
 
 .page-signin
-  pt 8rem
+  display flex
+  align-items center
+  justify-content center
 
 </style>
