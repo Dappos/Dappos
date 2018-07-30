@@ -177,8 +177,14 @@ export default {
 .app-minimised
   height 750px !important
   width 464px !important
-
+// For layout app-size
+.modal.minimized .modal-content
+  max-width 80%
+  max-height 80%
 .fullscreen
   layout-app-size()
+  top 0 !important
+  left 0 !important
+  margin auto
 
 </style>
