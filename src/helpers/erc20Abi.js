@@ -1,4 +1,4 @@
-export const erc20Abi = [
+const erc20Abi = [
   {
     'constant': true,
     'inputs': [],
@@ -220,3 +220,5 @@ export const erc20Abi = [
     'type': 'event'
   }
 ]
+
+export default erc20Abi
