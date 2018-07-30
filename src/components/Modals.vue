@@ -176,10 +176,7 @@ export default {
 .app-minimised
   height 750px !important
   width 464px !important
-<<<<<<< HEAD
 
-=======
->>>>>>> 496d132425ef8fd401bac69e8bfb6037dc7c6d39
 // For layout app-size
 .modal.minimized .modal-content
   max-width 80%
