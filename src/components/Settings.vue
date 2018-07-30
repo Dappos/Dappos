@@ -46,6 +46,45 @@
         />
       </div>
     </div>
+    <div class="_row">
+      <div class="_title full-width">Network provider</div>
+      <div class="_content _provider">
+        <div class="_info">
+          Select a network provider.
+        </div>
+        <q-btn-dropdown :label="get('settings/selectedNetworkLabel')" outline no-wrap>
+          <!-- dropdown content -->
+          <q-list link>
+            <q-item
+              v-for="(curr, key) in get('settings/availableNetworks')"
+              @click.native="selectNetwork(key)"
+              :key="`netw-sel-${key}`"
+              v-close-overlay
+            >
+              <q-item-main>
+                <q-item-tile label>{{ curr.label }}</q-item-tile>
+              </q-item-main>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+        <div v-if="addingCustomRPC" class="_adding-custom-rpc">
+          <q-field
+            label="URL"
+            :label-width="2"
+            helper="We currently only support Web Socket URLs."
+          >
+            <q-input v-model="customRPC.url" />
+          </q-field>
+          <q-field
+            label="Name"
+            :label-width="2"
+          >
+            <q-input v-model="customRPC.name" />
+          </q-field>
+          <button @click="addCustomRPC" class="o-btn">Add</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </template>
@@ -58,12 +97,34 @@ export default {
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () {
+    return {
+      addingCustomRPC: false,
+      customRPC: {name: '', url: ''}
+    }
+  },
   computed:
   {
   },
   methods:
   {
+    selectNetwork (net) {
+      if (net === 'add') {
+        this.addingCustomRPC = true
+        return
+      }
+      this.set('settings/networkProvider.selected', net)
+    },
+    addCustomRPC () {
+      this.set(
+        'settings/networkProvider.customRPCs.*',
+        {[this.customRPC.name]: this.customRPC.url}
+      )
+      this.set('settings/networkProvider.selected', this.customRPC.name)
+      this.addingCustomRPC = false
+      this.customRPC.name = ''
+      this.customRPC.url = ''
+    }
   }
 }
 </script>
@@ -79,12 +140,18 @@ export default {
   flex-wrap wrap
   align-items baseline
 ._title
+  mt lg
   mr lg
+  font-weight 500
 ._content
   flex 1
 ._wallet
   width 100%
   flex auto
   mt md
+._adding-custom-rpc
+  mt md
+  >*
+    mb sm
 
 </style>

@@ -78,6 +78,7 @@ module.exports = function (ctx) {
         'QItemTile',
         'QItemSide',
         'QInput',
+        'QField',
         'QTabs',
         'QTab',
         'QTabPane',
