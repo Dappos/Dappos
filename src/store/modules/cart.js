@@ -138,6 +138,7 @@ export default {
     },
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const qr = new EthereumQRPlugin()
+      // const valueEth = convert(state.valueWei, 'wei', 'eth')
       const sendDetails = {
         amount: state.valueWei,
         to: rootState.settings.wallet.address,
