@@ -1,5 +1,5 @@
 <template>
-<q-page class="page-signin">
+<q-page class="page-signin" :style-fn="fixLayoutCSS">
   <firebase-ui />
 </q-page>
 </template>
@@ -18,6 +18,9 @@ export default {
   },
   methods:
   {
+    fixLayoutCSS (offset) {
+      return ``
+    },
   }
 }
 </script>
