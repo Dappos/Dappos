@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import storeAccess from '../mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 import { Picker } from 'emoji-mart-vue'
 import { findEmoji, indexOfEmoji } from '@helpers/emojiUtils'
 

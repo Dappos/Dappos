@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import storeAccess from './mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 import ItemRow from './Cart_ItemRow'
 
 export default {

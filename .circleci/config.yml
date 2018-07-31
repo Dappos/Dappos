@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    branches:
+      only:
+        - master
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.9.4
@@ -18,10 +21,10 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: npm install
-      - run:
-          name: Cloud Functions npm install
-          command: npm install
-          working_directory: functions
+    #   - run:
+    #       name: Cloud Functions npm install
+    #       command: npm install
+    #       working_directory: functions
       - save_cache:
           paths:
             - node_modules
@@ -31,4 +34,4 @@ jobs:
           command: npm run build
       - run:
           name: Deploy
-          command: ~/.local/bin/firebase deploy --token $FIREBASE_TOKEN --project dappos-web
+          command: firebase deploy --token $FIREBASE_TOKEN --project dappos-web

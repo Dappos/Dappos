@@ -2,6 +2,7 @@
   <q-layout
     view="lhh Lpr lff"
     :class="`_layout js-page-offset page--${state.route.name}`"
+    :style="{height: state.windowSize.height + 'px'}"
   >
     <q-layout-header :class="['_header', {'_elevate': elevateHeader}]">
       <q-toolbar
@@ -28,7 +29,7 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-page-container>
+    <q-page-container class="_page-wrapper">
       <router-view class="_page-wrapper" />
     </q-page-container>
   </q-layout>
@@ -36,25 +37,11 @@
 
 <script>
 import storeAccess from '@components/mixins/storeAccess'
-import { dom } from 'quasar'
-const { css } = dom
 
 export default {
   name: 'LayoutDefault',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  mounted () {
-    const h = window.innerHeight
-    const els = [
-      document.querySelector('body'),
-      document.getElementById('q-app'),
-    ]
-    els.forEach(el => {
-      css(el, {
-        'min-height': h + 'px'
-      })
-    })
-  },
   data () {
     return {}
   },
@@ -77,13 +64,9 @@ export default {
 ._layout
   background-color $bg-light
   margin 0 auto
-  max-width 600px
-  media-sm max-width 464px
-  min-height auto !important
+  layout-app-size()
 ._page-wrapper
-  @media screen and (min-height: 750px)
-    media-sm min-height auto !important
-    media-sm height 700px !important
+  height 100%
 ._header
   border none
 ._toolbar

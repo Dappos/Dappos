@@ -4,7 +4,7 @@ import { uid } from 'quasar'
 import copyObj from '@helpers/copyObj'
 import EthereumQRPlugin from '@dri/ethereum-qr-code'
 import CountUp from 'countup.js'
-import roundNumberDown from '@helpers/roundNumberDown'
+import { roundNumberDown } from '@helpers/roundNumberDown'
 import convert from '@helpers/conversion'
 import { defaultReceit } from '@modules/history'
 
@@ -122,7 +122,7 @@ export default {
       const currency = rootState.settings.currency
       const amount = getters.value
       let wei = await convert(amount, currency, 'wei')
-      wei = roundNumberDown(wei, 15)
+      wei = roundNumberDown(wei, 5)
       dispatch('set/valueWei', wei)
       dispatch('set/paymentRequest', {
         fiat: amount,

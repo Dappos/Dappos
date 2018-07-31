@@ -6,7 +6,7 @@
  * @param {number} maxLength of the nr to round down eg. 3 to round down everything above 1000
  * @returns {number} roundedDown nr
  */
-function roundNumberDown (nr, maxLength) {
+export function roundNumberDown (nr, maxLength) {
   const len = nr.toString().length
   if (len <= maxLength) return nr
   const excessLen = len - maxLength
@@ -24,5 +24,3 @@ export function floorDecimals (nr, maxDecimalCount) {
   const decimals = Number('1e' + maxDecimalCount)
   return Math.round(nr * decimals) / decimals
 }
-
-export default roundNumberDown

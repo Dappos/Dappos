@@ -12,7 +12,7 @@
 <script>
 import convert from '@helpers/conversion'
 import { floorDecimals } from '@helpers/roundNumberDown'
-import storeAccess from './mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 
 export default {
   components: {},

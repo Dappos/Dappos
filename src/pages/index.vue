@@ -1,5 +1,5 @@
 <template>
-<q-page class="page-index">
+<q-page class="page-index" :style-fn="fixLayoutCSS">
   <div class="_info-total-wrapper"><info-total /></div>
   <div class="_navigation-tabs-wrapper"><navigation-tabs /></div>
   <div class="_bottom-part-wrapper">
@@ -9,33 +9,21 @@
 </q-page>
 </template>
 
-<style>
-</style>
-
 <script>
 import storeAccess from '@components/mixins/storeAccess'
-import { dom } from 'quasar'
-const { css } = dom
 
 export default {
   name: 'index',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  mounted () {
-    const h = window.innerHeight
-    css(
-      document.querySelector('main'),
-      {
-        'min-height': h - 74 + 'px',
-        'max-height': h - 74 + 'px'
-      }
-    )
-  },
   computed:
   {
   },
   methods:
   {
+    fixLayoutCSS (offset) {
+      return ``
+    },
   }
 }
 </script>

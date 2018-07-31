@@ -2,7 +2,7 @@ import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import { countConfirmations } from '@helpers/web3'
 import startConfetti from '@helpers/Confetti'
-import web3 from '@config/web3'
+import getWeb3 from '@config/web3'
 
 function initialState () {
   return {
@@ -37,6 +37,7 @@ export default {
   actions:
   {
     subscribeAccount ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      const web3 = getters.web3
       const posAddress = rootState.settings.wallet.address
       const subscription = web3.eth.subscribe('pendingTransactions', (error, result) => {
         if (error) {
@@ -69,7 +70,7 @@ export default {
       const receits = rootGetters['history/receitByTxnHash']
       const confirmationWatcher = setInterval(_ => {
         const txnRef = receits[txnHash]
-        countConfirmations(txnHash).then(count => {
+        countConfirmations(getters.web3, txnHash).then(count => {
           if (count && count > txnRef.confirmations) {
             dispatch('history/patch', {id: receits[txnHash].id, confirmations: count}, {root: true})
             if (count >= rootState.settings.requiredConfirmationCount) {
@@ -87,7 +88,11 @@ export default {
       console.log('found TXN! → ', txn)
       dispatch('set/transactions.*', txn)
       const paymentRequest = rootState.cart.paymentRequest
-      if (txn.value >= paymentRequest.wei) {
+      console.log('Number(txn.value) → ', Number(txn.value))
+      console.log('Number(paymentRequest.wei) → ', Number(paymentRequest.wei))
+      const txnValueEnough = (Number(txn.value) >= Number(paymentRequest.wei))
+      console.log('txnValueEnough → ', txnValueEnough)
+      if (Number(txn.value) >= Number(paymentRequest.wei)) {
         dispatch('cart/set/foundTransactions.*', {[txn.hash]: new Date()}, {root: true})
         dispatch('history/insert', Object.assign(paymentRequest, {txn}), {root: true})
         dispatch('modals/set/cart.payment.stage', 2, {root: true})
@@ -97,5 +102,9 @@ export default {
   },
   getters:
   {
+    web3: (state, getters, rootState, rootGetters) => {
+      const networkProvider = rootGetters['settings/selectedNetworkURL']
+      return getWeb3(networkProvider)
+    },
   }
 }

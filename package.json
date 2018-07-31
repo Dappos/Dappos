@@ -4,7 +4,7 @@
   "description": "A dApp POS register for Ethereum",
   "productName": "Dappos",
   "cordovaId": "org.cordova.quasar.app",
-  "author": "Dappos Inc.",
+  "author": "Dappos",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
@@ -26,13 +26,11 @@
     "firebase": "^5.0.4",
     "firebaseui": "^3.1.1",
     "is-what": "^1.0.4",
-    "nanoclone": "^0.2.1",
-    "nanomerge": "^0.1.2",
     "v-money-plus": "^0.1.0",
     "vue-countup-v2": "^1.0.3",
     "vue-i18n": "^7.3.3",
-    "vuex-easy-access": "^2.4.5",
-    "vuex-easy-firestore": "^1.3.1",
+    "vuex-easy-access": "^2.4.7",
+    "vuex-easy-firestore": "^1.3.3",
     "vuex-router-sync": "^5.0.0",
     "web3": "^1.0.0-beta.34"
   },
@@ -53,12 +51,13 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.3.0",
-    "quasar-cli": "^0.16.0",
+    "quasar-cli": "^0.17.5",
     "rollup": "^0.62.0",
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-terser": "^1.0.1"
+    "rollup-plugin-terser": "^1.0.1",
+    "strip-ansi": "^3.0.1"
   },
   "engines": {
     "node": ">= 8.9.0",

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import storeAccess from './mixins/storeAccess'
+import storeAccess from '@mixins/storeAccess'
 import KeypadKeys from './Keypad_Keys'
 import KeypadInput from './Keypad_Input'
 
