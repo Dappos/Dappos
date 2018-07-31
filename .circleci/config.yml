@@ -34,4 +34,4 @@ jobs:
           command: npm run build
       - run:
           name: Deploy
-          command: ~/.local/bin/firebase deploy --token $FIREBASE_TOKEN --project dappos-web          command: firebase deploy --token $FIREBASE_TOKEN --project dappos-web
+          command: ~/.local/bin/firebase deploy --token $FIREBASE_TOKEN --project dappos-web
