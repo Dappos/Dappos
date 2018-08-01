@@ -7,6 +7,7 @@ import getWeb3 from '@config/web3'
 function initialState () {
   return {
     subscription: null,
+    firstConfetti: false,
     transactions: {
       '*': {
         from: null,
@@ -29,14 +30,20 @@ export default {
       const newState = initialState()
       Object.assign(state, newState)
     },
-    '-confirmationWatchers.*': (state) => {
-      console.log('pzz → ')
+    startConfetti (state) {
+      if (!state.firstConfetti) {
+        startConfetti(1250)
+        state.firstConfetti = true
+      }
     },
+    // '-confirmationWatchers.*': (state) => {
+    //   console.log('pzz → ')
+    // },
     ...defaultMutations(initialState(), easyAccessConf)
   },
   actions:
   {
-    subscribeAccount ({state, getters, rootState, rootGetters, commit, dispatch}) {
+    watchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const web3 = getters.web3
       const posAddress = rootState.settings.wallet.address
       const subscription = web3.eth.subscribe('pendingTransactions', (error, result) => {
@@ -57,7 +64,7 @@ export default {
       })
       dispatch('set/subscription', subscription)
     },
-    unsubscribeAccount ({state, getters, rootState, rootGetters, commit, dispatch}) {
+    unwatchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
       state.subscription.unsubscribe((error, success) => {
         if (success) {
           console.log('Successfully unsubscribed!')
@@ -75,28 +82,30 @@ export default {
             dispatch('history/patch', {id: receits[txnHash].id, confirmations: count}, {root: true})
             if (count >= rootState.settings.requiredConfirmationCount) {
               dispatch('modals/set/cart.payment.stage', 3, {root: true})
-              clearInterval(state.confirmationWatchers[txnHash])
-              dispatch('delete/confirmationWatchers.*', txnHash)
-              startConfetti(1250)
+              commit('startConfetti')
             }
           }
         })
       }, 1500)
       dispatch('set/confirmationWatchers.*', {[txnHash]: confirmationWatcher})
     },
+    unwatchConfirmations ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      dispatch('set/firstConfetti', false)
+      Object.keys(state.confirmationWatchers)
+        .forEach(w => {
+          clearInterval(state.confirmationWatchers[w])
+          dispatch('delete/confirmationWatchers.*', w)
+        })
+    },
     foundTxn ({state, getters, rootState, rootGetters, commit, dispatch}, txn) {
       console.log('found TXN! → ', txn)
       dispatch('set/transactions.*', txn)
       const paymentRequest = rootState.cart.paymentRequest
-      console.log('Number(txn.value) → ', Number(txn.value))
-      console.log('Number(paymentRequest.wei) → ', Number(paymentRequest.wei))
       const txnValueEnough = (Number(txn.value) >= Number(paymentRequest.wei))
-      console.log('txnValueEnough → ', txnValueEnough)
-      if (Number(txn.value) >= Number(paymentRequest.wei)) {
-        dispatch('cart/set/foundTransactions.*', {[txn.hash]: new Date()}, {root: true})
+      if (txnValueEnough) {
         dispatch('history/insert', Object.assign(paymentRequest, {txn}), {root: true})
-        dispatch('modals/set/cart.payment.stage', 2, {root: true})
         dispatch('watchConfirmations', txn.hash)
+        dispatch('modals/set/cart.payment.stage', 2, {root: true})
       }
     },
   },
@@ -106,5 +115,12 @@ export default {
       const networkProvider = rootGetters['settings/selectedNetworkURL']
       return getWeb3(networkProvider)
     },
+    watcherConfirmationCount (state, getters, rootState, rootGetters) {
+      const txnHash = Object.keys(state.confirmationWatchers).filter(k => k !== '*')[0]
+      const receits = rootGetters['history/receitByTxnHash']
+      const txnRef = receits[txnHash]
+      if (!txnRef) return 0
+      return txnRef.confirmations
+    }
   }
 }

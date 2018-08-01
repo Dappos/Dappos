@@ -71,9 +71,7 @@ export default {
       return floorDecimals(eth, 5)
     },
     confirmationCount () {
-      const transacions = Object.values(this.get('cart/confirmedTransactions'))
-      if (!transacions.length) return 0
-      return Object.values(this.get('cart/confirmedTransactions'))[0]
+      return this.get('ethEvents/watcherConfirmationCount')
     },
   },
   methods:

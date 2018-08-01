@@ -131,12 +131,10 @@ export default {
       if (!item.count) this.commit('cart/deleteItem', item)
     },
     showPaymentModal () {
-      this.dispatch('ethEvents/subscribeAccount')
+      this.dispatch('ethEvents/watchTransactions')
       this.dispatch('cart/createPaymentRequest')
     },
     hidePaymentModal () {
-      this.dispatch('ethEvents/unsubscribeAccount')
-      this.commit('cart/resetQR')
       this.dispatch('modals/resetPaymentRequest')
     }
   }

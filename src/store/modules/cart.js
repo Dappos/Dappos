@@ -14,9 +14,6 @@ function initialState () {
     valueWei: 0,
     items: {},
     paymentRequest: defaultReceit(),
-    foundTransactions: {
-      '*': null // txnHash: new Date()
-    }
   }
 }
 
@@ -159,14 +156,5 @@ export default {
     valueEth: (state, getters, rootState, rootGetters) => {
       return convert(state.valueWei, 'wei', 'eth')
     },
-    confirmedTransactions: (state, getters, rootState, rootGetters) => {
-      const receits = rootGetters['history/receitByTxnHash']
-      return Object.keys(state.foundTransactions)
-        .reduce((carry, txnHash) => {
-          if (!receits[txnHash]) return carry
-          carry[txnHash] = receits[txnHash].confirmations
-          return carry
-        }, {})
-    }
   }
 }
