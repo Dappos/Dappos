@@ -55,9 +55,9 @@ export default {
 ._row
   px sm
   display grid
-  grid-template-areas "overview fiat" \
-                      "date eth"
-  grid-template-columns auto auto
+  grid-template-areas "date overview fiat" \
+                      "null overview eth"
+  grid-template-columns 15% 1fr 20%
   grid-gap .2em 1em
   align-items top
   font-size .875em
@@ -66,7 +66,7 @@ export default {
 ._date
   grid-area date
   font-size .9em
-  color $gray-light
+  color $gray-dark
 ._fiat
   grid-area fiat
   text-align right

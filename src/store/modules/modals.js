@@ -69,8 +69,11 @@ export default {
       state.menulist.adding.item = defaultItem()
     },
     resetPaymentRequest: ({state, dispatch, commit}) => {
-      commit('cart/resetPaymentRequest', null, {root: true})
       dispatch('set/cart.payment.stage', 1)
+      commit('cart/resetPaymentRequest', null, {root: true})
+      commit('cart/resetQR', null, {root: true})
+      dispatch('ethEvents/unwatchConfirmations', null, {root: true})
+      dispatch('ethEvents/unwatchTransactions', null, {root: true})
     },
     toggleMenu ({state, dispatch, rootGetters}, toggleState) {
       let top = 0

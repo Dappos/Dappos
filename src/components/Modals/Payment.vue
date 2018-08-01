@@ -17,7 +17,7 @@
   <div class="_wrapper-middle">
     <!-- Stage 1: Payment request (with QR) -->
     <div v-if="state.modals.cart.payment.stage === 1" class="_middle-inner">
-      <div class="_qr qr-code" id="js-qr"></div>
+      <canvas class="_qr" id="js-qr"></canvas>
     </div>
     <!-- Stage 2: Counting txn confirmations -->
     <div v-if="state.modals.cart.payment.stage === 2" class="_middle-inner">
@@ -71,9 +71,7 @@ export default {
       return floorDecimals(eth, 5)
     },
     confirmationCount () {
-      const transacions = Object.values(this.get('cart/confirmedTransactions'))
-      if (!transacions.length) return 0
-      return Object.values(this.get('cart/confirmedTransactions'))[0]
+      return this.get('ethEvents/watcherConfirmationCount')
     },
   },
   methods:
@@ -143,8 +141,10 @@ export default {
   flex-direction column
   justify-content space-between
 ._qr
-  height 100%
-  width 100%
+  width 100% !important
+  height auto !important
+  opacity .7
+
 ._confirmations
   font-size .75em
 ._emoji

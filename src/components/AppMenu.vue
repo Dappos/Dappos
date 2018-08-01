@@ -56,10 +56,10 @@ export default {
           url: '',
           line: true
         },
-        {
-          name: 'Dappos Home',
-          url: '/'
-        },
+        // {
+        //   name: 'Dappos Home',
+        //   url: '/'
+        // },
         {
           name: 'History',
           func: _ => { return this.dispatch('modals/toggle', 'history') },

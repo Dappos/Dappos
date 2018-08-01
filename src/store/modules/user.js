@@ -56,7 +56,6 @@ export default {
       const doc = this.$db.doc(path)
       return new Promise((resolve, reject) => {
         doc.get().then(querySnapshot => {
-          console.log('uu ')
           const data = querySnapshot.data()
           if (querySnapshot.exists && data.activated === true) {
             dispatch('modals/toggle', ['betaBlock', false], {root: true})

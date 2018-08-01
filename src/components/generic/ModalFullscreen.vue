@@ -12,12 +12,14 @@
     <div class="_top">
       <div class="_nav">
         <button @click="toggle.opened = !toggle.opened" class="_close reset-button">
-          <q-icon name="ion-close" size="2em" />
+          <q-icon name="ion-arrow-back" size="1.3em" />
         </button>
       </div>
       <h2 class="_title">{{ title }}</h2>
     </div>
-    <slot />
+    <div class="_content">
+      <slot />
+    </div>
   </div>
 </q-modal>
 </template>
@@ -50,17 +52,24 @@ export default {
   background-color white
 ._wrapper
   pb xxl
+  position relative
 ._top
   border-bottom 1px solid $bg-light
+  // position absolute
+  // width 100%
   pa lg
   pb sm
 ._nav
   display flex
-  justify-content flex-end
+  justify-content flex-start
 ._title
   font-size 1.625em
   font-weight 500
 ._close
-  color $gray-dark
+  mt -.8em
+  mb sm
+  pa sm
+// ._content
+//   pt 6.4rem
 
 </style>
