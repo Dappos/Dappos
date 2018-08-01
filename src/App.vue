@@ -16,13 +16,12 @@ export default {
       preset: 'toast',
       textColor: 'white',
       color: 'blue',
-      timeout: 80000,
-      message: `💬 Dear beta testers,
+      timeout: 60000,
+      message: `💬 BETA Update!
 
-・ETH transfer is recommended for Trust wallet
-・You can also choose Ropsten from the settings. It is recommended for testing.
+・The QR code now works with most wallets. Please let us know if you find a wallet where the amount is not filled in automatically.
 
-Over the next couple of days we're going to make sure it's compatible with other wallets like BRD wallet, cipher etc!!👨🏻‍💻`})
+👨🏻‍💻`})
   },
   methods:
   {

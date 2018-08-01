@@ -2,10 +2,10 @@ import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import { uid } from 'quasar'
 import copyObj from '@helpers/copyObj'
-import EthereumQRPlugin from '@dri/ethereum-qr-code'
 import CountUp from 'countup.js'
 import { roundNumberDown } from '@helpers/roundNumberDown'
 import convert from '@helpers/conversion'
+import { getQrDataEthPayment, generateQr } from '@helpers/QRcode'
 import { defaultReceit } from '@modules/history'
 
 function initialState () {
@@ -120,12 +120,12 @@ export default {
     },
     async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
-      const amount = getters.value
-      let wei = await convert(amount, currency, 'wei')
+      const cartValue = getters.value
+      let wei = await convert(cartValue, currency, 'wei')
       wei = roundNumberDown(wei, 5)
       dispatch('set/valueWei', wei)
       dispatch('set/paymentRequest', {
-        fiat: amount,
+        fiat: cartValue,
         fiatCurrency: currency,
         wei,
         symbol: 'ETH',
@@ -137,23 +137,10 @@ export default {
       dispatch('generateQr')
     },
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      const qr = new EthereumQRPlugin()
-      // const valueEth = convert(state.valueWei, 'wei', 'eth')
-      const sendDetails = {
-        amount: state.valueWei,
-        to: rootState.settings.wallet.address,
-        gas: rootState.settings.gas,
-      }
-      const domConfig = {
-        // size: '100%',
-        selector: '#js-qr',
-        options: {
-          margin: 0,
-          padding: 0,
-        }
-      }
-      // eslint-disable-next-line
-      const qrCode = qr.toCanvas(sendDetails, domConfig)
+      const valueEth = getters.valueEth
+      const to = rootState.settings.wallet.address
+      const data = getQrDataEthPayment(to, valueEth)
+      generateQr(data, '#js-qr')
     },
   },
   getters:

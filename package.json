@@ -16,7 +16,6 @@
     "test-B": "npm run test--build"
   },
   "dependencies": {
-    "@dri/ethereum-qr-code": "^0.3.0",
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "chance": "^1.0.16",
@@ -26,6 +25,7 @@
     "firebase": "^5.0.4",
     "firebaseui": "^3.1.1",
     "is-what": "^1.0.4",
+    "qrcode": "^1.2.2",
     "v-money-plus": "^0.1.0",
     "vue-countup-v2": "^1.0.3",
     "vue-i18n": "^7.3.3",
