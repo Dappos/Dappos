@@ -3,7 +3,7 @@
   <div class="_text">Charge</div>
   <div class="_price">
     <span>
-      {{ get('cart/valueAnimation.frameVal') | money(get('settings/currencyConfig')) }}
+      {{ get('cart/valueFiatAnimation.frameVal') | money(get('settings/currencyConfig')) }}
     </span>
   </div>
 </button>
@@ -23,9 +23,9 @@ export default {
   {
     watchCountup: {
       get () {
-        return (!this.get('cart/valueAnimation'))
+        return (!this.get('cart/valueFiatAnimation'))
           ? 0
-          : this.get('cart/valueAnimation.frameVal')
+          : this.get('cart/valueFiatAnimation.frameVal')
       },
       set () {}
     },
@@ -33,7 +33,7 @@ export default {
   methods:
   {
     pay () {
-      if (!this.get('cart/value')) return
+      if (!this.get('cart/valueFiat')) return
       if (!this.state.wallet.address) return this.dispatch('modals/toggle', 'wallet.noAddressFound')
       this.dispatch('modals/toggle', 'cart.payment')
     },
