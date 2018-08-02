@@ -3,8 +3,8 @@
   <!-- TOP -->
   <div class="_wrapper-top">
     <div class="_title">Awaiting payment</div>
-    <div class="_price">{{ get('cart/value') | money(get('settings/currencyConfig')) }}</div>
-    <div class="_eth"><q-icon name="fab fa-ethereum" class="mr-sm" />{{ valueEth }} ETH</div>
+    <div class="_price">{{ get('cart/valueFiat') | money(get('settings/currencyConfig')) }}</div>
+    <div class="_eth"><q-icon name="fab fa-ethereum" class="mr-sm" />{{ get('cart/valueEth') }} ETH</div>
     <div class="_cart-btn-wrapper">
       <button
         @click="dispatch('modals/toggle', 'cart.cart')"
@@ -56,7 +56,6 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
-import { floorDecimals } from '@helpers/roundNumberDown'
 
 export default {
   components: {},
@@ -66,10 +65,6 @@ export default {
   data () { return {} },
   computed:
   {
-    valueEth () {
-      const eth = this.get('cart/valueEth')
-      return floorDecimals(eth, 5)
-    },
     confirmationCount () {
       return this.get('ethEvents/watcherConfirmationCount')
     },

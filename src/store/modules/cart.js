@@ -3,15 +3,15 @@ import easyAccessConf from '@config/vuexEasyAccess'
 import { uid } from 'quasar'
 import copyObj from '@helpers/copyObj'
 import CountUp from 'countup.js'
-import { roundNumberDown } from '@helpers/roundNumberDown'
+import { floorDecimals } from '@helpers/roundNumberDown'
 import convert from '@helpers/conversion'
 import { getQrDataEthPayment, generateQr } from '@helpers/QRcode'
 import { defaultReceit } from '@modules/history'
 
 function initialState () {
   return {
-    valueAnimation: {frameVal: 0},
-    valueWei: 0,
+    valueFiatAnimation: {frameVal: 0},
+    valueEth: 0,
     items: {},
     paymentRequest: defaultReceit(),
   }
@@ -64,7 +64,7 @@ export default {
       })
     },
     resetQR (state) {
-      state.valueWei = 0
+      state.valueEth = 0
       if (!document.getElementById('js-qr')) return
       document.getElementById('js-qr').innerHTML = ''
     },
@@ -83,11 +83,11 @@ export default {
         rootGetters['settings/currencyConfig'].precision, // decimal amount
         0.4 // duration
       ]
-      state.valueAnimation = new CountUp(...config)
-      if (!state.valueAnimation.error) {
-        state.valueAnimation.start()
+      state.valueFiatAnimation = new CountUp(...config)
+      if (!state.valueFiatAnimation.error) {
+        state.valueFiatAnimation.start()
       } else {
-        console.error(state.valueAnimation.error)
+        console.error(state.valueFiatAnimation.error)
       }
     },
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
@@ -101,30 +101,30 @@ export default {
         item.nonListed = true
       }
       commit('addItem', item)
-      state.valueAnimation.update(getters.value)
+      state.valueFiatAnimation.update(getters.valueFiat)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       dispatch('addItem', item)
-      state.valueAnimation.update(getters.value)
+      state.valueFiatAnimation.update(getters.valueFiat)
     },
     decrement ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
       commit('decrementItem', item)
-      state.valueAnimation.update(getters.value)
+      state.valueFiatAnimation.update(getters.valueFiat)
     },
     clearAll ({state, getters, rootState, rootGetters, commit, dispatch}) {
       commit('clearAll')
-      state.valueAnimation.update(getters.value)
+      state.valueFiatAnimation.update(getters.valueFiat)
     },
     async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
-      const cartValue = getters.value
-      let wei = await convert(cartValue, currency, 'wei')
-      wei = roundNumberDown(wei, 5)
-      dispatch('set/valueWei', wei)
+      const valueFiat = getters.valueFiat
+      let valueEth = await convert(valueFiat, currency, 'eth')
+      valueEth = floorDecimals(valueEth, 5)
+      dispatch('set/valueEth', valueEth)
       dispatch('set/paymentRequest', {
-        fiat: cartValue,
+        fiat: valueFiat,
         fiatCurrency: currency,
-        wei,
+        value: valueEth,
         symbol: 'ETH',
         items: state.items,
         wallet: rootState.settings.wallet.address,
@@ -134,7 +134,7 @@ export default {
       dispatch('generateQr')
     },
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      const valueEth = getters.valueEth
+      const valueEth = state.valueEth
       const to = rootState.settings.wallet.address
       const data = getQrDataEthPayment(to, valueEth)
       generateQr(data, '#js-qr')
@@ -142,7 +142,7 @@ export default {
   },
   getters:
   {
-    value: (state, getters, rootState, rootGetters) => {
+    valueFiat: (state, getters, rootState, rootGetters) => {
       return Object.values(state.items).reduce((carry, item) => {
         const price = (item.price) ? item.price : 0
         return carry + (item.count * price)
@@ -152,9 +152,6 @@ export default {
       return Object.values(state.items).reduce((carry, item) => {
         return carry + item.count
       }, 0)
-    },
-    valueEth: (state, getters, rootState, rootGetters) => {
-      return convert(state.valueWei, 'wei', 'eth')
     },
   }
 }

@@ -1,6 +1,7 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import { countConfirmations } from '@helpers/web3'
+import convert from '@helpers/conversion'
 import startConfetti from '@helpers/Confetti'
 import getWeb3 from '@config/web3'
 
@@ -101,7 +102,8 @@ export default {
       console.log('found TXN! → ', txn)
       dispatch('set/transactions.*', txn)
       const paymentRequest = rootState.cart.paymentRequest
-      const txnValueEnough = (Number(txn.value) >= Number(paymentRequest.wei))
+      const txnValueEth = convert(txn.value, 'wei', 'eth')
+      const txnValueEnough = (Number(txnValueEth) >= Number(paymentRequest.value))
       if (txnValueEnough) {
         dispatch('history/insert', Object.assign(paymentRequest, {txn}), {root: true})
         dispatch('watchConfirmations', txn.hash)

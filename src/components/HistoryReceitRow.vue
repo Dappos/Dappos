@@ -4,14 +4,12 @@
       <div class="_overview">{{ overview }}</div>
       <div class="_date">{{ date }}</div>
       <div class="_fiat">{{ receit.fiat | money(get('settings/currencyConfig')) }}</div>
-      <div class="_eth">{{ eth }} {{ receit.symbol }}</div>
+      <div class="_eth">{{ receit.value }} {{ receit.symbol }}</div>
     </div>
   </row-wrapper>
 </template>
 
 <script>
-import convert from '@helpers/conversion'
-import { floorDecimals } from '@helpers/roundNumberDown'
 import storeAccess from '@mixins/storeAccess'
 
 export default {
@@ -37,10 +35,6 @@ export default {
       if (!this.receit.created_at || !this.receit.created_at.toDate) return '--'
       return new Date(this.receit.created_at.toDate()).toLocaleDateString()
     },
-    eth () {
-      const eth = convert(this.receit.wei, 'wei', 'eth')
-      return floorDecimals(eth, 6)
-    }
   },
   methods:
   {

@@ -4,7 +4,7 @@ import easyAccessConf from '@config/vuexEasyAccess'
 export function defaultReceit () {
   return {
     symbol: 'ETH',
-    wei: 0, // 123123123123123
+    value: 0, // 0.012
     token: 0,
     fiat: 0, // 123123
     fiatCurrency: null, // 'jpy'
@@ -18,7 +18,7 @@ export function defaultReceit () {
 // const dummyReceit = Object.assign(defaultReceit(), {
 //   fiat: 1200,
 //   fiatCurrency: 'jpy',
-//   wei: 80808080800808,
+//   value: 80808080800808,
 //   wallet: '0x20f201297e53f949e56e2dE5196Ea57f4E91DE0e',
 //   items: JSON.parse(`{
 //     "a6bf8482-02cb-cd35-ee50-224ba1c8d806":{"name":"Item","price":400,"id":"a6bf8482-02cb-cd35-ee50-224ba1c8d806","count":1},
