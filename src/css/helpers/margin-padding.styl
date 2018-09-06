@@ -1,14 +1,14 @@
 
-$space-base   ?= 15px
+$_space-base   ?= 15px
 
-xxs = ($space-base * .1)
-xs = ($space-base * .25)
-sm = ($space-base * .5)
-md = $space-base
-lg = ($space-base * 1.5)
-xl = ($space-base * 2.3)
-xxl = ($space-base * 3)
-xxxl = ($space-base * 5)
+xxs = ($_space-base * .1)
+xs = ($_space-base * .25)
+sm = ($_space-base * .5)
+md = $_space-base
+lg = ($_space-base * 1.5)
+xl = ($_space-base * 2.3)
+xxl = ($_space-base * 3)
+xxxl = ($_space-base * 5)
 
 // Mixins
 
@@ -50,7 +50,7 @@ my(val...)
 
 // Render CLASS tags:
 
-$spaces = {
+$_spaces = {
   none: 0,
   auto: auto,
   xxs: xxs,
@@ -63,26 +63,26 @@ $spaces = {
   xxxl: xxxl,
 }
 
-for $space, $value in $spaces
+for $_space, $_value in $_spaces
 
-  .pa-{$space}
-    padding: $value
-  .pl-{$space}, .px-{$space}
-    padding-left: $value
-  .pr-{$space}, .px-{$space}
-    padding-right: $value
-  .pt-{$space}, .py-{$space}
-    padding-top: $value
-  .pb-{$space}, .py-{$space}
-    padding-bottom: $value
+  .pa-{$_space}
+    padding: $_value
+  .pl-{$_space}, .px-{$_space}
+    padding-left: $_value
+  .pr-{$_space}, .px-{$_space}
+    padding-right: $_value
+  .pt-{$_space}, .py-{$_space}
+    padding-top: $_value
+  .pb-{$_space}, .py-{$_space}
+    padding-bottom: $_value
 
-  .ma-{$space}
-    margin: $value
-  .ml-{$space}, .mx-{$space}
-    margin-left: $value
-  .mr-{$space}, .mx-{$space}
-    margin-right: $value
-  .mt-{$space}, .my-{$space}
-    margin-top: $value
-  .mb-{$space}, .my-{$space}
-    margin-bottom: $value
+  .ma-{$_space}
+    margin: $_value
+  .ml-{$_space}, .mx-{$_space}
+    margin-left: $_value
+  .mr-{$_space}, .mx-{$_space}
+    margin-right: $_value
+  .mt-{$_space}, .my-{$_space}
+    margin-top: $_value
+  .mb-{$_space}, .my-{$_space}
+    margin-bottom: $_value

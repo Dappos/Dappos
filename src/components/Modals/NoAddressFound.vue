@@ -3,12 +3,10 @@
   <div class="_wrapper-top">
     <div class="_title">No wallet found!</div>
     <div>
-      There was no wallet detected. Possible reasons:
-      <ul>
-        <li>Your browser does not support a wallet.</li>
-        <li>Your browser's wallet is locked. (eg. MetaMask)</li>
-      </ul>
-      Please try again.
+      There was no wallet address found in your settings.
+      <br>Please go to <strong>'Account settings'</strong> and fill in your Ethereum Wallet Address.
+      <br><br>
+      You can also select your mobile wallet if you open Dappos in a mobile DApp browser.
     </div>
   </div>
   <div class="_wrapper-bottom">

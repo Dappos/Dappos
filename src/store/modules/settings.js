@@ -4,9 +4,9 @@ import currencyDefaults from '@config/currencyDefaults'
 
 const defaultNetworkProviders = {
   mainnetInfura: {url: 'wss://mainnet.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'mainnet'},
-  // ropstenInfura: {url: 'wss://ropsten.infura.io/ws', provider: 'Infura', blockchain: 'Ethereum', network: 'ropsten'},
+  ropstenInfura: {url: 'wss://ropsten.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'ropsten'},
   // rinkebyInfura: {url: 'wss://rinkeby.infura.io/ws', provider: 'Infura', blockchain: 'Ethereum', network: 'rinkeby'},
-  ropstenGetho: {url: 'wss://above-goat-651cb0b1dc67.getho.io/ws', provider: 'Getho.io', blockchain: 'Ethereum', network: 'ropsten'},
+  // ropstenGetho: {url: 'wss://above-goat-651cb0b1dc67.getho.io/ws', provider: 'Getho.io', blockchain: 'Ethereum', network: 'ropsten'},
 }
 
 function initialState () {
