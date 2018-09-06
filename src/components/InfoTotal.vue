@@ -34,7 +34,7 @@ export default {
   {
     pay () {
       if (!this.get('cart/valueFiat')) return
-      if (!this.state.wallet.address) return this.dispatch('modals/toggle', 'wallet.noAddressFound')
+      if (!this.state.settings.wallet.address) return this.dispatch('modals/toggle', 'wallet.noAddressFound')
       this.dispatch('modals/toggle', 'cart.payment')
     },
   }
