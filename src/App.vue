@@ -7,21 +7,21 @@
 </template>
 
 <script>
-import notify from '@helpers/NotifyHelper'
+// import notify from '@helpers/NotifyHelper'
 
 export default {
   name: 'App',
   mounted () {
-    notify({
-      preset: 'toast',
-      textColor: 'white',
-      color: 'blue',
-      timeout: 60000,
-      message: `💬 BETA Update!
+  //     notify({
+  //       preset: 'toast',
+  //       textColor: 'white',
+  //       color: 'blue',
+  //       timeout: 60000,
+  //       message: `💬 BETA Update!
 
-・The QR code now works with most wallets. Please let us know if you find a wallet where the amount is not filled in automatically.
+  // ・The QR code now works with most wallets. Please let us know if you find a wallet where the amount is not filled in automatically.
 
-👨🏻‍💻`})
+  // 👨🏻‍💻`})
   },
   methods:
   {
