@@ -131,8 +131,7 @@ export default {
       if (!item.count) this.commit('cart/deleteItem', item)
     },
     showPaymentModal () {
-      this.dispatch('ethEvents/watchTransactions')
-      this.dispatch('cart/createPaymentRequest')
+      this.dispatch('modals/createPaymentRequest')
     },
     hidePaymentModal () {
       this.dispatch('modals/resetPaymentRequest')

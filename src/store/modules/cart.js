@@ -11,7 +11,7 @@ import { defaultReceit } from '@modules/history'
 function initialState () {
   return {
     valueFiatAnimation: {frameVal: 0},
-    valueEth: 0,
+    valueToken: 0,
     items: {},
     paymentRequest: defaultReceit(),
   }
@@ -64,7 +64,7 @@ export default {
       })
     },
     resetQR (state) {
-      state.valueEth = 0
+      state.valueToken = 0
       if (!document.getElementById('js-qr')) return
       document.getElementById('js-qr').innerHTML = ''
     },
@@ -117,15 +117,16 @@ export default {
     },
     async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
+      const selectedToken = rootState.settings.selectedToken
       const valueFiat = getters.valueFiat
-      let valueEth = await convert(valueFiat, currency, 'eth')
-      valueEth = floorDecimals(valueEth, 5)
-      dispatch('set/valueEth', valueEth)
+      let valueToken = await convert(valueFiat, currency, selectedToken)
+      valueToken = floorDecimals(valueToken, 5)
+      dispatch('set/valueToken', valueToken)
       dispatch('set/paymentRequest', {
         fiat: valueFiat,
         fiatCurrency: currency,
-        value: valueEth,
-        symbol: 'ETH',
+        value: valueToken,
+        symbol: selectedToken.toUpperCase(),
         items: state.items,
         wallet: rootState.settings.wallet.address,
         txn: null,
@@ -134,9 +135,9 @@ export default {
       dispatch('generateQr')
     },
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      const valueEth = state.valueEth
+      const valueToken = state.valueToken
       const to = rootState.settings.wallet.address
-      const data = getQrDataEthPayment(to, valueEth)
+      const data = getQrDataEthPayment(to, valueToken)
       generateQr(data, '#js-qr')
     },
   },

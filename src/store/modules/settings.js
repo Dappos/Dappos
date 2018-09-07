@@ -15,6 +15,7 @@ function initialState () {
     gas: 42000,
     requiredConfirmationCount: 1,
     currency: 'jpy',
+    selectedToken: 'eth',
     networkProvider: {
       selected: 'mainnetInfura',
       customRPCs: {
@@ -34,7 +35,7 @@ export default {
   moduleName: 'settings',
   statePropName: '',
   sync: {
-    fillables: ['wallet', 'gas', 'currency', 'config', 'requiredConfirmationCount', 'networkProvider']
+    fillables: ['wallet', 'gas', 'currency', 'selectedToken', 'config', 'requiredConfirmationCount', 'networkProvider']
   },
   // module:
   state: initialState(),

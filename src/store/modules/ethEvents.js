@@ -102,8 +102,11 @@ export default {
       console.log('found TXN! → ', txn)
       dispatch('set/transactions.*', txn)
       const paymentRequest = rootState.cart.paymentRequest
-      const txnValueEth = convert(txn.value, 'wei', 'eth')
-      const txnValueEnough = (Number(txnValueEth) >= Number(paymentRequest.value))
+      const txnValue = (paymentRequest.symbol.toLowerCase() === 'eth')
+        ? convert(txn.value, 'wei', 'eth')
+        : txn.value
+      if (paymentRequest.symbol.toLowerCase() === 'dai') console.log('txn → ', txn)
+      const txnValueEnough = (Number(txnValue) >= Number(paymentRequest.value))
       if (txnValueEnough) {
         dispatch('history/insert', Object.assign(paymentRequest, {txn}), {root: true})
         dispatch('watchConfirmations', txn.hash)

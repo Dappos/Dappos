@@ -68,6 +68,10 @@ export default {
     'menulist.resetNewItem': ({state}) => {
       state.menulist.adding.item = defaultItem()
     },
+    createPaymentRequest: ({state, dispatch, commit}) => {
+      dispatch('cart/createPaymentRequest', null, {root: true})
+      dispatch('ethEvents/watchTransactions', null, {root: true})
+    },
     resetPaymentRequest: ({state, dispatch, commit}) => {
       dispatch('set/cart.payment.stage', 1)
       commit('cart/resetPaymentRequest', null, {root: true})

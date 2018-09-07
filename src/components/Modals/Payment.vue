@@ -4,7 +4,29 @@
   <div class="_wrapper-top">
     <div class="_title">Awaiting payment</div>
     <div class="_price">{{ get('cart/valueFiat') | money(get('settings/currencyConfig')) }}</div>
-    <div class="_eth"><q-icon name="fab fa-ethereum" class="mr-sm" />{{ get('cart/valueEth') }} ETH</div>
+      <!-- :value="state.settings.selectedToken" -->
+      <!-- @change="token => { set('settings/selectedToken', token) }" -->
+      <!-- :options="selectableTokens" -->
+    <q-btn-dropdown
+      class="_eth"
+      :label="get('cart/valueToken') + ' ' + get('settings/selectedToken').toUpperCase()"
+    >
+      <q-list link>
+        <q-item
+          v-for="(token, key) in selectableTokens"
+          @click.native="changeToken(token.value)"
+          :key="`token-dd-${key}`"
+          v-close-overlay
+        >
+          <q-item-main>
+            <q-item-tile label class="flex items-baseline">
+              <q-icon :name="token.icon" class="mr-sm" /> {{ token.label }}
+            </q-item-tile>
+          </q-item-main>
+        </q-item>
+      </q-list>
+      <!-- <q-icon name="" class="mr-sm" />{{ get('cart/valueEth') }} ETH -->
+    </q-btn-dropdown>
     <div class="_cart-btn-wrapper">
       <button
         @click="dispatch('modals/toggle', 'cart.cart')"
@@ -56,13 +78,14 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
+import selectableTokens from '@config/selectableTokens'
 
 export default {
   components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () { return { selectableTokens } },
   computed:
   {
     confirmationCount () {
@@ -71,6 +94,11 @@ export default {
   },
   methods:
   {
+    changeToken (token) {
+      this.set('settings/selectedToken', token)
+      this.dispatch('modals/resetPaymentRequest')
+      this.dispatch('modals/createPaymentRequest')
+    }
   }
 }
 </script>
