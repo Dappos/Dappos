@@ -94,15 +94,13 @@ var ethTo = {
   eth: 1
 };
 
-function isFiat(currency) {
-  currency = currency.toLowerCase();
-  return currencyDefaults[currency];
-}
+var isFiat = function isFiat(currency) {
+  return currencyDefaults[currency.toLowerCase()];
+};
 
-function isETH(currency) {
-  currency = currency.toLowerCase();
-  return ethTo[currency];
-}
+var isETH = function isETH(currency) {
+  return ethTo[currency.toLowerCase()];
+};
 
 function getRate(currency) {
   var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'eth';
@@ -136,6 +134,7 @@ function convert(amount, from, to) {
     return result;
   }
 
+  if (isFiat(from) && isFiat(to)) return false;
   return new Promise(function () {
     var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(resolve, reject) {
       var _rate, _result, _rate2, _result2, rate2;
@@ -144,13 +143,13 @@ function convert(amount, from, to) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!(isFiat(from) && isETH(to))) {
+              if (!isFiat(from)) {
                 _context.next = 9;
                 break;
               }
 
               _context.next = 3;
-              return getRate(from);
+              return getRate(from, to);
 
             case 3:
               _rate = _context.sent;
@@ -164,16 +163,16 @@ function convert(amount, from, to) {
 
             case 6:
               _result = amount / _rate;
-              _result = _result * ethTo[to];
+              if (isETH(to)) _result = _result * ethTo[to];
               return _context.abrupt("return", resolve(_result));
 
             case 9:
-              if (!(isETH(from) && isFiat(to))) {
+              if (!isFiat(to)) {
                 _context.next = 19;
                 break;
               }
 
-              _rate2 = ethTo[from];
+              _rate2 = isETH(to) ? ethTo[from] : 1;
 
               if (_rate2) {
                 _context.next = 13;
@@ -185,7 +184,7 @@ function convert(amount, from, to) {
             case 13:
               _result2 = amount / _rate2;
               _context.next = 16;
-              return getRate(to);
+              return getRate(to, from);
 
             case 16:
               rate2 = _context.sent;

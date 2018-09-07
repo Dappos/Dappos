@@ -1,5 +1,5 @@
 import axios from 'axios'
-import currencyDefaults from '@config/currencyDefaults'
+import currencyDefaults from '../config/currencyDefaults'
 
 export const ethTo = {
   wei: 1000000000000000000,
@@ -11,28 +11,28 @@ export const ethTo = {
   eth: 1,
 }
 
-function isFiat (currency) {
-  currency = currency.toLowerCase()
-  return (currencyDefaults[currency])
-}
-
-function isETH (currency) {
-  currency = currency.toLowerCase()
-  return (ethTo[currency])
-}
+const isFiat = currency => (currencyDefaults[currency.toLowerCase()])
+const isETH = currency => (ethTo[currency.toLowerCase()])
+const isDAI = currency => (currency.toLowerCase() === 'dai')
 
 /**
  * Gets the exchange rate of ETH ⇔ Fiat of a certain fiat currency
  *
  * @export
- * @param {*} currency Supports: jpy, usd, hkd, aud, twd, sgd, eur, gbp, krw
+ * @param {string} currency Supports: jpy, usd, hkd, aud, twd, sgd, eur, gbp, krw
+ * @param {string} token Supports: eth (default), dai
  * @returns The exchange rate
  */
-export function getRate (currency) {
+export function getRate (currency, token = 'eth') {
   if (!currency) return
   if (!currencyDefaults[currency.toLowerCase()]) return
   currency = currency.toUpperCase()
-  const url = 'https://api.coinmarketcap.com/v2/ticker/1027/?convert=' + currency
+  const tokenIds = {
+    'eth': '1027',
+    'dai': '2308',
+  }
+  const tokenId = tokenIds[token.toLowerCase()]
+  const url = `https://api.coinmarketcap.com/v2/ticker/${tokenId}/?convert=${currency}`
   return axios.get(url)
     .then(function (res) {
       const rate = res.data.data.quotes[currency].price
@@ -44,13 +44,14 @@ export function getRate (currency) {
       return false
     })
 }
+
 /**
  * Convert fiat ⇔ eth
  *
  * @export
  * @param {number} amount The amount to convert
- * @param {string} from
- * @param {string} to The amount
+ * @param {string} from currency or token name (eg. jpy, eth, ...)
+ * @param {string} to currency or token name (eg. jpy, eth, ...)
  * @returns {number|Promise} if (eth ⇔ eth) returns number | if (eth ⇔ fiat) returns a promise!
  */
 export default function convert (amount, from, to) {
@@ -64,19 +65,20 @@ export default function convert (amount, from, to) {
     result = result * ethTo[to]
     return result
   }
+  if (isFiat(from) && isFiat(to)) return false
   return new Promise(async (resolve, reject) => {
-    if (isFiat(from) && isETH(to)) {
-      const rate = await getRate(from)
+    if (isFiat(from)) {
+      const rate = await getRate(from, to)
       if (!rate) return
       let result = amount / rate
-      result = result * ethTo[to]
+      if (isETH(to)) result = result * ethTo[to]
       return resolve(result)
     }
-    if (isETH(from) && isFiat(to)) {
-      const rate = ethTo[from]
+    if (isFiat(to)) {
+      const rate = (isETH(to)) ? ethTo[from] : 1
       if (!rate) return
       let result = amount / rate
-      const rate2 = await getRate(to)
+      const rate2 = await getRate(to, from)
       result = result * rate2
       return resolve(result)
     }
