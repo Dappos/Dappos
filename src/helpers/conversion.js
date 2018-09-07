@@ -30,6 +30,7 @@ export function getRate (currency, token = 'eth') {
   const tokenIds = {
     'eth': '1027',
     'dai': '2308',
+    'zrx': '1896',
   }
   const tokenId = tokenIds[token.toLowerCase()]
   const url = `https://api.coinmarketcap.com/v2/ticker/${tokenId}/?convert=${currency}`
