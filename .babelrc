@@ -17,6 +17,8 @@
     ]
   ],
   "plugins": [
+    "@babel/plugin-external-helpers",
+    "@babel/plugin-proposal-object-rest-spread",
     [
       "@babel/transform-runtime", {
         "polyfill": false,
