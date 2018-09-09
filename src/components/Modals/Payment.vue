@@ -9,7 +9,7 @@
       <!-- :options="selectableTokens" -->
     <q-btn-dropdown
       class="_eth"
-      :label="get('cart/valueToken') + ' ' + get('settings/selectedToken').toUpperCase()"
+      :label="`${get('cart/valueToken')} ${get('settings/selectedToken').toUpperCase()} `"
       dense rounded
     >
       <q-list link>
