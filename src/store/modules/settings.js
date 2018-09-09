@@ -5,6 +5,7 @@ import currencyDefaults from '@config/currencyDefaults'
 const defaultNetworkProviders = {
   mainnetInfura: {url: 'wss://mainnet.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'mainnet'},
   ropstenInfura: {url: 'wss://ropsten.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'ropsten'},
+  kovanInfura: {url: 'wss://kovan.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'kovan'},
   // rinkebyInfura: {url: 'wss://rinkeby.infura.io/ws', provider: 'Infura', blockchain: 'Ethereum', network: 'rinkeby'},
   // ropstenGetho: {url: 'wss://above-goat-651cb0b1dc67.getho.io/ws', provider: 'Getho.io', blockchain: 'Ethereum', network: 'ropsten'},
 }
@@ -89,13 +90,13 @@ export default {
       if (!p) return net
       return p.label
     },
-    selectedNetworkURL: (state, getters) => {
+    selectedNetworkObject: (state, getters) => {
       const net = state.networkProvider.selected
       const defaultProvider = defaultNetworkProviders[net]
       const customRPC = state.networkProvider.customRPCs[net]
-      if (!defaultProvider && !customRPC) return null
-      if (!defaultProvider) return customRPC
-      return defaultProvider.url
+      if (!defaultProvider && !customRPC) return {}
+      if (!defaultProvider) return {blockchain: net, url: customRPC}
+      return defaultProvider
     },
     currencyLabel: (state, getters) => {
       return getters.availableCurrencies[state.currency].label
