@@ -5,6 +5,7 @@ import convert from '@helpers/conversion'
 import startConfetti from '@helpers/Confetti'
 import getWeb3 from '@config/web3'
 import erc20Abi from '@config/erc20Abi'
+import selectableTokens from '@config/selectableTokens'
 
 function initialState () {
   return {
@@ -45,9 +46,10 @@ export default {
   },
   actions:
   {
-    watchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      dispatch('watchETHTransactions')
-      dispatch('watchErc20Transactions')
+    watchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}, selectedToken) {
+      if (selectedToken === 'eth') return dispatch('watchETHTransactions')
+      if (selectedToken === 'dai') return dispatch('watchErc20Transactions', selectedToken)
+      return Error('something went wrong')
     },
     watchETHTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const web3 = getters.web3
@@ -67,12 +69,16 @@ export default {
       })
       dispatch('set/subscription', subscription)
     },
-    watchErc20Transactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
+    watchErc20Transactions ({state, getters, rootState, rootGetters, commit, dispatch}, selectedToken) {
       const web3 = getters.web3
       const posAddress = rootState.settings.wallet.address
-      const erc20Address = '0xa8e9fa8f91e5ae138c74648c9c304f1c75003a8d' // Ropsten ZRX
-      const erc20Contract = new web3.eth.Contract(erc20Abi, erc20Address)
-      erc20Contract.events.Transfer({fromBlock: 'latest', filter: {_to: posAddress}})
+      const tokenInfo = selectableTokens[selectedToken]
+      const networkInfo = rootGetters['settings/selectedNetworkObject']
+      if (!tokenInfo || !tokenInfo.contractAddresses) throw Error('something went wrong')
+      const erc20ContractAddress = tokenInfo.contractAddresses[networkInfo.network]
+      if (!erc20ContractAddress) throw Error('something went wrong. Erc20 address not found...')
+      const erc20Contract = new web3.eth.Contract(erc20Abi, erc20ContractAddress)
+      const subscription = erc20Contract.events.Transfer({fromBlock: 'latest', filter: {_to: posAddress}})
         .on('data', event => {
           const txn = {
             blockNumber: event.blockNumber,
@@ -84,6 +90,7 @@ export default {
           if (event && txn.to === posAddress) dispatch('foundTxn', txn)
           if (txn) console.log('txn → ', (txn.to === posAddress), 'event → ', event, 'txn → ', txn)
         })
+      dispatch('set/subscription', subscription)
     },
     unwatchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
       state.subscription.unsubscribe((error, success) => {
@@ -135,7 +142,7 @@ export default {
   getters:
   {
     web3: (state, getters, rootState, rootGetters) => {
-      const networkProvider = rootGetters['settings/selectedNetworkURL']
+      const networkProvider = rootGetters['settings/selectedNetworkObject'].url
       return getWeb3(networkProvider)
     },
     watcherConfirmationCount (state, getters, rootState, rootGetters) {

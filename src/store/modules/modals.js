@@ -70,7 +70,7 @@ export default {
     },
     createPaymentRequest: ({state, dispatch, commit}) => {
       dispatch('cart/createPaymentRequest', null, {root: true})
-      dispatch('ethEvents/watchTransactions', null, {root: true})
+        .then(selectedToken => dispatch('ethEvents/watchTransactions', selectedToken, {root: true}))
     },
     resetPaymentRequest: ({state, dispatch, commit}) => {
       dispatch('set/cart.payment.stage', 1)

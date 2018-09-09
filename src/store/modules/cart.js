@@ -133,6 +133,7 @@ export default {
         confirmations: 0
       })
       dispatch('generateQr')
+      return selectedToken
     },
     generateQr ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const valueToken = state.valueToken

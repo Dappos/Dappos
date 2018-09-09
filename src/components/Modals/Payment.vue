@@ -10,6 +10,7 @@
     <q-btn-dropdown
       class="_eth"
       :label="get('cart/valueToken') + ' ' + get('settings/selectedToken').toUpperCase()"
+      dense rounded
     >
       <q-list link>
         <q-item
@@ -78,14 +79,26 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
-import selectableTokens from '@config/selectableTokens'
+import _selectableTokens from '@config/selectableTokens'
 
 export default {
   components: {},
   props: [],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return { selectableTokens } },
+  data () {
+    return {
+      selectableTokens: Object.keys(_selectableTokens)
+        .map(tokenKey => {
+          return {
+            icon: _selectableTokens[tokenKey].icon,
+            label: tokenKey.toUpperCase(),
+            sublabel: _selectableTokens[tokenKey].sublabel,
+            value: tokenKey
+          }
+        })
+    }
+  },
   computed:
   {
     confirmationCount () {
@@ -149,6 +162,10 @@ export default {
   color $white-light
   display flex
   align-items baseline
+  background-color rgba(255, 255, 255, 0.15)
+  font-weight 450
+  px md
+  py 0
 // MIDDLE
 ._wrapper-middle
   mt md

@@ -13,7 +13,7 @@ export const ethTo = {
 
 const isFiat = currency => (currencyDefaults[currency.toLowerCase()])
 const isETH = currency => (ethTo[currency.toLowerCase()])
-const isDAI = currency => (currency.toLowerCase() === 'dai')
+// const isDAI = currency => (currency.toLowerCase() === 'dai')
 
 /**
  * Gets the exchange rate of ETH ⇔ Fiat of a certain fiat currency
