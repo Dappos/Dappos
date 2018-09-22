@@ -20,10 +20,11 @@ export function defaultItem () {
 
 function testItems () {
   return {
-    'ice-coffee': {name: 'Ice Coffee', icon: null, id: 'ice-coffee', prices: defaultPrices(4, 400)},
-    'hot-coffee': {name: 'Hot Coffee', icon: '☕', id: 'hot-coffee', prices: defaultPrices(4, 400)},
-    'latte': {name: 'Latte', icon: null, id: 'latte', prices: defaultPrices(5, 500)},
-    'beer': {name: 'Beer', icon: null, id: 'beer', prices: defaultPrices(5, 500)},
+    '*': {name: '', icon: null, prices: defaultPrices(0, 0)},
+    '_ice-coffee': {name: 'Ice Coffee', icon: null, id: '_ice-coffee', prices: defaultPrices(4, 400)},
+    '_hot-coffee': {name: 'Hot Coffee', icon: '☕', id: '_hot-coffee', prices: defaultPrices(4, 400)},
+    '_latte': {name: 'Latte', icon: null, id: '_latte', prices: defaultPrices(5, 500)},
+    '_beer': {name: 'Beer', icon: null, id: '_beer', prices: defaultPrices(5, 500)},
   }
 }
 
@@ -67,8 +68,6 @@ export default {
   {
     addItem ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const item = rootState.modals.menulist.adding.item
-      const id = item.name.toLowerCase().replace(' ', '-')
-      item.id = id
       delete item.new
       dispatch('insert', item)
       dispatch('modals/toggle', 'menulist.adding', {root: true})
@@ -83,5 +82,13 @@ export default {
   },
   getters:
   {
+    'items': (state, getters) => {
+      return Object.keys(state.items)
+        .filter(id => id !== '*')
+        .reduce((carry, id) => {
+          carry[id] = state.items[id]
+          return carry
+        }, {})
+    }
   }
 }
