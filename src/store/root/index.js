@@ -18,7 +18,7 @@ import user from '@modules/user'
 import menulist from '@modules/menulist'
 import settings from '@modules/settings'
 import history from '@modules/history'
-const easyFirestores = createEasyFirestore([menulist, settings, history])
+const easyFirestores = createEasyFirestore([menulist, settings, history], {logging: true})
 const easyAccess = createEasyAccess(easyAccessConf)
 
 export default function () {
