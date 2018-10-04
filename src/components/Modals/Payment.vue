@@ -34,7 +34,7 @@
       </q-list>
       <!-- <q-icon name="" class="mr-sm" />{{ get('cart/valueEth') }} ETH -->
     </q-btn-dropdown>
-    <div class="_cart-btn-wrapper">
+    <div class="_cart-btn-wrapper" v-if="state.modals.cart.payment.stage > 1">
       <button
         @click="dispatch('modals/toggle', 'cart.cart')"
         class="_cart-btn"

@@ -9,7 +9,7 @@
       :key="'c-' + index"
     />
   </transition-group>
-  <row-wrapper class="_clear">
+  <row-wrapper class="_clear" v-if="state.modals.cart.payment.stage === 1">
     <button @click="dispatch('cart/clearAll')">Clear all</button>
   </row-wrapper>
 </div>

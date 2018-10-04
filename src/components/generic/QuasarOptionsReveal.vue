@@ -43,6 +43,7 @@ export default {
   methods:
   {
     handler (obj) {
+      if (this.$store.state.modals.cart.payment.stage > 1) return
       if (obj.direction === 'right') this.opened = false
       if (obj.direction === 'left') this.opened = true
     },
