@@ -1,30 +1,25 @@
 import { defaultMutations } from 'vuex-easy-access'
+import merge from 'merge-anything'
 import easyAccessConf from '@config/vuexEasyAccess'
-import currencies from '@config/currencyDefaults'
+import currencies from '../../config/currencyDefaults'
 
-function defaultPrices (usd, jpy) {
-  return Object.keys(currencies)
-    .reduce((carry, key) => {
-      carry[key] = (usd && key === 'usd')
-        ? usd
-        : (jpy && key === 'jpy')
-          ? jpy
-          : 0
-      return carry
-    }, {})
-}
+const defaultPrices = Object.keys(currencies)
+  .reduce((carry, key) => {
+    carry[key] = 0
+    return carry
+  }, {})
 
 export function defaultItem () {
-  return {name: '', icon: null, prices: defaultPrices(), new: true}
+  return {name: '', icon: null, prices: defaultPrices, new: true}
 }
 
 function testItems () {
   return {
-    '*': {name: '', icon: null, prices: defaultPrices(0, 0)},
-    '_ice-coffee': {name: 'Ice Coffee', icon: null, id: '_ice-coffee', prices: defaultPrices(4, 400)},
-    '_hot-coffee': {name: 'Hot Coffee', icon: '☕', id: '_hot-coffee', prices: defaultPrices(4, 400)},
-    '_latte': {name: 'Latte', icon: null, id: '_latte', prices: defaultPrices(5, 500)},
-    '_beer': {name: 'Beer', icon: null, id: '_beer', prices: defaultPrices(5, 500)},
+    '*': {name: '', icon: null, prices: merge(defaultPrices, {usd: 0, jpy: 0})},
+    '_ice-coffee': {name: 'Ice Coffee', icon: null, id: '_ice-coffee', prices: merge(defaultPrices, {usd: 4, jpy: 400})},
+    '_hot-coffee': {name: 'Hot Coffee', icon: '☕', id: '_hot-coffee', prices: merge(defaultPrices, {usd: 4, jpy: 400})},
+    '_latte': {name: 'Latte', icon: null, id: '_latte', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
+    '_beer': {name: 'Beer', icon: null, id: '_beer', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
   }
 }
 
@@ -41,7 +36,7 @@ export default {
   moduleName: 'user/menulist',
   statePropName: 'items',
   serverChange: {
-    defaultValues: {prices: defaultPrices()},
+    defaultValues: {prices: defaultPrices},
   },
   // module:
   state: initialState(),
