@@ -104,7 +104,7 @@ export default {
       state.valueFiatAnimation.update(getters.valueFiat)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
-      dispatch('addItem', item)
+      commit('addItem', item) // commit because item price is different
       state.valueFiatAnimation.update(getters.valueFiat)
     },
     decrement ({state, getters, rootState, rootGetters, commit, dispatch}, item) {

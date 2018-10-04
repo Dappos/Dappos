@@ -10,16 +10,15 @@ import selectableTokens from '@config/selectableTokens'
 function initialState () {
   return {
     subscription: null,
+    confirmationWatcher: null,
+    confirmationWatcherTxnHash: null,
     firstConfetti: false,
     transactions: {
       '*': {
         from: null,
         to: null,
-        value: null,
+        value: 0,
       },
-    },
-    confirmationWatchers: {
-      '*': null // setInterval
     },
   }
 }
@@ -102,7 +101,7 @@ export default {
       })
     },
     watchConfirmations ({state, getters, rootState, rootGetters, commit, dispatch}, txnHash) {
-      const receits = rootGetters['history/receitByTxnHash']
+      const receits = rootState.history.receits
       const confirmationWatcher = setInterval(_ => {
         const txnRef = receits[txnHash]
         countConfirmations(getters.web3, txnHash).then(count => {
@@ -115,39 +114,63 @@ export default {
           }
         })
       }, 1500)
-      dispatch('set/confirmationWatchers.*', {[txnHash]: confirmationWatcher})
+      dispatch('set/confirmationWatcher', confirmationWatcher)
+      dispatch('set/confirmationWatcherTxnHash', txnHash)
     },
     unwatchConfirmations ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      dispatch('set/firstConfetti', false)
-      Object.keys(state.confirmationWatchers)
-        .forEach(w => {
-          clearInterval(state.confirmationWatchers[w])
-          dispatch('delete/confirmationWatchers.*', w)
-        })
+      clearInterval(state.confirmationWatcher)
+      dispatch('set/confirmationWatcher', null)
+      dispatch('set/confirmationWatcherTxnHash', null)
+    },
+    unwatch ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      dispatch('unwatchTransactions')
+      dispatch('unwatchConfirmations')
+      commit('resetStateData')
     },
     foundTxn ({state, getters, rootState, rootGetters, commit, dispatch}, txn) {
       console.log('found TXN! → ', txn)
       dispatch('set/transactions.*', {[txn.hash]: txn})
+      const lastTransaction = txn.hash
+      dispatch('sumTxns', lastTransaction)
+    },
+    sumTxns ({state, getters, rootState, rootGetters, commit, dispatch}, lastTransaction) {
       const paymentRequest = rootState.cart.paymentRequest
-      const txnValue = convert(txn.value, 'wei', 'eth')
-      if (paymentRequest.symbol.toLowerCase() === 'dai') console.log('txn → ', txn)
-      const txnValueEnough = (Number(txnValue) >= Number(paymentRequest.value))
+      // const paidInDai = (paymentRequest.symbol.toLowerCase() === 'dai')
+      // if (paidInDai) console.log('txn → ', txn)
+      const txns = getters.transactionsArray
+      const txnTotalValue = getters.transactionsTotalValueConverted
+      const txnValueEnough = (Number(txnTotalValue) >= Number(paymentRequest.value))
       if (txnValueEnough) {
-        dispatch('history/insert', Object.assign(paymentRequest, {txn}), {root: true})
-        dispatch('watchConfirmations', txn.hash)
+        dispatch('history/insert', Object.assign(paymentRequest, {txns, id: lastTransaction}), {root: true})
+        dispatch('watchConfirmations', lastTransaction)
         dispatch('modals/set/cart.payment.stage', 2, {root: true})
       }
     },
   },
   getters:
   {
+    transactionsArray: (state, getters, rootState, rootGetters) => {
+      return Object.keys(state.transactions).filter(k => k !== '*').map(k => state.transactions[k])
+    },
+    transactionsTotalValue: (state, getters, rootState, rootGetters) => {
+      const txns = getters.transactionsArray
+      return txns.reduce((carry, txn) => {
+        const value = Number(txn.value)
+        if (!value) return carry
+        return carry + value
+      }, 0)
+    },
+    transactionsTotalValueConverted: (state, getters, rootState, rootGetters) => {
+      const txnsTotal = getters.transactionsTotalValue
+      return convert(txnsTotal, 'wei', 'eth') // DAI also needs same decimal conversion
+    },
     web3: (state, getters, rootState, rootGetters) => {
       const networkProvider = rootGetters['settings/selectedNetworkObject'].url
       return getWeb3(networkProvider)
     },
     watcherConfirmationCount (state, getters, rootState, rootGetters) {
-      const txnHash = Object.keys(state.confirmationWatchers).filter(k => k !== '*')[0]
-      const receits = rootGetters['history/receitByTxnHash']
+      const txnHash = state.confirmationWatcherTxnHash
+      const receits = rootState.history.receits
       const txnRef = receits[txnHash]
       if (!txnRef) return 0
       return txnRef.confirmations

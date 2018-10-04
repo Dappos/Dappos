@@ -26,6 +26,7 @@ function initialState () {
       cart: {opened: false},
       editing: {opened: false, item: null},
       payment: {opened: false, stage: 1},
+      reallyClosePayment: {opened: false},
     },
   }
 }
@@ -76,8 +77,7 @@ export default {
       dispatch('set/cart.payment.stage', 1)
       commit('cart/resetPaymentRequest', null, {root: true})
       commit('cart/resetQR', null, {root: true})
-      dispatch('ethEvents/unwatchConfirmations', null, {root: true})
-      dispatch('ethEvents/unwatchTransactions', null, {root: true})
+      dispatch('ethEvents/unwatch', null, {root: true})
     },
     toggleMenu ({state, dispatch, rootGetters}, toggleState) {
       let top = 0

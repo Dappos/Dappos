@@ -3,11 +3,17 @@
   <!-- TOP -->
   <div class="_wrapper-top">
     <div class="_title">Awaiting payment</div>
-    <div class="_price">{{ get('cart/valueFiat') | money(get('settings/currencyConfig')) }}</div>
+    <div v-if="!halfPaid" class="_price">
+      {{ get('cart/valueFiat') | money(get('settings/currencyConfig')) }}
+    </div>
+    <div v-if="halfPaid" class="_price">
+      Received {{ get('ethEvents/transactionsTotalValueConverted') }} / {{ get('cart/valueToken') }} {{ get('settings/selectedToken').toUpperCase() }}
+    </div>
       <!-- :value="state.settings.selectedToken" -->
       <!-- @change="token => { set('settings/selectedToken', token) }" -->
       <!-- :options="selectableTokens" -->
     <q-btn-dropdown
+      :disabled="halfPaid"
       class="_eth"
       :label="`${get('cart/valueToken')} ${get('settings/selectedToken').toUpperCase()} `"
       dense rounded
@@ -66,11 +72,19 @@
       <q-spinner-oval color="white" />
     </div>
     <div
-      v-if="state.modals.cart.payment.stage !== 1"
+      v-if="(state.modals.cart.payment.stage !== 1 && !fullyPaidNoConf)"
       class="_close"
     >
       <button
         @click="dispatch('modals/toggle', 'cart.payment')"
+      >Close</button>
+    </div>
+    <div
+      v-if="halfPaid && !fullyPaidNoConf"
+      class="_close"
+    >
+      <button
+        @click="dispatch('modals/toggle', 'cart.reallyClosePayment')"
       >Close</button>
     </div>
   </div>
@@ -83,7 +97,7 @@ import _selectableTokens from '@config/selectableTokens'
 
 export default {
   components: {},
-  props: [],
+  props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
   data () {

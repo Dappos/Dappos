@@ -53,7 +53,7 @@ export function getRate (currency, token = 'eth') {
  * @param {number} amount The amount to convert
  * @param {string} from currency or token name (eg. jpy, eth, ...)
  * @param {string} to currency or token name (eg. jpy, eth, ...)
- * @returns {number|Promise} if (eth ⇔ eth) returns number | if (eth ⇔ fiat) returns a promise!
+ * @returns {(number|Promise)} if (eth ⇔ eth) returns number | if (eth ⇔ fiat) returns a promise!
  */
 export default function convert (amount, from, to) {
   // premise

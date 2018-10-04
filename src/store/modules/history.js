@@ -10,7 +10,7 @@ export function defaultReceit () {
     fiatCurrency: null, // 'jpy'
     items: {},
     wallet: null,
-    txn: null,
+    txns: [],
     confirmations: 0
   }
 }
@@ -66,14 +66,5 @@ export default {
   },
   getters:
   {
-    receitByTxnHash: (state, getters) => {
-      return Object.values(state.receits)
-        .reduce((carry, receit) => {
-          if (!receit.txn) return carry
-          const txnHash = receit.txn.hash
-          carry[txnHash] = receit
-          return carry
-        }, {})
-    },
   }
 }
