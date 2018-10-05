@@ -3,9 +3,38 @@
   <!-- TOP -->
   <div class="_wrapper-top">
     <div class="_title">Awaiting payment</div>
-    <div class="_price">{{ get('cart/valueFiat') | money(get('settings/currencyConfig')) }}</div>
-    <div class="_eth"><q-icon name="fab fa-ethereum" class="mr-sm" />{{ get('cart/valueEth') }} ETH</div>
-    <div class="_cart-btn-wrapper">
+    <div v-if="!halfPaid" class="_price">
+      {{ get('cart/valueFiat') | money(get('settings/currencyConfig')) }}
+    </div>
+    <div v-if="halfPaid" class="_price">
+      Received {{ get('ethEvents/transactionsTotalValueConverted') }} / {{ get('cart/valueToken') }} {{ get('settings/selectedToken').toUpperCase() }}
+    </div>
+      <!-- :value="state.settings.selectedToken" -->
+      <!-- @change="token => { set('settings/selectedToken', token) }" -->
+      <!-- :options="selectableTokens" -->
+    <q-btn-dropdown
+      :disabled="halfPaid"
+      class="_eth"
+      :label="`${get('cart/valueToken')} ${get('settings/selectedToken').toUpperCase()} `"
+      dense rounded
+    >
+      <q-list link>
+        <q-item
+          v-for="(token, key) in selectableTokens"
+          @click.native="changeToken(token.value)"
+          :key="`token-dd-${key}`"
+          v-close-overlay
+        >
+          <q-item-main>
+            <q-item-tile label class="flex items-baseline">
+              <q-icon :name="token.icon" class="mr-sm" /> {{ token.label }}
+            </q-item-tile>
+          </q-item-main>
+        </q-item>
+      </q-list>
+      <!-- <q-icon name="" class="mr-sm" />{{ get('cart/valueEth') }} ETH -->
+    </q-btn-dropdown>
+    <div class="_cart-btn-wrapper" v-if="state.modals.cart.payment.stage > 1">
       <button
         @click="dispatch('modals/toggle', 'cart.cart')"
         class="_cart-btn"
@@ -43,11 +72,19 @@
       <q-spinner-oval color="white" />
     </div>
     <div
-      v-if="state.modals.cart.payment.stage !== 1"
+      v-if="(state.modals.cart.payment.stage !== 1 && !fullyPaidNoConf)"
       class="_close"
     >
       <button
         @click="dispatch('modals/toggle', 'cart.payment')"
+      >Close</button>
+    </div>
+    <div
+      v-if="halfPaid && !fullyPaidNoConf"
+      class="_close"
+    >
+      <button
+        @click="dispatch('modals/toggle', 'cart.reallyClosePayment')"
       >Close</button>
     </div>
   </div>
@@ -56,13 +93,26 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
+import _selectableTokens from '@config/selectableTokens'
 
 export default {
   components: {},
-  props: [],
+  props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () {
+    return {
+      selectableTokens: Object.keys(_selectableTokens)
+        .map(tokenKey => {
+          return {
+            icon: _selectableTokens[tokenKey].icon,
+            label: tokenKey.toUpperCase(),
+            sublabel: _selectableTokens[tokenKey].sublabel,
+            value: tokenKey
+          }
+        })
+    }
+  },
   computed:
   {
     confirmationCount () {
@@ -71,6 +121,11 @@ export default {
   },
   methods:
   {
+    changeToken (token) {
+      this.set('settings/selectedToken', token)
+      this.dispatch('modals/resetPaymentRequest')
+      this.dispatch('modals/createPaymentRequest')
+    }
   }
 }
 </script>
@@ -121,6 +176,10 @@ export default {
   color $white-light
   display flex
   align-items baseline
+  background-color rgba(255, 255, 255, 0.15)
+  font-weight 450
+  px md
+  py 0
 // MIDDLE
 ._wrapper-middle
   mt md

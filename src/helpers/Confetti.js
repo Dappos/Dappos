@@ -163,7 +163,13 @@ class Confetti {
     requestAnimationFrame(this.render);
   }
 }
-
+/**
+ * Make it rain confetti all over the screen!
+ *
+ * @param {number} [stopTiming=10000] amount of ms until fade
+ * @param {number} [speed=6000] speed of the confetti falling down
+ * @returns n.a.
+ */
 function makeItRain (stopTiming = 10000, speed = 6000) {
   const duration = speed
   const length = 120
@@ -198,5 +204,5 @@ function makeItRain (stopTiming = 10000, speed = 6000) {
       .forEach(el => el.remove())
   }, stopTiming + 2000)
 }
-window.makeItRain = makeItRain
+
 export default makeItRain
