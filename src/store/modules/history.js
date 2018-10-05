@@ -1,5 +1,6 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
+import merge from 'merge-anything'
 
 export function defaultReceit () {
   return {
@@ -48,7 +49,7 @@ export default {
     },
   },
   serverChange: {
-    defaultValues: defaultReceit()
+    defaultValues: merge(defaultReceit(), {created_at: '%convertTimestamp%'}),
   },
   // module:
   namespaced: true,

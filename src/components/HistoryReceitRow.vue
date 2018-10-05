@@ -32,8 +32,7 @@ export default {
         }, '')
     },
     date () {
-      if (!this.receit.created_at || !this.receit.created_at.toDate) return '--'
-      return new Date(this.receit.created_at.toDate()).toLocaleDateString()
+      return this.receit.created_at.toLocaleDateString()
     },
   },
   methods:
