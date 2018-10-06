@@ -11,6 +11,7 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
+import { isDate } from 'is-what'
 
 export default {
   components: {},
@@ -32,7 +33,10 @@ export default {
         }, '')
     },
     date () {
-      return this.receit.created_at.toLocaleDateString()
+      if (isDate(this.receit.created_at)) {
+        return this.receit.created_at.toLocaleDateString()
+      }
+      return '--'
     },
   },
   methods:
