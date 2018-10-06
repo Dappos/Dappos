@@ -11,7 +11,7 @@
       <div class="_count">x{{ item.count }}</div>
       <div class="_name">{{ item.name }}</div>
       <div class="_price">{{ price | money(get('settings/currencyConfig')) }}</div>
-      <div class="_nav">
+      <div class="_nav" v-if="state.modals.cart.payment.stage === 1">
         <q-btn icon="ion-md-more" @click="dispatch('modals/cartMore', item)" class="_more" />
       </div>
     </div>

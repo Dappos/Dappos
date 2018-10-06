@@ -81,10 +81,11 @@
   <!-- PAYMENT -->
   <modal-minimised
     :toggle="state.modals.cart.payment"
-    :showFunc="_ => { showPaymentModal() }"
-    :hideFunc="_ => { hidePaymentModal() }"
+    :noDismiss="(halfPaid || fullyPaidNoConf)"
+    :showFunc="_ => { dispatch('modals/createPaymentRequest') }"
+    :hideFunc="_ => { dispatch('modals/resetPaymentRequest') }"
   >
-    <payment />
+    <payment :halfPaid="halfPaid" :fullyPaidNoConf="fullyPaidNoConf" />
   </modal-minimised>
 
   <!-- UPDATE WALLET ADDRESS -->
@@ -109,6 +110,13 @@
     <beta-activation />
   </modal-minimised>
 
+  <!-- REALLY CLOSE MODAL? -->
+  <modal-minimised
+    :toggle="state.modals.cart.reallyClosePayment"
+  >
+    <really-close-payment />
+  </modal-minimised>
+
 </div>
 </template>
 
@@ -123,6 +131,14 @@ export default {
   data () { return {} },
   computed:
   {
+    halfPaid () {
+      return (Object.keys(this.state.ethEvents.transactions).filter(k => k !== '*').length > 0 &&
+        this.state.modals.cart.payment.stage === 1)
+    },
+    fullyPaidNoConf () {
+      return (this.get('ethEvents/watcherConfirmationCount') === 0 &&
+        this.state.modals.cart.payment.stage === 2)
+    },
   },
   methods:
   {
@@ -130,13 +146,6 @@ export default {
       const item = this.get('modals/cart.editing.item')
       if (!item.count) this.commit('cart/deleteItem', item)
     },
-    showPaymentModal () {
-      this.dispatch('ethEvents/watchTransactions')
-      this.dispatch('cart/createPaymentRequest')
-    },
-    hidePaymentModal () {
-      this.dispatch('modals/resetPaymentRequest')
-    }
   }
 }
 </script>

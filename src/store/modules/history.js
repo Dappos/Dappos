@@ -1,5 +1,6 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
+import merge from 'merge-anything'
 
 export function defaultReceit () {
   return {
@@ -10,7 +11,7 @@ export function defaultReceit () {
     fiatCurrency: null, // 'jpy'
     items: {},
     wallet: null,
-    txn: null,
+    txns: [],
     confirmations: 0
   }
 }
@@ -48,7 +49,7 @@ export default {
     },
   },
   serverChange: {
-    defaultValues: defaultReceit()
+    defaultValues: merge(defaultReceit(), {created_at: '%convertTimestamp%'}),
   },
   // module:
   namespaced: true,
@@ -66,14 +67,5 @@ export default {
   },
   getters:
   {
-    receitByTxnHash: (state, getters) => {
-      return Object.values(state.receits)
-        .reduce((carry, receit) => {
-          if (!receit.txn) return carry
-          const txnHash = receit.txn.hash
-          carry[txnHash] = receit
-          return carry
-        }, {})
-    },
   }
 }

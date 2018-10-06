@@ -12,6 +12,8 @@
 export default {
   name: 'App',
   mounted () {
+    // change arrow in q-btn-dropdown
+    this.$q.icon.input.dropdown = 'ion-arrow-down'
   //     notify({
   //       preset: 'toast',
   //       textColor: 'white',
