@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto" viewBox="0 0 85 84">
+  <defs>
+    <radialGradient id="dai-a" fx="50%" fy="50%" gradientTransform="matrix(0 1 -.98911 0 .995 0)">
+      <stop offset="0%" stop-color="#FFDB87"/>
+      <stop offset="100%" stop-color="#FFBD21"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <polygon fill="url(#dai-a)" points="42.461 .003 84.922 42.001 42.461 84 0 42.001"/>
+    <path fill="#FFF" d="M16.1877,37.5902 C15.6105,38.2342 16.0675,39.2576 16.9323,39.2576 L33.0095,39.2576 C33.5762,39.2576 34.1162,39.0173 34.4955,38.5962 L42.1311,30.1199 L50.6914,38.6725 C51.0665,39.0472 51.5749,39.2576 52.105,39.2576 L68.194,39.2576 C69.067,39.2576 69.521,38.2183 68.928,37.5781 L43.6226,10.2575 C42.8223,9.3934 41.4522,9.4046 40.6661,10.2816 L16.1877,37.5902 Z"/>
+  </g>
+</svg>
