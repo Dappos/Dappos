@@ -34,7 +34,11 @@ export default {
       if (!address) return console.error('Please unlock MetaMask')
       dispatch('set/address', address)
       if (address !== rootState.settings.wallet.address) {
-        dispatch('modals/toggle', ['wallet.overwriteAddress', true], {root: true})
+        if (rootGetters['user/isSignedIn']) {
+          dispatch('modals/toggle', ['wallet.overwriteAddress', true], {root: true})
+        } else {
+          dispatch('settings/set/wallet.address', address, {root: true})
+        }
       }
       dispatch('set/isMainnet', await isMainNetwork(web3Wallet))
       return address

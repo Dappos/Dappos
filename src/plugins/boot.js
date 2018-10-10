@@ -37,6 +37,7 @@ export default ({ app, router, Vue, store }) => {
       // store.commit('auth/RESET_USER')
       console.log('no user found on authListener...')
       router.replace({ name: 'signin' })
+      store.dispatch('wallet/getAddress')
       // eslint-disable-next-line
       new Vue(app)
     }

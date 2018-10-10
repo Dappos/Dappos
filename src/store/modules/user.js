@@ -35,7 +35,6 @@ export default {
     userOnAuthListener ({state, getters, rootState, rootGetters, commit, dispatch}, {user}) {
       console.log('userOnAuthListener → ', user)
       dispatch('set/user', user)
-      dispatch('checkBetaActivation')
     },
     signInSuccess ({state, getters, rootState, rootGetters, commit, dispatch}, {user}) {
       console.log('signInSuccess → ', user)
@@ -51,21 +50,6 @@ export default {
           dispatch('resetStore', null, {root: true})
         })
     },
-    checkBetaActivation ({state, getters, rootState, rootGetters, commit, dispatch}) {
-      const path = `activatedUsers/${state.user.email}`
-      const doc = this.$db.doc(path)
-      return new Promise((resolve, reject) => {
-        doc.get().then(querySnapshot => {
-          const data = querySnapshot.data()
-          if (querySnapshot.exists && data.activated === true) {
-            dispatch('modals/toggle', ['betaBlock', false], {root: true})
-            return resolve(true)
-          }
-          dispatch('modals/toggle', ['betaBlock', true], {root: true})
-          resolve(false)
-        })
-      })
-    }
   },
   getters:
   {

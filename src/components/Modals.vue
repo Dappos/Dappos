@@ -102,14 +102,6 @@
     <no-address-found />
   </modal-minimised>
 
-  <!-- BETA ACTIVATION -->
-  <modal-minimised
-    :toggle="state.modals.betaBlock"
-    :noDismiss="true"
-  >
-    <beta-activation />
-  </modal-minimised>
-
   <!-- REALLY CLOSE MODAL? -->
   <modal-minimised
     :toggle="state.modals.cart.reallyClosePayment"

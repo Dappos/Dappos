@@ -16,10 +16,10 @@ export function defaultItem () {
 function testItems () {
   return {
     '*': {name: '', icon: null, prices: merge(defaultPrices, {usd: 0, jpy: 0})},
-    '_ice-coffee': {name: 'Ice Coffee', icon: null, id: '_ice-coffee', prices: merge(defaultPrices, {usd: 4, jpy: 400})},
-    '_hot-coffee': {name: 'Hot Coffee', icon: '☕', id: '_hot-coffee', prices: merge(defaultPrices, {usd: 4, jpy: 400})},
-    '_latte': {name: 'Latte', icon: null, id: '_latte', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
-    '_beer': {name: 'Beer', icon: null, id: '_beer', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
+    '_cookie': {name: 'Cookie', icon: '🍪', id: '_cookie', prices: merge(defaultPrices, {usd: 1, jpy: 100})},
+    '_coffee': {name: 'Coffee', icon: '☕', id: '_coffee', prices: merge(defaultPrices, {usd: 3, jpy: 300})},
+    '_latte': {name: 'Latte', icon: '☕', id: '_latte', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
+    '_beer': {name: 'Beer', icon: '🍺', id: '_beer', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
   }
 }
 
