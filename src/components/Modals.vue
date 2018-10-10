@@ -136,7 +136,7 @@ export default {
   {
     deleteIf0 () {
       const item = this.get('modals/cart.editing.item')
-      if (!item.count) this.commit('cart/deleteItem', item)
+      if (!item.count) this.dispatch('cart/deleteItem', item)
     },
   }
 }
