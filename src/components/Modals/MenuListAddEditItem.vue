@@ -35,7 +35,7 @@
     <q-input
       float-label="Price"
       @keydown.enter-strict.prevent="save"
-      v-model="item.prices[state.settings.currency]"
+      v-model="itemPriceComputed"
       type="number"
       :prefix="get('settings/currencyConfig').prefix"
       :decimals="get('settings/currencyConfig').precision"
@@ -65,6 +65,15 @@ export default {
   data () { return { pickerOpened: false } },
   computed:
   {
+    itemPriceComputed: {
+      get () {
+        const val = this.item.prices[this.state.settings.currency]
+        return (!val) ? '' : val
+      },
+      set (val) {
+        this.item.prices[this.state.settings.currency] = val
+      }
+    }
   },
   watch: {
     // whenever question changes, this function will run
