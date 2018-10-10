@@ -52,7 +52,6 @@ export default {
     },
     clearAll (state) {
       Object.values(state.items).forEach(item => {
-        // item.count = 0
         this._vm.$delete(state.items, item.id)
       })
     },
@@ -101,6 +100,10 @@ export default {
         item.nonListed = true
       }
       commit('addItem', item)
+      state.valueFiatAnimation.update(getters.valueFiat)
+    },
+    deleteItem ({state, getters, rootState, rootGetters, commit, dispatch}, item) {
+      commit('deleteItem', item)
       state.valueFiatAnimation.update(getters.valueFiat)
     },
     increment ({state, getters, rootState, rootGetters, commit, dispatch}, item) {

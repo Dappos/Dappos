@@ -7,23 +7,11 @@
 </template>
 
 <script>
-// import notify from '@helpers/NotifyHelper'
-
 export default {
   name: 'App',
   mounted () {
     // change arrow in q-btn-dropdown
     this.$q.icon.input.dropdown = 'ion-arrow-down'
-  //     notify({
-  //       preset: 'toast',
-  //       textColor: 'white',
-  //       color: 'blue',
-  //       timeout: 60000,
-  //       message: `💬 BETA Update!
-
-  // ・The QR code now works with most wallets. Please let us know if you find a wallet where the amount is not filled in automatically.
-
-  // 👨🏻‍💻`})
   },
   methods:
   {
@@ -35,6 +23,7 @@ export default {
 </script>
 
 <style lang="stylus">
+
 .q-alert-content div
   white-space pre-line
 #q-app

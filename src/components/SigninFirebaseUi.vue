@@ -1,9 +1,5 @@
 <template>
 <div class="firebase-ui-wrapper">
-  <div class="_private-beta-msg">
-    <div>Dappos is currently in private Beta.</div>
-    <div class="mt-lg">Please sign up at <a href="https://dappos.app">dappos.app</a> and wait for your invitation.</div>
-  </div>
   <div id="firebaseui-auth-container"></div>
 </div>
 </template>
@@ -75,9 +71,5 @@ export default {
   text-decoration none !important
   text-align center !important
   shadow-subtle()
-._private-beta-msg
-  pa xl
-  pt 0
-  font-size 1.1em
 
 </style>

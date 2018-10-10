@@ -1,5 +1,8 @@
 <template>
-<button @click="pay" class="info-total o-btn">
+<button
+  @click="pay"
+  :class="['info-total', 'o-btn', {'no-input': !get('cart/valueFiatAnimation.frameVal')}]"
+>
   <div class="_text">Charge</div>
   <div class="_price">
     <span>
@@ -47,6 +50,8 @@ export default {
 .info-total
   width 100%
   font-weight 600
+  &.no-input
+    background-color #bfc2cc
 ._price
   ml sm
   input

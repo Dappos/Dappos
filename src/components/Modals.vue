@@ -102,14 +102,6 @@
     <no-address-found />
   </modal-minimised>
 
-  <!-- BETA ACTIVATION -->
-  <modal-minimised
-    :toggle="state.modals.betaBlock"
-    :noDismiss="true"
-  >
-    <beta-activation />
-  </modal-minimised>
-
   <!-- REALLY CLOSE MODAL? -->
   <modal-minimised
     :toggle="state.modals.cart.reallyClosePayment"
@@ -144,7 +136,7 @@ export default {
   {
     deleteIf0 () {
       const item = this.get('modals/cart.editing.item')
-      if (!item.count) this.commit('cart/deleteItem', item)
+      if (!item.count) this.dispatch('cart/deleteItem', item)
     },
   }
 }

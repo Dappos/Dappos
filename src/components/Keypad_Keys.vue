@@ -13,7 +13,12 @@
     <button @click="dispatch('keypad/clear')" class="text-gray-medium">C</button>
     <button @click="dispatch('keypad/tap', 0)">0</button>
     <button @click="add()" class="_add">
-      <q-icon name="ion-add" size="1.3em" color="primary" class="js-fly-keypad-add" />
+      <q-icon
+        name="ion-add"
+        size="1.3em"
+        :color="(state.keypad.input) ? 'primary' : 'gray-medium'"
+        class="js-fly-keypad-add"
+      />
     </button>
   </div>
 </div>

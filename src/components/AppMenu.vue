@@ -18,7 +18,7 @@
           v-if="row.href"
           :href="row.href"
         >
-          {{ row.name }}
+          {{ row.name }} <q-icon v-if="row.name === 'About Dappos'" name="launch" color="gray-medium" />
         </a>
         <button
           v-if="!row.url && row.func"
@@ -56,10 +56,11 @@ export default {
           url: '',
           line: true
         },
-        // {
-        //   name: 'Dappos Home',
-        //   url: '/'
-        // },
+        {
+          name: 'Dappos Home',
+          url: '/',
+          hide: this.state.route.name !== 'signin'
+        },
         {
           name: 'History',
           func: _ => { return this.dispatch('modals/toggle', 'history') },
@@ -88,7 +89,7 @@ export default {
         {
           name: 'Signin',
           url: '/signin',
-          hide: this.get('user/isSignedIn')
+          hide: this.get('user/isSignedIn') || this.state.route.name === 'signin'
         },
         {
           name: '',

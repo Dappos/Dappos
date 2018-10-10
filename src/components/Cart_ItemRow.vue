@@ -2,7 +2,7 @@
 <options-reveal
   :options="[{
     name: 'Delete',
-    action () { return commit('cart/deleteItem', item) },
+    action () { return dispatch('cart/deleteItem', item) },
     style: 'background-color: red;',
   }]"
 >

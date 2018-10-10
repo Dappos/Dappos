@@ -8,7 +8,7 @@ export default [
         path: '',
         name: 'home',
         component: () => import('pages/index'),
-        meta: { authRequired: true },
+        // meta: { authRequired: true },
       },
       {
         path: 'signin',
