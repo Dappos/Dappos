@@ -33,23 +33,23 @@ export function getRate (currency, token = 'eth') {
     'zrx': '1896',
   }
   const tokenId = tokenIds[token.toLowerCase()]
-  const rates = window.store.state.priceapi
-  // const url = `https://api.coinmarketcap.com/v2/ticker/${tokenId}/?convert=${currency}`
-  return new Promise((resolve, reject) => {
-    const rate = rates[`${token.toLowerCase()}-${currency.toLowerCase()}`]
-    if (isNaN(rate)) return
-    resolve(rate)
-  })
-  // return axios.get(url)
-  //   .then(function (res) {
-  //     const rate = res.data.data.quotes[currency].price
-  //     if (isNaN(rate)) return
-  //     return rate
-  //   })
-  //   .catch(function (error) {
-  //     console.error(error)
-  //     return false
-  //   })
+  // const rates = window.store.state.priceapi
+  // return new Promise((resolve, reject) => {
+  //   const rate = rates[`${token.toLowerCase()}-${currency.toLowerCase()}`]
+  //   if (isNaN(rate)) return
+  //   resolve(rate)
+  // })
+  const url = `https://api.coinmarketcap.com/v2/ticker/${tokenId}/?convert=${currency}`
+  return axios.get(url)
+    .then(function (res) {
+      const rate = res.data.data.quotes[currency].price
+      if (isNaN(rate)) return
+      return rate
+    })
+    .catch(function (error) {
+      console.error(error)
+      return false
+    })
 }
 
 /**
