@@ -7,6 +7,7 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 // modules
+import priceapi from '@modules/priceapi'
 import cart from '@modules/cart'
 import keypad from '@modules/keypad'
 import wallet from '@modules/wallet'
@@ -18,7 +19,7 @@ import user from '@modules/user'
 import menulist from '@modules/menulist'
 import settings from '@modules/settings'
 import history from '@modules/history'
-const easyFirestores = createEasyFirestore([menulist, settings, history], {logging: true})
+const easyFirestores = createEasyFirestore([menulist, settings, history, priceapi], {logging: true})
 const easyAccess = createEasyAccess(easyAccessConf)
 
 export default function () {

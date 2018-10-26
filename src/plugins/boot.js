@@ -18,6 +18,8 @@ export default ({ app, router, Vue, store }) => {
       // Signed in. Let Vuex know.
       store.dispatch('user/userOnAuthListener', {user})
       store.commit('user/menulist/clearTestItems')
+      store.dispatch('priceapi/openDBChannel')
+        .catch(console.error)
       store.dispatch('user/menulist/openDBChannel')
         .catch(console.error)
       store.dispatch('history/openDBChannel')
