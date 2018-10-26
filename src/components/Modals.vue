@@ -80,6 +80,7 @@
 
   <!-- PAYMENT -->
   <modal-minimised
+    class="modal-payment"
     :toggle="state.modals.cart.payment"
     :noDismiss="(halfPaid || fullyPaidNoConf)"
     :showFunc="_ => { dispatch('modals/createPaymentRequest') }"
@@ -185,5 +186,8 @@ export default {
   top 0 !important
   left 0 !important
   margin auto
+
+.modal-payment .modal-content
+  background transparent !important
 
 </style>
