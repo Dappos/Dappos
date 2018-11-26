@@ -5,7 +5,6 @@ import convert from '@helpers/conversion'
 import startConfetti from '@helpers/Confetti'
 import getWeb3 from '@config/web3'
 import erc20Abi from '@config/erc20Abi'
-import selectableTokens from '@config/selectableTokens'
 
 function initialState () {
   return {
@@ -71,10 +70,11 @@ export default {
     watchErc20Transactions ({state, getters, rootState, rootGetters, commit, dispatch}, selectedToken) {
       const web3 = getters.web3
       const posAddress = rootState.settings.wallet.address
-      const tokenInfo = selectableTokens[selectedToken]
-      const networkInfo = rootGetters['settings/selectedNetworkObject']
-      if (!tokenInfo || !tokenInfo.contractAddresses) throw Error('something went wrong')
-      const erc20ContractAddress = tokenInfo.contractAddresses[networkInfo.network]
+      const tokens = rootGetters['settings/availableTokensOnlyErc20']
+      const tokenInfo = tokens[selectedToken]
+      const selectedNetwork = rootGetters['settings/selectedNetworkObject'].name
+      if (!tokenInfo || !tokenInfo.networks) throw Error('something went wrong')
+      const erc20ContractAddress = tokenInfo.networks[selectedNetwork].address
       if (!erc20ContractAddress) throw Error('something went wrong. Erc20 address not found...')
       const erc20Contract = new web3.eth.Contract(erc20Abi, erc20ContractAddress)
       const subscription = erc20Contract.events.Transfer({fromBlock: 'latest', filter: {_to: posAddress}})

@@ -11,7 +11,7 @@
     </div>
       <!-- :value="state.settings.selectedToken" -->
       <!-- @change="token => { set('settings/selectedToken', token) }" -->
-      <!-- :options="selectableTokens" -->
+      <!-- :options="tokensDropdown" -->
     <q-btn-dropdown
       :disabled="halfPaid"
       class="_eth"
@@ -20,7 +20,7 @@
     >
       <q-list link>
         <q-item
-          v-for="(token, key) in selectableTokens"
+          v-for="(token, key) in tokensDropdown"
           @click.native="changeToken(token.value)"
           :key="`token-dd-${key}`"
           v-close-overlay
@@ -93,30 +93,30 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
-import _selectableTokens from '@config/selectableTokens'
 
 export default {
   components: {},
   props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () {
-    return {
-      selectableTokens: Object.keys(_selectableTokens)
-        .map(tokenKey => {
-          return {
-            icon: _selectableTokens[tokenKey].icon,
-            label: tokenKey.toUpperCase(),
-            sublabel: _selectableTokens[tokenKey].sublabel,
-            value: tokenKey
-          }
-        })
-    }
-  },
+  data () { return {} },
   computed:
   {
     confirmationCount () {
       return this.get('ethEvents/watcherConfirmationCount')
+    },
+    tokensDropdown () {
+      const tokens = this.get('settings/availableTokens')
+      const tokensFormatted = Object.values(tokens)
+        .map(token => {
+          return {
+            icon: token.icon,
+            label: token.id.toUpperCase(),
+            sublabel: token.sublabel,
+            value: token.id
+          }
+        })
+      return tokensFormatted
     },
   },
   methods:

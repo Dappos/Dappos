@@ -7,12 +7,13 @@ export default ({ app, router, Vue, store }) => {
   // .then(result => store.dispatch('user/signInSuccess', {user: result}))
   // .catch(error => store.dispatch('apiError', {error, method: 'getRedirectResult()'}))
 
+  // Configure Firestore
+  const firestore = Firebase.firestore()
+  firestore.settings({timestampsInSnapshots: true})
+
   // Register the Firebase authentication listener
   Firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      // Configure Firestore
-      const firestore = Firebase.firestore()
-      firestore.settings({timestampsInSnapshots: true})
       Vue.prototype.$firestore = firestore
       store.$db = firestore
       // Signed in. Let Vuex know.

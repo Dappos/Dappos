@@ -1,14 +1,21 @@
 
 export default {
   'eth': {
+    id: 'eth',
     erc20: false,
     icon: 'fab fa-ethereum',
+    networks: {
+      'Ethereum (mainnet) by Infura': true,
+      'Ethereum (ropsten) by Infura': true,
+      'Ethereum (kovan) by Infura': true,
+    }
   },
   'dai': {
+    id: 'dai',
     erc20: true,
-    contractAddresses: {
-      mainnet: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
-      kovan: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2'
+    networks: {
+      'Ethereum (mainnet) by Infura': {address: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359'},
+      'Ethereum (kovan) by Infura': {address: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2'}
     },
     icon: 'fab fa-dai-icon',
     sublabel: 'USD stabletoken by MakerDAO',

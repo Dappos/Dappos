@@ -52,11 +52,11 @@
         <div class="_info">
           Select a network provider.
         </div>
-        <q-btn-dropdown :label="get('settings/selectedNetworkLabel')" outline no-wrap>
+        <q-btn-dropdown :label="state.settings.networkProvider.selected" outline no-wrap>
           <!-- dropdown content -->
           <q-list link>
             <q-item
-              v-for="(curr, key) in get('settings/availableNetworks')"
+              v-for="(curr, key) in networksDropdown"
               @click.native="selectNetwork(key)"
               :key="`netw-sel-${key}`"
               v-close-overlay
@@ -68,21 +68,84 @@
           </q-list>
         </q-btn-dropdown>
         <div v-if="addingCustomRPC" class="_adding-custom-rpc">
+          <q-field>
+            <q-input
+              stack-label="Name"
+              v-model="customRPC.name"
+            />
+          </q-field>
           <q-field
-            label="URL"
-            :label-width="2"
             helper="We currently only support Web Socket URLs."
           >
-            <q-input v-model="customRPC.url" />
+            <q-input
+              stack-label="URL"
+              v-model="customRPC.url"
+              placeholder="wss://..."
+            />
           </q-field>
-          <q-field
-            label="Name"
-            :label-width="2"
-          >
-            <q-input v-model="customRPC.name" />
-          </q-field>
-          <button @click="addCustomRPC" class="o-btn">Add</button>
+          <div class="flex">
+            <button @click="addCustomRPC" class="o-btn ml-auto mr-lg">Add</button>
+            <button @click="addingCustomRPC = false" class="o-txt-btn">Cancel</button>
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="_row">
+      <div class="_title full-width">Accepted tokens (ERC-20)</div>
+      <div class="_content _provider">
+        <div
+          v-for="token in get('settings/availableTokensOnlyErc20')"
+          :key="token.id"
+          class="_token-row"
+          :id="'token-' + token.id"
+        >
+          <div class="_token-id">{{ token.id }}</div>
+          <q-input
+            readonly
+            :value="token.networks[state.settings.networkProvider.selected].address"
+            class="_token-address"
+          />
+          <button
+            @click="dispatch('settings/delete/tokens.customTokens.*', token.id)"
+            class="o-txt-btn _token-add-btn"
+          >
+            Delete
+          </button>
+        </div>
+        <div
+          v-if="addingNewToken"
+          class="_token-row"
+        >
+          <q-input
+            stack-label="Token name"
+            v-model="newToken.id"
+            class="_token-id-new"
+          />
+          <q-input
+            stack-label="ERC20 contract address"
+            v-model="newToken.address"
+            class="_token-address"
+            placeholder="0x..."
+          />
+          <button
+            @click="addNewToken"
+            class="o-btn _token-add-btn"
+          >
+            Add
+          </button>
+          <button
+            @click="addingNewToken = false"
+            class="o-txt-btn _token-add-btn"
+          >
+            Cancel
+          </button>
+        </div>
+        <button
+          @click="addingNewToken = true"
+          class="o-txt-btn _token-add-btn"
+        >
+          Add new ERC-20 token
+        </button>
       </div>
     </div>
   </div>
@@ -100,11 +163,26 @@ export default {
   data () {
     return {
       addingCustomRPC: false,
-      customRPC: {name: '', url: ''}
+      addingNewToken: false,
+      editingToken: false,
+      customRPC: {name: '', url: ''},
+      newToken: {id: '', address: ''}
     }
   },
   computed:
   {
+    networksDropdown () {
+      const networks = this.get('settings/availableNetworks')
+      const networksFormatted = Object.values(networks)
+        .reduce((carry, n) => {
+          carry[n.name] = {
+            label: n.name,
+            value: n.name
+          }
+          return carry
+        }, {})
+      return {...networksFormatted, add: {label: 'add custom RPC', value: 'add'}}
+    },
   },
   methods:
   {
@@ -118,13 +196,28 @@ export default {
     addCustomRPC () {
       this.set(
         'settings/networkProvider.customRPCs.*',
-        {[this.customRPC.name]: this.customRPC.url}
+        {[this.customRPC.name]: {name: this.customRPC.name, url: this.customRPC.url}}
       )
       this.set('settings/networkProvider.selected', this.customRPC.name)
       this.addingCustomRPC = false
       this.customRPC.name = ''
       this.customRPC.url = ''
-    }
+    },
+    addNewToken () {
+      this.set(
+        'settings/tokens.customTokens.*',
+        {
+          id: this.newToken.id,
+          erc20: true,
+          networks: {
+            [this.state.settings.networkProvider.selected]: {address: this.newToken.address}
+          },
+        }
+      )
+      this.addingNewToken = false
+      this.newToken.id = ''
+      this.newToken.address = ''
+    },
   }
 }
 </script>
@@ -153,5 +246,24 @@ export default {
   mt md
   >*
     mb sm
+._token-row
+  mb sm
+  display flex
+  align-items baseline
+  width 100%
+._token-id
+  max-width 5rem
+._token-address
+  ml sm
+  font-size .8em
+  flex 1
+._token-id-new
+  font-size .8em
+._token-add-btn
+  ml sm
+  font-size .8em
+._token-add-btn
+  mt lg
+  font-size .8em
 
 </style>
