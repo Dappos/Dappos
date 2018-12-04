@@ -1,14 +1,8 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import currencyDefaults from '@config/currencyDefaults'
-
-const defaultNetworkProviders = {
-  mainnetInfura: {url: 'wss://mainnet.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'mainnet'},
-  ropstenInfura: {url: 'wss://ropsten.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'ropsten'},
-  kovanInfura: {url: 'wss://kovan.infura.io/_ws', provider: 'Infura', blockchain: 'Ethereum', network: 'kovan'},
-  // rinkebyInfura: {url: 'wss://rinkeby.infura.io/ws', provider: 'Infura', blockchain: 'Ethereum', network: 'rinkeby'},
-  // ropstenGetho: {url: 'wss://above-goat-651cb0b1dc67.getho.io/ws', provider: 'Getho.io', blockchain: 'Ethereum', network: 'ropsten'},
-}
+import defaultNetworkProviders from '@config/networkProviders'
+import defaultSelectableTokens from '@config/selectableTokens'
 
 function initialState () {
   return {
@@ -17,11 +11,26 @@ function initialState () {
     requiredConfirmationCount: 1,
     currency: 'jpy',
     selectedToken: 'eth',
+    tokens: {
+      customTokens: {
+        '*': {
+          id: '*', // id should be symbol
+          erc20: true,
+          fiatConversion: true, // if disabled will charge customer the amount filled in.
+          coingeckoId: '', // obtainable at https://www.coingecko.com/api/docs/v3#/coins/get_coins_list
+          networks: {
+            '*': {address: ''}, // id should be networkProvider name
+          },
+          icon: '', // eg. 'fab fa-dai-icon'
+          sublabel: '' // eg. 'USD stabletoken by MakerDAO'
+        }
+      },
+    },
     networkProvider: {
-      selected: 'mainnetInfura',
+      selected: 'Ethereum (mainnet) by Infura', // 'name' used as ID
       customRPCs: {
-        '*': '', // 'name': 'url'
-      }
+        '*': {name: '*', url: ''} // name === id
+      },
     },
     config: {
       // only set these if you want to overwrite defaults.
@@ -36,7 +45,7 @@ export default {
   moduleName: 'settings',
   statePropName: '',
   sync: {
-    fillables: ['wallet', 'gas', 'currency', 'selectedToken', 'config', 'requiredConfirmationCount', 'networkProvider']
+    fillables: ['wallet', 'gas', 'currency', 'selectedToken', 'config', 'requiredConfirmationCount', 'networkProvider', 'tokens'],
   },
   // module:
   state: initialState(),
@@ -64,39 +73,37 @@ export default {
   getters:
   {
     availableNetworks: (state, getters) => {
-      const defaultNetworks = Object.keys(defaultNetworkProviders).reduce((carry, key) => {
-        const p = defaultNetworkProviders[key]
-        carry[key] = {
-          label: `${p.blockchain} (${p.network}) by ${p.provider}`,
-          value: key
-        }
-        return carry
-      }, {})
-      const customNetworks = Object.keys(state.networkProvider.customRPCs).reduce((carry, key) => {
-        if (key === '*') return carry
-        carry[key] = {
-          label: key,
-          value: key
-        }
-        return carry
-      }, {})
-      return {...defaultNetworks, ...customNetworks, add: {label: 'add custom RPC', value: 'add'}}
-    },
-    selectedNetworkLabel: (state, getters) => {
-      const net = state.networkProvider.selected
-      const p = getters.availableNetworks[net]
-      const customRPC = state.networkProvider.customRPCs[net]
-      if (!p && !customRPC) return 'No network set'
-      if (!p) return net
-      return p.label
+      const networks = Object.assign({}, defaultNetworkProviders, state.networkProvider.customRPCs)
+      return Object.values(networks)
+        .reduce((carry, network) => {
+          if (network.name === '*') return carry
+          carry[network.name] = network
+          return carry
+        }, {})
     },
     selectedNetworkObject: (state, getters) => {
-      const net = state.networkProvider.selected
-      const defaultProvider = defaultNetworkProviders[net]
-      const customRPC = state.networkProvider.customRPCs[net]
-      if (!defaultProvider && !customRPC) return {}
-      if (!defaultProvider) return {blockchain: net, url: customRPC}
-      return defaultProvider
+      const networks = getters.availableNetworks
+      const selected = state.networkProvider.selected
+      return networks[selected]
+    },
+    availableTokens: (state, getters) => {
+      const tokens = Object.assign({}, defaultSelectableTokens, state.tokens.customTokens)
+      return Object.values(tokens)
+        .reduce((carry, token) => {
+          if (token.id === '*') return carry
+          if (!token.networks[state.networkProvider.selected]) return carry
+          carry[token.id] = token
+          return carry
+        }, {})
+    },
+    availableTokensOnlyErc20: (state, getters) => {
+      const tokens = getters.availableTokens
+      return Object.values(tokens)
+        .reduce((carry, token) => {
+          if (!token.erc20) return carry
+          carry[token.id] = token
+          return carry
+        }, {})
     },
     currencyLabel: (state, getters) => {
       return getters.availableCurrencies[state.currency].label

@@ -121,8 +121,12 @@ export default {
     async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
       const selectedToken = rootState.settings.selectedToken
+      const coingeckoId = rootGetters['settings/availableTokens'][selectedToken].coingeckoId
+      const fiatConversion = rootGetters['settings/availableTokens'][selectedToken].fiatConversion
       const valueFiat = getters.valueFiat
-      let valueToken = await convert(valueFiat, currency, selectedToken)
+      let valueToken = (fiatConversion === false)
+        ? valueFiat
+        : await convert(valueFiat, currency, coingeckoId)
       valueToken = floorDecimals(valueToken, 5)
       dispatch('set/valueToken', valueToken)
       dispatch('set/paymentRequest', {

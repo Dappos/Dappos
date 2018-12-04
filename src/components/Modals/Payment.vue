@@ -11,7 +11,7 @@
     </div>
       <!-- :value="state.settings.selectedToken" -->
       <!-- @change="token => { set('settings/selectedToken', token) }" -->
-      <!-- :options="selectableTokens" -->
+      <!-- :options="tokensDropdown" -->
     <q-btn-dropdown
       :disabled="halfPaid"
       class="_eth"
@@ -20,7 +20,7 @@
     >
       <q-list link>
         <q-item
-          v-for="(token, key) in selectableTokens"
+          v-for="(token, key) in tokensDropdown"
           @click.native="changeToken(token.value)"
           :key="`token-dd-${key}`"
           v-close-overlay
@@ -45,8 +45,15 @@
   <!-- MIDDLE -->
   <div class="_wrapper-middle">
     <!-- Stage 1: Payment request (with QR) -->
-    <div v-if="state.modals.cart.payment.stage === 1" class="_middle-inner">
-      <canvas class="_qr" id="js-qr"></canvas>
+    <div v-if="state.modals.cart.payment.stage === 1" class="_middle-inner _qr-wrapper">
+      <div class="_qr-loading" v-if="state.cart.paymentRequest.value === 0">
+        <q-spinner-oval color="primary" />
+      </div>
+      <canvas
+        id="js-qr"
+        v-show="state.cart.paymentRequest.value > 0"
+        class="_qr"
+      ></canvas><!-- must be v-show for qr generation library -->
     </div>
     <!-- Stage 2: Counting txn confirmations -->
     <div v-if="state.modals.cart.payment.stage === 2" class="_middle-inner">
@@ -93,30 +100,30 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
-import _selectableTokens from '@config/selectableTokens'
 
 export default {
   components: {},
   props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () {
-    return {
-      selectableTokens: Object.keys(_selectableTokens)
-        .map(tokenKey => {
-          return {
-            icon: _selectableTokens[tokenKey].icon,
-            label: tokenKey.toUpperCase(),
-            sublabel: _selectableTokens[tokenKey].sublabel,
-            value: tokenKey
-          }
-        })
-    }
-  },
+  data () { return {} },
   computed:
   {
     confirmationCount () {
       return this.get('ethEvents/watcherConfirmationCount')
+    },
+    tokensDropdown () {
+      const tokens = this.get('settings/availableTokens')
+      const tokensFormatted = Object.values(tokens)
+        .map(token => {
+          return {
+            icon: token.icon,
+            label: token.id.toUpperCase(),
+            sublabel: token.sublabel,
+            value: token.id
+          }
+        })
+      return tokensFormatted
     },
   },
   methods:
@@ -194,10 +201,23 @@ export default {
   display flex
   flex-direction column
   justify-content space-between
+
+._qr-wrapper
+  position relative
 ._qr
   width 100% !important
   height auto !important
   opacity .7
+._qr-loading
+  position absolute
+  height 100%
+  width 100%
+  top 0
+  left 0
+  display flex
+  align-items center
+  justify-content center
+  font-size 3em
 
 ._confirmations
   font-size .75em
