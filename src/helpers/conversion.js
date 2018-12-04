@@ -20,29 +20,16 @@ const isETH = currency => (ethTo[currency.toLowerCase()])
  *
  * @export
  * @param {string} currency Supports: jpy, usd, hkd, aud, twd, sgd, eur, gbp, krw
- * @param {string} token Supports: eth (default), dai
+ * @param {string} [coingeckoId='ethereum'] id from coingecko (obtainable at https://www.coingecko.com/api/docs/v3#/coins/get_coins_list)
  * @returns The exchange rate
  */
-export function getRate (currency, token = 'eth') {
+export function getRate (currency, coingeckoId = 'ethereum') {
   if (!currency) return
   if (!currencyDefaults[currency.toLowerCase()]) return
-  currency = currency.toUpperCase()
-  const tokenIds = {
-    'eth': '1027',
-    'dai': '2308',
-    'zrx': '1896',
-  }
-  const tokenId = tokenIds[token.toLowerCase()]
-  // const rates = window.store.state.priceapi
-  // return new Promise((resolve, reject) => {
-  //   const rate = rates[`${token.toLowerCase()}-${currency.toLowerCase()}`]
-  //   if (isNaN(rate)) return
-  //   resolve(rate)
-  // })
-  const url = `https://api.coinmarketcap.com/v2/ticker/${tokenId}/?convert=${currency}`
+  const url = `https://api.coingecko.com/api/v3/simple/price?ids=${coingeckoId.toLowerCase()}&vs_currencies=${currency.toLowerCase()}`
   return axios.get(url)
     .then(function (res) {
-      const rate = res.data.data.quotes[currency].price
+      const rate = res.data[coingeckoId.toUpperCase()][currency.toUpperCase()]
       if (isNaN(rate)) return
       return rate
     })
@@ -57,8 +44,8 @@ export function getRate (currency, token = 'eth') {
  *
  * @export
  * @param {number} amount The amount to convert
- * @param {string} from currency or token name (eg. jpy, eth, ...)
- * @param {string} to currency or token name (eg. jpy, eth, ...)
+ * @param {string} from currency or token name as coingeckoId (eg. jpy, ethereum, ...)
+ * @param {string} to currency or token name as coingeckoId (eg. jpy, ethereum, ...)
  * @returns {(number|Promise)} if (eth ⇔ eth) returns number | if (eth ⇔ fiat) returns a promise!
  */
 export default function convert (amount, from, to) {

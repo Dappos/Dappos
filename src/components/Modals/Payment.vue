@@ -45,8 +45,15 @@
   <!-- MIDDLE -->
   <div class="_wrapper-middle">
     <!-- Stage 1: Payment request (with QR) -->
-    <div v-if="state.modals.cart.payment.stage === 1" class="_middle-inner">
-      <canvas class="_qr" id="js-qr"></canvas>
+    <div v-if="state.modals.cart.payment.stage === 1" class="_middle-inner _qr-wrapper">
+      <div class="_qr-loading" v-if="state.cart.paymentRequest.value === 0">
+        <q-spinner-oval color="primary" />
+      </div>
+      <canvas
+        id="js-qr"
+        v-show="state.cart.paymentRequest.value > 0"
+        class="_qr"
+      ></canvas><!-- must be v-show for qr generation library -->
     </div>
     <!-- Stage 2: Counting txn confirmations -->
     <div v-if="state.modals.cart.payment.stage === 2" class="_middle-inner">
@@ -194,10 +201,23 @@ export default {
   display flex
   flex-direction column
   justify-content space-between
+
+._qr-wrapper
+  position relative
 ._qr
   width 100% !important
   height auto !important
   opacity .7
+._qr-loading
+  position absolute
+  height 100%
+  width 100%
+  top 0
+  left 0
+  display flex
+  align-items center
+  justify-content center
+  font-size 3em
 
 ._confirmations
   font-size .75em

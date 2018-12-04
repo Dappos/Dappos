@@ -99,7 +99,7 @@
           class="_token-row"
           :id="'token-' + token.id"
         >
-          <div class="_token-id">{{ token.id }}</div>
+          <div class="_token-symbol">{{ token.id }}</div>
           <q-input
             readonly
             :value="token.networks[state.settings.networkProvider.selected].address"
@@ -114,35 +114,52 @@
         </div>
         <div
           v-if="addingNewToken"
-          class="_token-row"
+          class="_new-token-row"
         >
-          <q-input
-            stack-label="Token name"
-            v-model="newToken.id"
-            class="_token-id-new"
-          />
-          <q-input
-            stack-label="ERC20 contract address"
-            v-model="newToken.address"
-            class="_token-address"
-            placeholder="0x..."
-          />
-          <button
-            @click="addNewToken"
-            class="o-btn _token-add-btn"
-          >
-            Add
-          </button>
-          <button
-            @click="addingNewToken = false"
-            class="o-txt-btn _token-add-btn"
-          >
-            Cancel
-          </button>
+          <div class="_new-token-row__sub-row">
+            <q-input
+              stack-label="Token symbol"
+              v-model="newToken.id"
+              class="_token-symbol-new"
+              placeholder="eth"
+            />
+            <q-input
+              stack-label="ERC20 contract address"
+              v-model="newToken.address"
+              class="_token-address"
+              placeholder="0x..."
+            />
+          </div>
+          <div class="_new-token-row__sub-row">
+            <q-toggle
+              label="Fiat conversion" left-label
+              v-model="newToken.fiatConversion"
+              class="_token-fiat-conversion"
+            />
+            <q-input
+              v-if="newToken.fiatConversion"
+              stack-label="Coingecko ID"
+              v-model="newToken.coingeckoId"
+              class="_token-coingeckoId"
+              placeholder="ethereum"
+            />
+            <button
+              @click="addNewToken"
+              class="o-btn _new-token-row__add-btn"
+            >
+              Add
+            </button>
+            <button
+              @click="addingNewToken = false"
+              class="o-txt-btn _new-token-row__cancel-btn"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
         <button
           @click="addingNewToken = true"
-          class="o-txt-btn _token-add-btn"
+          class="o-txt-btn _token-new-erc-btn"
         >
           Add new ERC-20 token
         </button>
@@ -166,7 +183,7 @@ export default {
       addingNewToken: false,
       editingToken: false,
       customRPC: {name: '', url: ''},
-      newToken: {id: '', address: ''}
+      newToken: {id: '', address: '', fiatConversion: true, coingeckoId: ''}
     }
   },
   computed:
@@ -208,6 +225,8 @@ export default {
         'settings/tokens.customTokens.*',
         {
           id: this.newToken.id,
+          fiatConversion: this.newToken.fiatConversion,
+          coingeckoId: this.newToken.coingeckoId,
           erc20: true,
           networks: {
             [this.state.settings.networkProvider.selected]: {address: this.newToken.address}
@@ -251,18 +270,32 @@ export default {
   display flex
   align-items baseline
   width 100%
-._token-id
+  button, .q-input
+    font-size .8em
+._token-symbol
   max-width 5rem
 ._token-address
   ml sm
-  font-size .8em
   flex 1
-._token-id-new
-  font-size .8em
-._token-add-btn
-  ml sm
-  font-size .8em
-._token-add-btn
+
+._new-token-row
+  flex-wrap wrap
+  button, .q-input
+    font-size .8em
+._new-token-row__sub-row
+  display flex
+  align-items baseline
+  width 100%
+  &:last-child
+    mt md
+  >div, >button
+    ml sm
+  >div:first-child
+    ml 0
+._new-token-row__add-btn
+  ml auto !important
+
+._token-new-erc-btn
   mt lg
   font-size .8em
 

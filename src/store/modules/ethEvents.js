@@ -92,6 +92,7 @@ export default {
       dispatch('set/subscription', subscription)
     },
     unwatchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      if (!state.subscription || !state.subscription.unsubscribe) return
       state.subscription.unsubscribe((error, success) => {
         if (success) {
           console.log('Successfully unsubscribed!')
@@ -123,6 +124,7 @@ export default {
       dispatch('set/confirmationWatcherTxnHash', null)
     },
     unwatch ({state, getters, rootState, rootGetters, commit, dispatch}) {
+      console.log('unwatch')
       dispatch('unwatchTransactions')
       dispatch('unwatchConfirmations')
       commit('resetStateData')

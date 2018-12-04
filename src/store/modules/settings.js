@@ -14,8 +14,10 @@ function initialState () {
     tokens: {
       customTokens: {
         '*': {
-          id: '*',
+          id: '*', // id should be symbol
           erc20: true,
+          fiatConversion: true, // if disabled will charge customer the amount filled in.
+          coingeckoId: '', // obtainable at https://www.coingecko.com/api/docs/v3#/coins/get_coins_list
           networks: {
             '*': {address: ''}, // id should be networkProvider name
           },
