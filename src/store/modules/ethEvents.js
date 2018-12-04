@@ -46,8 +46,7 @@ export default {
   {
     watchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}, selectedToken) {
       if (selectedToken === 'eth') return dispatch('watchETHTransactions')
-      if (selectedToken === 'dai') return dispatch('watchErc20Transactions', selectedToken)
-      return Error('something went wrong')
+      return dispatch('watchErc20Transactions', selectedToken)
     },
     watchETHTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const web3 = getters.web3
