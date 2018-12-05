@@ -36,7 +36,8 @@
       <div class="_title">Required confirmation count</div>
       <div class="_content _wallet">
         <div class="_info">
-          The required minimum confirmation count you require per payment. This is counted by the amount of blocks on the Ethereum blockchain since the transaction.
+          The required minimum confirmation count you require per payment.
+          This is counted by the amount of blocks on the Ethereum blockchain since the transaction.
         </div>
         <q-slider
           :value="Number(state.settings.requiredConfirmationCount)"
@@ -114,7 +115,7 @@
         </div>
         <div
           v-if="addingNewToken"
-          class="_new-token-row"
+          class="_new-token-row animate-pop"
         >
           <div class="_new-token-row__sub-row">
             <q-input
@@ -132,7 +133,7 @@
           </div>
           <div class="_new-token-row__sub-row">
             <q-toggle
-              label="Fiat conversion" left-label
+              label="Fiat<br>conversion" left-label
               v-model="newToken.fiatConversion"
               class="_token-fiat-conversion"
             />
@@ -143,12 +144,14 @@
               class="_token-coingeckoId"
               placeholder="ethereum"
             />
-            <button
-              @click="addNewToken"
-              class="o-btn _new-token-row__add-btn"
-            >
-              Add
-            </button>
+            <div class="_new-token-row__add-btn">
+              <button
+                @click="addNewToken"
+                class="o-btn"
+              >
+                Add
+              </button>
+            </div>
             <button
               @click="addingNewToken = false"
               class="o-txt-btn _new-token-row__cancel-btn"
@@ -280,6 +283,10 @@ export default {
 
 ._new-token-row
   flex-wrap wrap
+  padding 1em
+  border-radius 0.5em
+  background #f3f4f7
+  mt lg
   button, .q-input
     font-size .8em
 ._new-token-row__sub-row
@@ -293,7 +300,14 @@ export default {
   >div:first-child
     ml 0
 ._new-token-row__add-btn
-  ml auto !important
+  flex 1
+  display flex
+  justify-content flex-end
+._token-fiat-conversion
+  mt sm
+  font-size .8em
+._token-coingeckoId
+  max-width 7em
 
 ._token-new-erc-btn
   mt lg
