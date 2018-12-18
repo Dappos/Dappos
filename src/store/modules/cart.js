@@ -121,8 +121,8 @@ export default {
     async createPaymentRequest ({state, getters, rootState, rootGetters, commit, dispatch}) {
       const currency = rootState.settings.currency
       const selectedToken = rootState.settings.selectedToken
-      const coingeckoId = rootGetters['settings/availableTokens'][selectedToken].coingeckoId
-      const fiatConversion = rootGetters['settings/availableTokens'][selectedToken].fiatConversion
+      const coingeckoId = rootGetters['settings/selectedTokenObject'].coingeckoId
+      const fiatConversion = rootGetters['settings/selectedTokenObject'].fiatConversion
       const valueFiat = getters.valueFiat
       let valueToken = (fiatConversion === false)
         ? valueFiat
