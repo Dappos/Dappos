@@ -1,7 +1,7 @@
 <template>
 <div class="settings">
   <div class="_wrapper">
-    <div class="_row">
+    <div class="_section">
       <div class="_title">Currency</div>
       <div class="_content">
         <q-btn-dropdown :label="get('settings/currencyLabel')" outline >
@@ -21,7 +21,7 @@
         </q-btn-dropdown>
       </div>
     </div>
-    <div class="_row">
+    <div class="_section">
       <div class="_title">Ethereum Wallet Address</div>
       <div class="_content _wallet">
         <q-input
@@ -32,7 +32,7 @@
         <!-- v-model.lazy="state.settings.wallet.address" -->
       </div>
     </div>
-    <div class="_row">
+    <div class="_section">
       <div class="_title">Required confirmation count</div>
       <div class="_content _wallet">
         <div class="_info">
@@ -47,7 +47,7 @@
         />
       </div>
     </div>
-    <div class="_row">
+    <div class="_section">
       <div class="_title full-width">Network provider</div>
       <div class="_content _provider">
         <div class="_info">
@@ -91,76 +91,78 @@
         </div>
       </div>
     </div>
-    <div class="_row">
+    <div class="_section">
       <div class="_title full-width">Accepted tokens (ERC-20)</div>
-      <div class="_content _provider">
-        <div
-          v-for="token in get('settings/availableTokensOnlyErc20')"
-          :key="token.id"
-          class="_token-row"
-          :id="'token-' + token.id"
-        >
-          <div class="_token-symbol">{{ token.id }}</div>
-          <q-input
-            readonly
-            :value="token.networks[state.settings.networkProvider.selected].address"
-            class="_token-address"
-          />
-          <button
-            @click="dispatch('settings/delete/tokens.customTokens.*', token.id)"
-            class="o-txt-btn _token-add-btn"
+      <div class="_content">
+        <div class="_erc20-tokens-grid">
+          <template
+            v-for="token in get('settings/availableTokensOnlyErc20')"
           >
-            Delete
-          </button>
+            <div class="_token-symbol" :key="token.id + '1'">{{ token.id }}</div>
+            <q-input
+              readonly
+              :value="token.networks[state.settings.networkProvider.selected].address"
+              class="_token-address"
+              :key="token.id + '2'"
+            />
+            <button
+              @click="dispatch('settings/delete/tokens.customTokens.*', token.id)"
+              class="o-txt-btn _token-delete-btn"
+              :key="token.id + '3'"
+            >
+              Delete
+            </button>
+          </template>
         </div>
         <div
           v-if="addingNewToken"
-          class="_new-token-row animate-pop"
+          class="_new-token-grid animate-pop"
         >
-          <div class="_new-token-row__sub-row">
-            <q-input
-              stack-label="Token symbol"
-              v-model="newToken.id"
-              class="_token-symbol-new"
-              placeholder="eth"
-            />
-            <q-input
-              stack-label="ERC20 contract address"
-              v-model="newToken.address"
-              class="_token-address"
-              placeholder="0x..."
-            />
-          </div>
-          <div class="_new-token-row__sub-row">
-            <q-toggle
-              label="Fiat<br>conversion" left-label
-              v-model="newToken.fiatConversion"
-              class="_token-fiat-conversion"
-            />
-            <q-input
-              v-if="newToken.fiatConversion"
-              stack-label="Coingecko ID"
-              v-model="newToken.coingeckoId"
-              class="_token-coingeckoId"
-              placeholder="ethereum"
-            />
-            <div class="_new-token-row__add-btn">
-              <button
-                @click="addNewToken"
-                class="o-btn"
-              >
-                Add
-              </button>
-            </div>
-            <button
-              @click="addingNewToken = false"
-              class="o-txt-btn _new-token-row__cancel-btn"
-            >
-              Cancel
-            </button>
-          </div>
+          <q-input
+            stack-label="Token symbol"
+            v-model="newToken.id"
+            class="__symbol-new"
+            placeholder="eth"
+          />
+          <q-input
+            stack-label="Decimals"
+            v-model="newToken.decimals"
+            type="number"
+            class="__decimals"
+          />
+          <q-input
+            stack-label="ERC20 contract address"
+            v-model="newToken.address"
+            class="__address"
+            placeholder="0x..."
+          />
+          <q-toggle
+            label="Fiat<br>conversion" left-label
+            v-model="newToken.fiatConversion"
+            class="__fiat-conversion"
+          />
+          <q-input
+            v-if="newToken.fiatConversion"
+            stack-label="Coingecko ID"
+            v-model="newToken.coingeckoId"
+            class="__coingeckoId"
+            placeholder="ethereum"
+          />
+          <button
+            @click="addNewToken"
+            class="o-btn __add-btn"
+          >
+            Add
+          </button>
+          <button
+            @click="addingNewToken = false"
+            class="o-txt-btn __cancel-btn"
+          >
+            Cancel
+          </button>
         </div>
         <button
+          v-if="!addingNewToken"
           @click="addingNewToken = true"
           class="o-txt-btn _token-new-erc-btn"
         >
@@ -174,6 +176,13 @@
 
 <script>
 import storeAccess from '@mixins/storeAccess'
+import { openURL } from 'quasar'
+
+// Todo: add link to page to search coingecko id
+// https://api.coingecko.com/api/v3/coins/list
+const newTokenFields = function () {
+  return {id: '', decimals: 18, address: '', fiatConversion: true, coingeckoId: ''}
+}
 
 export default {
   components: {},
@@ -186,7 +195,7 @@ export default {
       addingNewToken: false,
       editingToken: false,
       customRPC: {name: '', url: ''},
-      newToken: {id: '', address: '', fiatConversion: true, coingeckoId: ''}
+      newToken: newTokenFields()
     }
   },
   computed:
@@ -206,6 +215,7 @@ export default {
   },
   methods:
   {
+    openURL,
     selectNetwork (net) {
       if (net === 'add') {
         this.addingCustomRPC = true
@@ -237,8 +247,7 @@ export default {
         }
       )
       this.addingNewToken = false
-      this.newToken.id = ''
-      this.newToken.address = ''
+      this.newToken = newTokenFields()
     },
   }
 }
@@ -249,7 +258,7 @@ export default {
 
 .settings
   pa xl
-._row
+._section
   mb lg
   display flex
   flex-wrap wrap
@@ -268,46 +277,49 @@ export default {
   mt md
   >*
     mb sm
-._token-row
-  mb sm
-  display flex
+
+._erc20-tokens-grid
+  display grid
+  grid-template-columns auto 1fr auto
   align-items baseline
-  width 100%
+  grid-gap sm
   button, .q-input
     font-size .8em
-._token-symbol
-  max-width 5rem
-._token-address
-  ml sm
-  flex 1
 
-._new-token-row
-  flex-wrap wrap
+._new-token-grid
   padding 1em
   border-radius 0.5em
   background #f3f4f7
   mt lg
+  display grid
+  align-items baseline
+  justify-items stretch
+  grid-template-columns 1fr 1fr
+  grid-gap md
+  grid-template-areas "symbol decimals" \
+                      "address address" \
+                      "fiat-conversion coingecko-id" \
+                      "add cancel"
   button, .q-input
     font-size .8em
-._new-token-row__sub-row
-  display flex
-  align-items baseline
-  width 100%
-  &:last-child
-    mt md
-  >div, >button
-    ml sm
-  >div:first-child
-    ml 0
-._new-token-row__add-btn
-  flex 1
-  display flex
-  justify-content flex-end
-._token-fiat-conversion
-  mt sm
-  font-size .8em
-._token-coingeckoId
-  max-width 7em
+  .__symbol
+    grid-area symbol
+  .__decimals
+    grid-area decimals
+  .__address
+    grid-area address
+  .__fiat-conversion
+    grid-area fiat-conversion
+    font-size .8em
+    justify-self center
+  .__coingeckoId
+    grid-area coingecko-id
+  .__add-btn
+    grid-area add
+    justify-self center
+  .__cancel-btn
+    grid-area cancel
+    justify-self center
 
 ._token-new-erc-btn
   mt lg
