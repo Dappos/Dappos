@@ -29,7 +29,7 @@ export function getRate (currency, coingeckoId = 'ethereum') {
   const url = `https://api.coingecko.com/api/v3/simple/price?ids=${coingeckoId.toLowerCase()}&vs_currencies=${currency.toLowerCase()}`
   return axios.get(url)
     .then(function (res) {
-      const rate = res.data[coingeckoId.toUpperCase()][currency.toUpperCase()]
+      const rate = res.data[coingeckoId.toLowerCase()][currency.toLowerCase()]
       if (isNaN(rate)) return
       return rate
     })

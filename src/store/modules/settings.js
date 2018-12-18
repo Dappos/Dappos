@@ -105,6 +105,9 @@ export default {
           return carry
         }, {})
     },
+    selectedTokenObject: (state, getters) => {
+      return getters.availableTokens[state.selectedToken]
+    },
     currencyLabel: (state, getters) => {
       return getters.availableCurrencies[state.currency].label
     },

@@ -69,8 +69,7 @@ export default {
     watchErc20Transactions ({state, getters, rootState, rootGetters, commit, dispatch}, selectedToken) {
       const web3 = getters.web3
       const posAddress = rootState.settings.wallet.address
-      const tokens = rootGetters['settings/availableTokensOnlyErc20']
-      const tokenInfo = tokens[selectedToken]
+      const tokenInfo = rootGetters['settings/selectedTokenObject']
       const selectedNetwork = rootGetters['settings/selectedNetworkObject'].name
       if (!tokenInfo || !tokenInfo.networks) throw Error('something went wrong')
       const erc20ContractAddress = tokenInfo.networks[selectedNetwork].address
@@ -163,7 +162,10 @@ export default {
     },
     transactionsTotalValueConverted: (state, getters, rootState, rootGetters) => {
       const txnsTotal = getters.transactionsTotalValue
-      return convert(txnsTotal, 'wei', 'eth') // DAI also needs same decimal conversion
+      const decimals = rootGetters['settings/selectedTokenObject'].decimals
+      const rate = 10 ** Number(decimals)
+      const result = txnsTotal / rate
+      return result
     },
     web3: (state, getters, rootState, rootGetters) => {
       const networkProvider = rootGetters['settings/selectedNetworkObject'].url

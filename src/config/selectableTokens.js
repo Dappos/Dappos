@@ -2,6 +2,7 @@
 export default {
   'eth': {
     id: 'eth',
+    decimals: 18,
     erc20: false,
     fiatConversion: true,
     coingeckoId: 'ethereum',
@@ -14,6 +15,7 @@ export default {
   },
   'dai': {
     id: 'dai',
+    decimals: 18,
     erc20: true,
     fiatConversion: true,
     coingeckoId: 'dai',
