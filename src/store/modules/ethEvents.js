@@ -163,6 +163,7 @@ export default {
     transactionsTotalValueConverted: (state, getters, rootState, rootGetters) => {
       const txnsTotal = getters.transactionsTotalValue
       const decimals = rootGetters['settings/selectedTokenObject'].decimals
+      if (!decimals) console.error('Erc20 token decimals are not set! Please delete and re-add the erc20 token in Settings.')
       const rate = 10 ** Number(decimals)
       const result = txnsTotal / rate
       return result
