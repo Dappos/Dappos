@@ -238,6 +238,7 @@ export default {
         'settings/tokens.customTokens.*',
         {
           id: this.newToken.id,
+          decimals: this.newToken.decimals,
           fiatConversion: this.newToken.fiatConversion,
           coingeckoId: this.newToken.coingeckoId,
           erc20: true,

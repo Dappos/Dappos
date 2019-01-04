@@ -107,7 +107,7 @@
   <modal-minimised
     :toggle="state.modals.cart.reallyClosePayment"
   >
-    <really-close-payment />
+    <really-close-payment v-if="state.modals.cart.reallyClosePayment.opened" />
   </modal-minimised>
 
 </div>

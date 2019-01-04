@@ -15,6 +15,7 @@ function initialState () {
       customTokens: {
         '*': {
           id: '*', // id should be symbol
+          decimals: 18,
           erc20: true,
           fiatConversion: true, // if disabled will charge customer the amount filled in.
           coingeckoId: '', // obtainable at https://www.coingecko.com/api/docs/v3#/coins/get_coins_list
@@ -45,7 +46,16 @@ export default {
   moduleName: 'settings',
   statePropName: '',
   sync: {
-    fillables: ['wallet', 'gas', 'currency', 'selectedToken', 'config', 'requiredConfirmationCount', 'networkProvider', 'tokens'],
+    fillables: [
+      'wallet',
+      'gas',
+      'currency',
+      'selectedToken',
+      'config',
+      'requiredConfirmationCount',
+      'networkProvider',
+      'tokens'
+    ],
   },
   // module:
   state: initialState(),
