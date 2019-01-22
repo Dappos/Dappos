@@ -1,10 +1,10 @@
 
-o-btn()
+o-btn($colour = $primary)
   ma 0
   border none
   pa md
   font-size 1em
-  background-color $primary
+  background-color $colour
   color white
   font-weight 500
   border-radius $radius
@@ -16,19 +16,17 @@ o-btn()
   user-select none
   shadow-subtle()
 .o-btn
-  o-btn()
-  background-color $primary
+  o-btn($primary)
 .o-btn--s
-  o-btn()
-  background-color $secondary
+  o-btn($secondary)
 
-o-txt-btn()
+o-txt-btn($colour = $primary)
   ma 0
   border none
   pa xs
   font-size 1em
   background none
-  color $primary
+  color $colour
   font-weight 500
   white-space nowrap
   text-decoration none
@@ -36,13 +34,17 @@ o-txt-btn()
   display flex
   justify-content center
 .o-txt-btn
-  o-txt-btn()
+  o-txt-btn($primary)
 
 .o-indent
   pl lg
 
-.o-link
+o-link($colour = $secondary)
   text-decoration none !important
-  color $secondary
+  color $colour
   display flex
   align-items center
+  &:hover
+    color lighten($colour, 20%)
+.o-link
+  o-link($secondary)
