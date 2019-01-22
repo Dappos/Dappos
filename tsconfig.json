@@ -1,0 +1,17 @@
+
+{
+  "compilerOptions": {
+    // This must be specified if "paths" is set
+    "baseUrl": ".",
+    // Relative to "baseUrl"
+    "paths": {
+      "@helpers/*": ["src/helpers/*"],
+      "@router/*": ["src/router/*"],
+      "@store/*": ["src/store/*"],
+      "@modules/*": ["src/store/modules/*"],
+      "@components/*": ["src/components/*"],
+      "@mixins/*": ["src/components/mixins/*"],
+      "@config/*": ["src/config/*"],
+    }
+  }
+}
