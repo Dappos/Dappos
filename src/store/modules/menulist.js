@@ -3,23 +3,25 @@ import merge from 'merge-anything'
 import easyAccessConf from '@config/vuexEasyAccess'
 import currencies from '../../config/currencyDefaults'
 
-const defaultPrices = Object.keys(currencies)
-  .reduce((carry, key) => {
-    carry[key] = 0
-    return carry
-  }, {})
+const defaultPrices = function () {
+  return Object.keys(currencies)
+    .reduce((carry, key) => {
+      carry[key] = 0
+      return carry
+    }, {})
+}
 
 export function defaultItem () {
-  return {name: '', icon: null, prices: defaultPrices, new: true}
+  return {name: '', icon: null, prices: defaultPrices(), new: true}
 }
 
 function testItems () {
   return {
-    '*': {name: '', icon: null, prices: merge(defaultPrices, {usd: 0, jpy: 0})},
-    '_cookie': {name: 'Cookie', icon: '🍪', id: '_cookie', prices: merge(defaultPrices, {usd: 1, jpy: 100})},
-    '_coffee': {name: 'Coffee', icon: '☕', id: '_coffee', prices: merge(defaultPrices, {usd: 3, jpy: 300})},
-    '_latte': {name: 'Latte', icon: '☕', id: '_latte', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
-    '_beer': {name: 'Beer', icon: '🍺', id: '_beer', prices: merge(defaultPrices, {usd: 5, jpy: 500})},
+    '*': {name: '', icon: null, prices: defaultPrices()},
+    '_cookie': {name: 'Cookie', icon: '🍪', id: '_cookie', prices: merge(defaultPrices(), {usd: 1, jpy: 100})},
+    '_coffee': {name: 'Coffee', icon: '☕', id: '_coffee', prices: merge(defaultPrices(), {usd: 3, jpy: 300})},
+    '_latte': {name: 'Latte', icon: '☕', id: '_latte', prices: merge(defaultPrices(), {usd: 5, jpy: 500})},
+    '_beer': {name: 'Beer', icon: '🍺', id: '_beer', prices: merge(defaultPrices(), {usd: 5, jpy: 500})},
   }
 }
 
@@ -36,7 +38,15 @@ export default {
   moduleName: 'user/menulist',
   statePropName: 'items',
   serverChange: {
-    defaultValues: {prices: defaultPrices},
+    defaultValues: {prices: defaultPrices()},
+    // modifiedHook: function (updateStore, doc, id, store) {
+    //   console.log('doc → ', doc)
+    //   updateStore(doc)
+    // },
+    // removedHook: function (updateStore, doc, id, store) {
+    //   console.log('doc → ', doc, ' id ', id)
+    //   updateStore(doc)
+    // },
   },
   // module:
   state: initialState(),

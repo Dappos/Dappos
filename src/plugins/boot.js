@@ -9,7 +9,6 @@ export default ({ app, router, Vue, store }) => {
 
   // Configure Firestore
   const firestore = Firebase.firestore()
-  firestore.settings({timestampsInSnapshots: true})
 
   // Register the Firebase authentication listener
   Firebase.auth().onAuthStateChanged(user => {

@@ -1,7 +1,7 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
 import { countConfirmations } from '@helpers/web3'
-import convert from '@helpers/conversion'
+// import convert from '@helpers/conversion'
 import startConfetti from '@helpers/Confetti'
 import getWeb3 from '@config/web3'
 import erc20Abi from '@config/erc20Abi'
