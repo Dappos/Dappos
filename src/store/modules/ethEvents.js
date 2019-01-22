@@ -1,9 +1,8 @@
 import { defaultMutations } from 'vuex-easy-access'
 import easyAccessConf from '@config/vuexEasyAccess'
-import { countConfirmations } from '@helpers/web3'
+import { countConfirmations, instanciateWeb3 } from '@helpers/web3'
 // import convert from '@helpers/conversion'
 import startConfetti from '@helpers/Confetti'
-import getWeb3 from '@config/web3'
 import erc20Abi from '@config/erc20Abi'
 
 function initialState () {
@@ -170,7 +169,7 @@ export default {
     },
     web3: (state, getters, rootState, rootGetters) => {
       const networkProvider = rootGetters['settings/selectedNetworkObject'].url
-      return getWeb3(networkProvider)
+      return instanciateWeb3(networkProvider)
     },
     watcherConfirmationCount (state, getters, rootState, rootGetters) {
       const txnHash = state.confirmationWatcherTxnHash

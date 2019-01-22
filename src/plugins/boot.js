@@ -26,7 +26,7 @@ export default ({ app, router, Vue, store }) => {
         .catch(console.error)
       store.dispatch('settings/openDBChannel')
         .then(_ => {
-          store.dispatch('wallet/getAddress')
+          store.dispatch('wallet/getAndSetAddress')
           store.dispatch('cart/initializeTotalAmountAnimation')
         })
         .catch(console.error)
@@ -39,7 +39,7 @@ export default ({ app, router, Vue, store }) => {
       // store.commit('auth/RESET_USER')
       console.log('no user found on authListener...')
       router.replace({ name: 'signin' })
-      store.dispatch('wallet/getAddress')
+      store.dispatch('wallet/getAndSetAddress')
       // eslint-disable-next-line
       new Vue(app)
     }
