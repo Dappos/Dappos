@@ -71,7 +71,7 @@
 
   <!-- BOTTOM -->
   <div class="_wrapper-bottom">
-    <div class="_address">{{ get('settings/wallet.address') }}</div>
+    <div class="_address">Merchant's address:<br>{{ get('settings/wallet.address') }}</div>
     <div
       v-if="state.modals.cart.payment.stage === 1"
       class="_spinner"
@@ -94,6 +94,15 @@
         @click="dispatch('modals/toggle', 'cart.reallyClosePayment')"
       >Close</button>
     </div>
+    <div class="_manual-check-btn">
+      <button @click="manualTransactionCheck">
+        <span>Scan blockchain</span>
+        <div
+         v-if="manualScanning"
+         class="_manual-check-emoji animation-flip-x"
+        >👀</div>
+      </button>
+    </div>
   </div>
 </div>
 </template>
@@ -106,7 +115,7 @@ export default {
   props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  data () { return {} },
+  data () { return { manualScanning: false } },
   computed:
   {
     confirmationCount () {
@@ -132,7 +141,13 @@ export default {
       this.set('settings/selectedToken', token)
       this.dispatch('modals/resetPaymentRequest')
       this.dispatch('modals/createPaymentRequest')
-    }
+    },
+    manualTransactionCheck () {
+      const selectedToken = this.state.settings.selectedToken
+      this.dispatch('ethEvents/manualTransactionCheck', selectedToken)
+      this.manualScanning = true
+      setTimeout(_ => { this.manualScanning = false }, 2400)
+    },
   }
 }
 </script>
@@ -247,5 +262,17 @@ export default {
   button
     reset-button()
     color $white-light
+._manual-check-btn
+  mt md
+  button
+    o-txt-btn(white)
+    display flex
+    justify-content center
+    align-items center
+    &:focus
+      outline none
+  ._manual-check-emoji
+    font-size 2rem
+    ml md
 
 </style>
