@@ -12,7 +12,7 @@
     <div class="_top">
       <div class="_nav">
         <button @click="toggle.opened = !toggle.opened" class="_close reset-button">
-          <q-icon name="ion-arrow-back" size="1.3em" />
+          <q-icon name="fas fa-chevron-left" size="1.3em" />
         </button>
       </div>
       <h2 class="_title">{{ title }}</h2>

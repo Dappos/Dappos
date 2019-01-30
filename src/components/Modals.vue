@@ -151,13 +151,18 @@ export default {
   overflow hidden
 
 .modal.maximized .modal-content
-    width 100% !important
-    height 100% !important
-    max-width 100% !important
-    max-height 100% !important
-    border-radius 0 !important
+  width 100% !important
+  height 100% !important
+  max-width 100% !important
+  max-height 100% !important
+  border-radius 0 !important
+  -webkit-overflow-scrolling touch
+.cordova .modal.maximized .modal-content
+  pt-safe-areas()
+  pb-safe-areas()
 
-.app-menu-modal.q-modal-top-enter, .app-menu-modal.q-modal-top-leave-active
+.app-menu-modal.q-modal-top-enter,
+.app-menu-modal.q-modal-top-leave-active
   opacity 1
   .modal-content
     transform translateY(-100%)

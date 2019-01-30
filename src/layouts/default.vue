@@ -4,7 +4,7 @@
     :class="`_layout js-page-offset page--${state.route.name}`"
     :style="{height: state.windowSize.height + 'px'}"
   >
-    <q-layout-header :class="['_header', {'_elevate': elevateHeader}]">
+    <q-layout-header :class="['_header', {'_elevate': elevateHeader}]" v-disable-touchscroll>
       <q-toolbar
         :inverted="true"
         color="primary"
@@ -20,7 +20,7 @@
           <div class="q-ml-sm">
             <q-icon
               :class="['_arrow', {rotated: state.modals.menu.opened}]"
-              name="ion-arrow-down"
+              name="fas fa-chevron-down"
             />
           </div>
         </button>

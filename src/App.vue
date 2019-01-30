@@ -11,7 +11,7 @@ export default {
   name: 'App',
   mounted () {
     // change arrow in q-btn-dropdown
-    this.$q.icon.input.dropdown = 'ion-arrow-down'
+    this.$q.icon.input.dropdown = 'fas fa-angle-down'
   },
   methods:
   {

@@ -20,8 +20,6 @@ module.exports = function (ctx) {
     extras: [
       'fontawesome',
       'material-icons',
-      ctx.theme.mat ? 'roboto-font' : null,
-      ctx.theme.ios ? 'ionicons' : null,
       // 'mdi',
       // 'fontawesome'
     ],

@@ -13,7 +13,7 @@
       <!-- @change="token => { set('settings/selectedToken', token) }" -->
       <!-- :options="tokensDropdown" -->
     <q-btn-dropdown
-      :disabled="halfPaid"
+      :disabled="halfPaid || state.modals.cart.payment.stage > 1"
       class="_eth"
       :label="`${get('cart/valueToken')} ${get('settings/selectedToken').toUpperCase()} `"
       dense rounded
@@ -76,7 +76,8 @@
       v-if="state.modals.cart.payment.stage === 1"
       class="_spinner"
     >
-      <q-spinner-oval color="white" />
+      <q-spinner-oval color="white" size="26px" />
+      <span class="pl-sm pt-xs">Scanning...</span>
     </div>
     <div
       v-if="(state.modals.cart.payment.stage !== 1 && !fullyPaidNoConf)"
@@ -96,7 +97,7 @@
     </div>
     <div class="_manual-check-btn">
       <button @click="manualTransactionCheck">
-        <span>Scan blockchain</span>
+        <q-icon name="fas fa-redo-alt" v-if="!manualScanning" />
         <div
          v-if="manualScanning"
          class="_manual-check-emoji animation-flip-x"
@@ -111,7 +112,6 @@
 import storeAccess from '@mixins/storeAccess'
 
 export default {
-  components: {},
   props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
@@ -257,6 +257,8 @@ export default {
   word-wrap break-word
 ._spinner
   mt md
+  display flex
+  align-items center
 ._close
   mt md
   button
@@ -273,6 +275,7 @@ export default {
       outline none
   ._manual-check-emoji
     font-size 2rem
-    ml md
+    margin-top -14px
+    margin-bottom -15px
 
 </style>

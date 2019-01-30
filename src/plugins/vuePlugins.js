@@ -11,4 +11,21 @@ export default ({ app, router, Vue, store }) => {
 
   // 'v-money-plus
   Vue.use(money, {precision: 2})
+
+  // v-disable-touchscroll
+  Vue.directive('disable-touchscroll', {
+    inserted (el) {
+      el.addEventListener('touchmove', e => {
+        e.preventDefault()
+      }, false)
+    }
+  })
+  // v-allow-touchscroll
+  Vue.directive('allow-touchscroll', {
+    inserted (el) {
+      el.addEventListener('touchmove', e => {
+        e.stopPropagation()
+      }, false)
+    }
+  })
 }
