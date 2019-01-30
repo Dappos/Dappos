@@ -157,6 +157,9 @@ export default {
   max-height 100% !important
   border-radius 0 !important
   -webkit-overflow-scrolling touch
+.cordova .modal.maximized .modal-content
+  pt-safe-areas()
+  pb-safe-areas()
 
 .app-menu-modal.q-modal-top-enter,
 .app-menu-modal.q-modal-top-leave-active
