@@ -20,7 +20,7 @@
           <div class="q-ml-sm">
             <q-icon
               :class="['_arrow', {rotated: state.modals.menu.opened}]"
-              name="ion-arrow-down"
+              name="fas fa-chevron-down"
             />
           </div>
         </button>

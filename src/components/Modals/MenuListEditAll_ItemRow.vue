@@ -3,7 +3,7 @@
   <div class="_wrapper">
     <!-- <div class="_count">{{ item.count }}x</div> -->
     <div class="_name">
-      <q-icon v-if="!item.icon" name="ion-list" class="_icon _generic"/>
+      <q-icon v-if="!item.icon" name="fas fa-list-ul" class="_icon _generic"/>
       <span v-else class="_icon _emoji">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
@@ -13,7 +13,7 @@
     <div class="_nav">
       <q-btn
         @click="dispatch('modals/menulistEdit', item.id)"
-        icon="ion-md-more"
+        icon="more_vert"
         class="_more"
       />
     </div>
@@ -75,6 +75,8 @@ export default {
   ._icon._generic
     ml .1em
     mr .7em
+    color $gray-dark
+    font-size 1em
 ._price
   grid-area price
   color $gray-light
