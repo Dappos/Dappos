@@ -111,7 +111,6 @@
 import storeAccess from '@mixins/storeAccess'
 
 export default {
-  components: {},
   props: ['halfPaid', 'fullyPaidNoConf'],
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state

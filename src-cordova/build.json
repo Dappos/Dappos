@@ -1,0 +1,30 @@
+{
+  "ios": {
+    "debug": {
+      "buildFlag": [
+        "-UseModernBuildSystem=0"
+      ]
+    },
+    "release": {
+      "buildFlag": [
+        "-UseModernBuildSystem=0"
+      ]
+    }
+  },
+  "android": {
+    "debug": {
+        "keystore": "/Users/lucaban/.keystores/cinematch",
+        "storePassword": "cinematchP0K3M0N",
+        "alias": "upload-key",
+        "password" : "cinematchP0K3M0N",
+        "keystoreType": ""
+    },
+    "release": {
+        "keystore": "/Users/lucaban/.keystores/cinematch",
+        "storePassword": "cinematchP0K3M0N",
+        "alias": "upload-key",
+        "password" : "cinematchP0K3M0N",
+        "keystoreType": ""
+    }
+  }
+}

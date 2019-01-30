@@ -16,6 +16,9 @@ export default {
   name: 'index',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
+  mounted () {
+    this.$el.addEventListener('touchmove', e => { e.preventDefault() }, false)
+  },
   computed:
   {
   },
