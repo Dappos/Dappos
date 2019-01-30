@@ -13,7 +13,7 @@
       <!-- @change="token => { set('settings/selectedToken', token) }" -->
       <!-- :options="tokensDropdown" -->
     <q-btn-dropdown
-      :disabled="halfPaid"
+      :disabled="halfPaid || state.modals.cart.payment.stage > 1"
       class="_eth"
       :label="`${get('cart/valueToken')} ${get('settings/selectedToken').toUpperCase()} `"
       dense rounded
@@ -275,7 +275,7 @@ export default {
       outline none
   ._manual-check-emoji
     font-size 2rem
-    margin-top -15px
+    margin-top -14px
     margin-bottom -15px
 
 </style>
