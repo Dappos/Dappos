@@ -100,8 +100,11 @@ export default {
       const tokens = Object.assign({}, defaultSelectableTokens, state.tokens.customTokens)
       return Object.values(tokens)
         .reduce((carry, token) => {
-          if (token.id === '*') return carry
-          if (!token.networks[state.networkProvider.selected]) return carry
+          if (
+            token.id === '*' ||
+            (token.id !== 'eth' &&
+            !token.networks[state.networkProvider.selected])
+          ) return carry
           carry[token.id] = token
           return carry
         }, {})

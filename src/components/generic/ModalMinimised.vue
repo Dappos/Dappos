@@ -7,6 +7,7 @@
   @show="showFunction"
   :noEscDismiss="noDismiss"
   :noBackdropDismiss="noDismiss"
+  v-disable-touchscroll
 >
   <slot />
 </q-modal>

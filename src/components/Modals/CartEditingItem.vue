@@ -6,14 +6,14 @@
       @click="dispatch('cart/decrement', item)"
       class="_min"
     >
-      <q-icon name="ion-remove" />
+      <q-icon name="remove" />
     </button>
     <div class="_count">{{ item.count }}</div>
     <button
       @click="dispatch('cart/increment', item)"
       class="_plus"
     >
-      <q-icon name="ion-add" />
+      <q-icon name="add" />
     </button>
     <button
       @click="dispatch('modals/toggle', 'cart.editing')"

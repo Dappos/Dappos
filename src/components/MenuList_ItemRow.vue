@@ -2,7 +2,7 @@
 <button class="menu-list-item" @click="dispatch('cart/addItem', item), flyToCart()">
   <div class="_wrapper">
     <div class="_name">
-      <q-icon v-if="!item.icon" name="ion-list" class="_icon _generic"/>
+      <q-icon v-if="!item.icon" name="fas fa-list-ul" class="_icon _generic"/>
       <span v-else class="_icon _emoji">{{ item.icon }}</span>
       <span>{{ item.name }}</span>
     </div>
@@ -100,6 +100,8 @@ export default {
   ._icon._generic
     ml .1em
     mr .9em
+    color $gray-dark
+    font-size .85em
 ._price
   font-size .875em
   color $gray-light
