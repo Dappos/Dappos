@@ -1,5 +1,5 @@
 <template>
-<q-page class="page-index" :style-fn="fixLayoutCSS">
+<q-page class="page-index" :style-fn="fixLayoutCSS" v-disable-touchscroll>
   <div class="_info-total-wrapper"><info-total /></div>
   <div class="_navigation-tabs-wrapper"><navigation-tabs /></div>
   <div class="_bottom-part-wrapper">
@@ -16,9 +16,6 @@ export default {
   name: 'index',
   mixins: [ storeAccess ],
   // ⤷ get(path)  set(path, val)  commit(path, val)  dispatch(path, val)  state
-  mounted () {
-    this.$el.addEventListener('touchmove', e => { e.preventDefault() }, false)
-  },
   computed:
   {
   },

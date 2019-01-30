@@ -1,5 +1,5 @@
 <template>
-<div class="menu-list">
+<div class="menu-list" v-allow-touchscroll>
   <div class="_list">
       <item-row
         v-for="(item, key) in get('user/menulist/items')"
@@ -43,7 +43,8 @@ export default {
   background-color white
   border-radius $radius
   line-height 3
-  overflow scroll
+  overflow-y scroll
+  -webkit-overflow-scrolling touch
   ._list
     width 100%
   ._add
