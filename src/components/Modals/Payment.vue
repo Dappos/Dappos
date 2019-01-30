@@ -76,7 +76,8 @@
       v-if="state.modals.cart.payment.stage === 1"
       class="_spinner"
     >
-      <q-spinner-oval color="white" />
+      <q-spinner-oval color="white" size="26px" />
+      <span class="pl-sm pt-xs">Scanning...</span>
     </div>
     <div
       v-if="(state.modals.cart.payment.stage !== 1 && !fullyPaidNoConf)"
@@ -96,7 +97,7 @@
     </div>
     <div class="_manual-check-btn">
       <button @click="manualTransactionCheck">
-        <span>Scan blockchain</span>
+        <q-icon name="fas fa-redo-alt" v-if="!manualScanning" />
         <div
          v-if="manualScanning"
          class="_manual-check-emoji animation-flip-x"
@@ -256,6 +257,8 @@ export default {
   word-wrap break-word
 ._spinner
   mt md
+  display flex
+  align-items center
 ._close
   mt md
   button
@@ -272,6 +275,7 @@ export default {
       outline none
   ._manual-check-emoji
     font-size 2rem
-    ml md
+    margin-top -15px
+    margin-bottom -15px
 
 </style>
