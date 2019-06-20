@@ -7,6 +7,13 @@ export default {
     blockchain: 'Ethereum',
     network: 'mainnet'
   },
+  'xDai (mainnet) by Blockscout': {
+    name: 'xDai (mainnet) by Blockscout',
+    url: 'wss://dai-trace-ws.blockscout.com/ws',
+    provider: 'Blockscout',
+    blockchain: 'POA',
+    network: 'mainnet'
+  },
   'Ethereum (ropsten) by Infura': {
     name: 'Ethereum (ropsten) by Infura',
     url: 'wss://ropsten.infura.io/ws/v3/6731392aff054ac394819096e01b4c8e',

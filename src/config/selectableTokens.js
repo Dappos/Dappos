@@ -11,6 +11,7 @@ export default {
       'Ethereum (mainnet) by Infura': true,
       'Ethereum (ropsten) by Infura': true,
       'Ethereum (kovan) by Infura': true,
+      'xDai (mainnet) by Blockscout': false
     }
   },
   'dai': {
@@ -25,6 +26,18 @@ export default {
     },
     icon: 'fab fa-dai-icon',
     sublabel: 'USD stabletoken by MakerDAO',
+  },
+  'xDai': {
+    id: 'xDai',
+    decimals: 18,
+    erc20: false,
+    fiatConversion: true,
+    coingeckoId: 'dai',
+    networks: {
+      'xDai (mainnet) by Blockscout': true
+    },
+    icon: 'fab fa-dai-icon',
+    sublabel: 'Dai-pegged native asset on POA sidechain',
   },
   // 'zrx': {
   //   icon: 'fab fa-ethereum',

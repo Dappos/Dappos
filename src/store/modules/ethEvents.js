@@ -47,7 +47,7 @@ export default {
   actions:
   {
     watchTransactions ({state, getters, rootState, rootGetters, commit, dispatch}, selectedToken) {
-      if (selectedToken === 'eth') return dispatch('watchETHTransactions')
+      if (selectedToken === 'eth' || selectedToken === 'xDai') return dispatch('watchETHTransactions')
       return dispatch('watchErc20Transactions', selectedToken)
     },
     watchETHTransactions ({state, getters, rootState, rootGetters, commit, dispatch}) {
@@ -137,7 +137,7 @@ export default {
         from: manuallyCheckedUntil,
         to: currentBlock
       }
-      if (selectedToken === 'eth') return dispatch('manualETHTransactionCheck', checkRange)
+      if (selectedToken === 'eth' || selectedToken === 'xDai') return dispatch('manualETHTransactionCheck', checkRange)
       return dispatch('manualErc20TransactionCheck', checkRange)
     },
     async manualETHTransactionCheck ({state, dispatch, getters, rootState}, {from, to}) {
